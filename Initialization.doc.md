@@ -139,12 +139,13 @@ S[0]\*b<sup>n-1</sup> + S[1]\*b<sup>n-2</sup> + ... + S[n-1]\*b<sup>0</sup>
 ```C++
 number_t::construct_from_string(const char* s, int b)
 {
-    int n = strlen(s)
-    allocate_units(ceil(n * ln(b) / ln(BASE)))  // allocate m units
+    int n = strlen(s);
+    allocate_units(ceil(n * ln(b) / ln(BASE)));  // allocate m units
     for (i = 0; i < n; i++)
     {
-        mul_unit(b)
-        add_unit(char_to_int(s[i]))   // char_to_int converts a char to int, S[i] is char_to_int(s[i])
+        mul_unit(b);
+        add_unit(char_to_int(s[i])); // char_to_int converts a char to int
+                                     // S[i] is char_to_int(s[i])
     }
 }
 ```
@@ -160,19 +161,19 @@ inner_base = b<sup>inner_digits</sup>
 ```C++
 number_t::construct_from_string(const char* s, int b)
 {
-    int n = strlen(s), i = 0
-    allocate_units(ceil(n * ln(b) / ln(BASE)))
-    int inner_base = get_inner_base(b)
-    int inner_digits = get_inner_digits(b)
+    int n = strlen(s), i = 0;
+    allocate_units(ceil(n * ln(b) / ln(BASE)));
+    int inner_base = get_inner_base(b);
+    int inner_digits = get_inner_digits(b);
     for (; i < n - n % inner_digits; i += inner_digits)
     {
-        mul_unit(inner_base)
-        add_unit(str_to_unit(s + i, b, inner_digits))  // 将inner_digits个字符转为一个单元
+        mul_unit(inner_base);
+        add_unit(str_to_unit(s + i, b, inner_digits));  // 将inner_digits个字符转为一个单元
     }
     for (; i != n; i++)
     {
-        mul_unit(b)
-        add_unit(char_to_int(s[i]))
+        mul_unit(b);
+        add_unit(char_to_int(s[i]));
     }
 }
 ```
@@ -181,19 +182,19 @@ number_t::construct_from_string(const char* s, int b)
 ```C++
 number_t::construct_from_hex_string(const char* s)
 {
-    int n = strlen(s)
-    int k = sizeof(unit_t) * 2   // k个字节为一个单元
-    const char* p0 = s + n - k
-    const char* p1 = s + n % k
+    int n = strlen(s);
+    int k = sizeof(unit_t) * 2;   // k个字节为一个单元
+    const char* p0 = s + n - k;
+    const char* p1 = s + n % k;
 
-    allocate_units((n + k - 1) / k)    // 共需要(n + k - 1) / k个单元
+    allocate_units((n + k - 1) / k);    // 共需要(n + k - 1) / k个单元
     for (; p0 >= p1; p0 -= k)          // 每次将k个字符转为一个单元存入单元序列中
     {
-        dat[len++] = strhex_to_unit(p0, k)  
+        dat[len++] = strhex_to_unit(p0, k); 
     }
-    if (n % k)                                    //最后将n%k个字符转为一个单元存入单元序列中 
+    if (n % k)    //最后将n%k个字符转为一个单元存入单元序列中 
     {
-        dat[len++] = strhex_to_unit(s, n % k)
+        dat[len++] = strhex_to_unit(s, n % k);
     }
 }
 ```
