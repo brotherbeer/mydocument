@@ -1,7 +1,5 @@
-MYNUM
+mynum的数据存储方式
 -------------
-
-##mynum的数据存储方式
 
 目前mynum只适用于小尾序（即整数的低位存储在低地址，高位存储在高地址）机型。
 
@@ -88,3 +86,5 @@ number_t::add_unit(unit_t x)
 ```
 
 slen_t 也是一个系统相关的类型，在64位系统中为long long，在32位系统中为int。slen_t型的变量多用来表求计算单元的个数，其最大值在32位系统中为2147483647（2Gb），在64位系统中为9223372036854775807（8191Pb），可以说，在内存条件允许的条件下，number_t可以表示任意大的整数。
+
+下一章《[大整数对象的初始化](https://github.com/brotherbeer/mydocument/blob/master/mynum/Initialization-ch.md)》

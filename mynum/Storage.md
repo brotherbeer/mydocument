@@ -1,10 +1,7 @@
-MYNUM
+The data storage model of mynum
 -------------
 
-##The data storage model of mynum
-
-_Mynum is currently only available on the LITTLE-ENDIAN machines, which store the least significant byte (LSB) of a word at the lowest memory address, and store the other bytes following in increasing o
-rder of significance._
+_Mynum is currently only available on the LITTLE-ENDIAN machines, which store the least significant byte (LSB) of a word at the lowest memory address, and store the other bytes following in increasing order of significance._
 
 Mynum stores the big integer in binary form, in principle, it is the same as the way integer stored in C basic integer types, but is not limited by the fixed memory size.
 
@@ -14,15 +11,15 @@ There are 3 important member variables in number_t:
 ```C++
     unit_t* dat;
     slen_t len;
-    slen_t cap; 
+    slen_t cap;
 ```
 and some useful constants:
 ```C++
 const unit_t  SHIFT = sizeof(unit_t) << 3;
 const dunit_t BASE = (dunit_t)1 << SHIFT;
-const unit_t  MASK = ~unit_t(0); 
+const unit_t  MASK = ~unit_t(0);
 ```
-The **unit_t** is the most basic computing unit type, it is an unsigned integer type, SHIFT-bit, and the max value is MASK. Hereafter the **unit_t** variable will be abbreviated as unit. The **slen_t** is a signed integer type that represents the length. 
+The **unit_t** is the most basic computing unit type, it is an unsigned integer type, SHIFT-bit, and the max value is MASK. Hereafter the **unit_t** variable will be abbreviated as unit. The **slen_t** is a signed integer type that represents the length.
 
 Because the number_t object stores the big integer in binary form, so it can be understood as a sequence of units, the member variable _dat_ points to the sequence, the absolute value of _len_ is the count of the valid units in the sequence, _cap_ is the count of all units in the sequence.
 When _len_ < 0, the object is negative, when _len_ > 0, the object is positive, and when _len_ = 0, the object is 0.
@@ -30,7 +27,7 @@ When _len_ < 0, the object is negative, when _len_ > 0, the object is positive, 
 Obviously, the number_t object can be understood as a number which has _len_ digits and has BASE as its base, the value of the _i_-th digit is the value of the _i_-th unit (_len > i >= 0_).
 
 The **unit_t** is a system related type, on 64-bit systems, it is unsigned int, on 32-bit systems, it is unsigned short. Another example:
-Construct a number_t object, and its value is 0xaaaabbbbccccddddeeeeffff, 
+Construct a number_t object, and its value is 0xaaaabbbbccccddddeeeeffff,
 on 32-bit systems, the unit sequence is 0xffff，0xeeee, 0xdddd, 0xcccc, 0xbbbb, 0xaaaa
 on 64-bit systems, the unit sequence is 0xeeeeffff, 0xccccdddd, 0xaaaabbbb
 
@@ -86,3 +83,5 @@ number_t::add_unit(unit_t x)
 ```
 
 The **slen_t** is also a system related type, on 64-bit system, it is long long, on 32-bit system, it is int. The **slen_t** variables always indicate the count of units, the max value of a slent_t variable is 2147483647(2Gb) on 32-bit systems, or 9223372036854775807(8191Pb) on 64-bit system, as it were, the size of a number_t object is arbitrary under available memory conditions.
+
+next chapter: [The Initialization of the big integer object](https://github.com/brotherbeer/mydocument/blob/master/mynum/Initialization-ch.md)

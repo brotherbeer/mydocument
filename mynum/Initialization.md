@@ -1,4 +1,4 @@
-Initialization
+The Initialization of the big integer object
 -------------
 
  * [Functions](#functions)
@@ -119,7 +119,7 @@ assert(check(s, 8) == 0);     // if s denotes an octal number, then s is wrong
 
 ##Algorithms
 
-For the BASE, MASK and other constants, see the previous chapter [The data storage model of mynum](https://github.com/brotherbeer/mydocument/blob/master/mynum/Storage.md)
+For the BASE, MASK and other constants, see the previous chapter [The data storage model of mynum](https://github.com/brotherbeer/mydocument/blob/master/mynum/Storage.md).
 
 ###Construct a big integer object form a string
 
@@ -156,7 +156,7 @@ number_t::construct_from_string(const char* s, int b)
 }
 ```
 In the for loop, when _i_ is 0, set the value of _o_ to _S[0]_, when _i_ > 0, use the mul_unit to multiply _o_by _b_, and use add_unit to add _o_ with _S[i]_
-About mul_unit and add_unit see previous chapter [The data storage model of mynum](https://github.com/brotherbeer/mydocument/blob/master/mynum/Storage.md)
+About mul_unit and add_unit see previous chapter [The data storage model of mynum](https://github.com/brotherbeer/mydocument/blob/master/mynum/Storage.md).
 
 So far, the principle of converting strings to number_t objects has been described, but the efficiency can be improved.
 

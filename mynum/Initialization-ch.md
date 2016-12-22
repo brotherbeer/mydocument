@@ -120,7 +120,7 @@ assert(check(s, 8) == 0);     // 如果s表示8进制数，s是错误的
 
 ##算法
 
-对于下列论述中的BASE、MASK等常量，可参见上一章[mynum的数据存储方式](https://github.com/brotherbeer/mydocument/blob/master/mynum/Storage-ch.md)
+对于下列论述中的BASE、MASK等常量，可参见上一章《[mynum的数据存储方式](https://github.com/brotherbeer/mydocument/blob/master/mynum/Storage-ch.md)》。
 
 ###用字符串构造对象
 
@@ -156,7 +156,7 @@ number_t::construct_from_string(const char* s, int b)
     }
 }
 ```
-在for循环中，i为0时将o的值设为S[0]，以后每次用mul_unit方法将o的值乘以b再用add_unit方法将其加S[i]，循环n次后即完成了对象的初始化，关于mul_unit和add_unit方法请参见上一章 [mynum的数据存储方式](https://github.com/brotherbeer/mydocument/blob/master/mynum/Storage-ch.md)
+在for循环中，i为0时将o的值设为S[0]，以后每次用mul_unit方法将o的值乘以b再用add_unit方法将其加S[i]，循环n次后即完成了对象的初始化，关于mul_unit和add_unit方法请参见上一章《[mynum的数据存储方式](https://github.com/brotherbeer/mydocument/blob/master/mynum/Storage-ch.md)》。
 
 至此，将字符串转为number_t对象的原理已经说明，但在效率上可以改进。
 
