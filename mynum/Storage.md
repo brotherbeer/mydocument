@@ -84,4 +84,4 @@ number_t::add_unit(unit_t x)
 
 The **slen_t** is also a system related type, on 64-bit system, it is long long, on 32-bit system, it is int. The **slen_t** variables always indicate the count of units, the max value of a slent_t variable is 2147483647(2Gb) on 32-bit systems, or 9223372036854775807(8191Pb) on 64-bit system, as it were, the size of a number_t object is arbitrary under available memory conditions.
 
-next chapter: [The Initialization of the big integer object](https://github.com/brotherbeer/mydocument/blob/master/mynum/Initialization-ch.md)
+next chapter: [The Initialization of the big integer object](https://github.com/brotherbeer/mydocument/blob/master/mynum/Initialization.md)

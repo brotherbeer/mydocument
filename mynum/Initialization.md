@@ -1,4 +1,4 @@
-The Initialization of the big integer object
+The initialization of the big integer object
 -------------
 
  * [Functions](#functions)
