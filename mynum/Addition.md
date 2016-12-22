@@ -1,3 +1,8 @@
+Addition
+-------------
+
+##Functions
+
 Set res to a + b
 ```C++
 void add(const number_t& a, const number_t& b, number_t& res);
@@ -28,7 +33,7 @@ Return a + b
 number_t add(const number_t& a, const number_t& b);
 ```
 
-Member functions
+##Member functions
 
 Add *this with o
 ```C++
