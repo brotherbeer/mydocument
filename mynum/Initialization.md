@@ -119,7 +119,7 @@ assert(check(s, 8) == 0);     // if s denotes an octal number, then s is wrong
 
 ##Algorithms
 
-For the BASE, MASK and other constants, see the previous chapter [The data storage model of mynum]
+For the BASE, MASK and other constants, see the previous chapter [The data storage model of mynum](https://github.com/brotherbeer/mydocument/blob/master/mynum/Storage.md)
 
 ###Construct a big integer object form a string
 
@@ -156,7 +156,8 @@ number_t::construct_from_string(const char* s, int b)
 }
 ```
 In the for loop, when _i_ is 0, set the value of _o_ to _S[0]_, when _i_ > 0, use the mul_unit to multiply _o_by _b_, and use add_unit to add _o_ with _S[i]_
-About mul_unit and add_unit see previous chapter [The data storage model of mynum]
+About mul_unit and add_unit see previous chapter [The data storage model of mynum](https://github.com/brotherbeer/mydocument/blob/master/mynum/Storage.md)
+
 So far, the principle of converting strings to number_t objects has been described, but the efficiency can be improved.
 
 Let _inner\_digits_ be the max value which makes _b<sup>inner\_digits</sup>_ <= MASK, _inner\_base_ = _b<sup>inner\_digits</sup>_. 
@@ -168,7 +169,7 @@ number_t::construct_from_string(const char* s, int b)
     allocate_units(ceil(n * ln(b) / ln(BASE)));
     int inner_base = get_inner_base(b);
     int inner_digits = get_inner_digits(b);
-    for (; i < n - n % inner_digits; i += inner_digits) // 每次将inner_digits个字符转为一个单元
+    for (; i < n - n % inner_digits; i += inner_digits) // convert inner_digits chars to one unit each time
     {
         mul_unit(inner_base);
         add_unit(str_to_unit(s + i, b, inner_digits)); 
@@ -187,16 +188,16 @@ on the 32-bit system, 4 chars can determine an unit, on the 32-bit system, 8 cha
 number_t::construct_from_hex_string(const char* s)
 {
     int n = strlen(s);
-    int k = sizeof(unit_t) * 2;         // k个字节为一个单元
+    int k = sizeof(unit_t) * 2;         // k chars are one unit
     const char* p0 = s + n - k;
     const char* p1 = s + n % k;
 
-    allocate_units((n + k - 1) / k);    // 共需要(n + k - 1) / k个单元
-    for (; p0 >= p1; p0 -= k)           // 每次将k个字符转为一个单元存入单元序列中
+    allocate_units((n + k - 1) / k);    // need (n + k - 1) / k units
+    for (; p0 >= p1; p0 -= k)           // convert k chars to one unit
     {
         dat[len++] = strhex_to_unit(p0, k); 
     }
-    if (n % k)                          //最后将n % k个字符转为一个单元存入单元序列中 
+    if (n % k)
     {
         dat[len++] = strhex_to_unit(s, n % k);
     }

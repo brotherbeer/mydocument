@@ -23,7 +23,7 @@ number_t::number_t(unsigned long x);
 number_t::number_t(unsigned long long x);
 ```
 
-用表示base进制数的字符串（以'\0'结尾）构造大整数对象，_base_ ∈ [2, 36]
+用表示base进制数的字符串（以'\0'结尾）构造大整数对象，base ∈ [2, 36]
 可以用'-'表示负数
 不接受任何空白符或标点符号
 ```C++
@@ -120,7 +120,7 @@ assert(check(s, 8) == 0);     // 如果s表示8进制数，s是错误的
 
 ##算法
 
-对于下列论述中的BASE、MASK等常量，可参见上一章[mynum的数据存储方式]
+对于下列论述中的BASE、MASK等常量，可参见上一章[mynum的数据存储方式](https://github.com/brotherbeer/mydocument/blob/master/mynum/Storage-ch.md)
 
 ###用字符串构造对象
 
@@ -134,9 +134,9 @@ BASE<sup>m</sup>-1 = b<sup>n</sup>-1
 
 ln(BASE<sup>m</sup>) = ln(b<sup>n</sup>)
 
-m = ceil(n * ln(b) / ln(BASE))
+m = ceil(n \* ln(b) / ln(BASE))
 
-由此可求出需要分配的内存空间为m * sizeof(unit_t)个字节。
+由此可求出需要分配的内存空间为m \* sizeof(unit_t)个字节。
 
 设S为s的字符序列对应的数值序列，s表示的整数可由下式表式：
 
@@ -156,8 +156,8 @@ number_t::construct_from_string(const char* s, int b)
     }
 }
 ```
-在for循环中，i为0时将o的值设为S[0]，以后每次用mul_unit方法将o的值乘以b再用add_unit方法将其加S[i]，循环n次后即完成了对象的初始化，
-关于mul_unit和add_unit方法请参见上一章 [mynum的数据存储方式]
+在for循环中，i为0时将o的值设为S[0]，以后每次用mul_unit方法将o的值乘以b再用add_unit方法将其加S[i]，循环n次后即完成了对象的初始化，关于mul_unit和add_unit方法请参见上一章 [mynum的数据存储方式](https://github.com/brotherbeer/mydocument/blob/master/mynum/Storage-ch.md)
+
 至此，将字符串转为number_t对象的原理已经说明，但在效率上可以改进。
 
 设inner_digits是可以使b<sup>inner_digits</sup> <= MASK成立的最大值（MASK为计算单元的最大值），inner_base = b<sup>inner_digits</sup>。
@@ -169,10 +169,10 @@ number_t::construct_from_string(const char* s, int b)
     allocate_units(ceil(n * ln(b) / ln(BASE)));
     int inner_base = get_inner_base(b);
     int inner_digits = get_inner_digits(b);
-    for (; i < n - n % inner_digits; i += inner_digits) // 每次将inner_digits个字符转为一个单元
+    for (; i < n - n % inner_digits; i += inner_digits)
     {
         mul_unit(inner_base);
-        add_unit(str_to_unit(s + i, b, inner_digits)); 
+        add_unit(str_to_unit(s + i, b, inner_digits)); // 每次将inner_digits个字符转为一个单元 
     }
     for (; i != n; i++)
     {
@@ -182,7 +182,7 @@ number_t::construct_from_string(const char* s, int b)
 }
 ```
 
-对于表示16进制数的字符串，因为每2个字符可以确定一个字节，所以32位环境中每4个字符可以确定一个计算单元，64位环境中每8个字符可以确定一个计算单元，所以不必进行乘法和加法就可以构造大整数对象。
+对于表示16进制数的字符串，因为每2个字符可以确定一个字节，32位环境中每4个字符可以确定一个计算单元，64位环境中每8个字符可以确定一个计算单元，所以不必进行乘法和加法就可以构造大整数对象。
 ```C++
 number_t::construct_from_hex_string(const char* s)
 {
@@ -210,9 +210,9 @@ number_t::construct_from_hex_string(const char* s)
 
 因为o以二进制方式存储数据，所以在初始化时可以直接分配大于或等于sizeof(v)的内存，然后再将v的值复制过来。
 
-举个例子，unsigned long long _v_ = 1，如果用其在32位系统中构造o，首先需要分配sizeof(v)即8个字节的空间4个单元的空间，这4个单元由低地址到高地址依次为0x0001，0x0000，0x0000，0x0000。
+举个例子，unsigned long long v = 1，如果用其在32位系统中构造o，首先需要分配sizeof(v)即8个字节的空间4个单元的空间，这4个单元由低地址到高地址依次为0x0001，0x0000，0x0000，0x0000。
 
-高址的3个单元为0，是无效的，number_t成员变量len只表示有效单元的个数，所以o中的_len_应为1，而不是4。
+高址的3个单元为0，是无效的，number_t成员变量len只表示有效单元的个数，所以o中的len应为1，而不是4。
 
 这种高址上的0单元在mynum中被称为『前导零』，前导零的数量不应计入len中。
 
