@@ -93,15 +93,25 @@ bool number_t::is_not(const number_t& another) const;
 
 Return true if *this != 0
 ```C++
-operator number_t::bool () const
+operator number_t::bool () const;
 ```
 
 Return true if *this = 0
 ```C++
-bool number_t::operator ! () const
+bool number_t::operator ! () const;
 ```
 
 ##Sign
+Unary operator that leaves *this unchanged, and return *this
+```C++
+number_t number_t::operator + () const;
+```
+
+The minus sign overloaded
+```C++
+number_t number_t::operator - () const;
+```
+
 If _sign_ = -1, set _a_ to be negative, else if _sign_ = 1, set _a_ to be positive
 ```C++
 number_t& set_sign(number_t& a, int sign);
