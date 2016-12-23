@@ -3,7 +3,7 @@ The data storage model of mynum
 
 _Mynum is currently only available on the LITTLE-ENDIAN machines, which store the least significant byte (LSB) of a word at the lowest memory address, and store the other bytes following in increasing order of significance._
 
-Mynum stores the big integer in binary form, in principle, it is the same as the way integer stored in C basic integer types, but is not limited by the fixed memory size.
+Mynum stores the big integer in binary form, in principle, it is the same as C integer types, but is not limited by the fixed memory size.
 
 For example, the integer 0xabcdef, if it is stored in an int variable and the variable has 4 bytes, the bytes from low address to high address are 0xef, 0xcd, 0xab, 0x00, If construct a number_t object with a value of 0xabcdef, there is an array in the object, the first byte of the array is 0xef, the second is 0xcd, the third is 0xab, the LSB of the integer is stored at the lowest memory address.
 
@@ -82,6 +82,6 @@ number_t::add_unit(unit_t x)
 }
 ```
 
-The **slen_t** is also a system related type, on 64-bit system, it is long long, on 32-bit system, it is int. The **slen_t** variables always indicate the count of units, the max value of a slent_t variable is 2147483647(2Gb) on 32-bit systems, or 9223372036854775807(8191Pb) on 64-bit system, as it were, the size of a number_t object is arbitrary under available memory conditions.
+The **slen_t** is also a system related type, on 64-bit system, it is long long, on 32-bit system, it is int. The **slen_t** variables always indicate the count of units, the max value of a slent_t variable is 2147483647(2Gb) on 32-bit systems, or 9223372036854775807(8191Pb) on 64-bit system, as it were, under available memory conditions, the size of a number_t object is arbitrary.
 
 next chapter: [The Initialization of the big integer object](https://github.com/brotherbeer/mydocument/blob/master/mynum/Initialization.md)

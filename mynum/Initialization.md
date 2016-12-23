@@ -97,7 +97,7 @@ copy(const number_t&) and assign(const number_t&) are not the same, the 'assign'
 #include "mynum.h"
 using namespace mynum;        // the namespace of mynum
 
-number_t a = 123, b(789L);    // use basic integer type to initialize number_t objects
+number_t a = 123, b(789L);    // use C integer type to initialize number_t objects
 number_t c("271828182845");   // use a decimal string to initialize the object
 number_t d("abcdef", 16);     // use a hexadecimal number to initialize the object
 number_t e("1234567", 8);     // use an octal string to initialize the object
