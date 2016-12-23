@@ -13,13 +13,13 @@ Left shift, _res_ is equivalent to divide _a_ by _2<sup>b</sup>_
 void shl(const number_t& a, size_t b, number_t& res);
 ```
 
-Return the value on the _n_-th bit
+Return the value of the _n_-th bit
 ```C++
 bool number_t::bit_at(size_t n) const;
 bool number_t::operator [] (size_t n) const;
 ```
 
-Set the value on the _n_-th bit
+Set the value of the _n_-th bit
 ```C++
 void number_t::bit_set(size_t n, bool v = 1);
 void number_t::bit_set_one(size_t n);
@@ -137,7 +137,7 @@ number_t& number_t::bit_or_unit(unit_t);
 number_t& number_t::bit_xor_unit(unit_t);
 ```
 
-Operators overloaded
+##Operators overloaded
 ```C++
 number_t  number_t::operator ~ () const;
 number_t& number_t::operator &= (const number_t& x);

@@ -55,7 +55,7 @@ number_t& number_t::div(unsigned long long x);
 number_t& number_t::div_unit(unit_t x);
 ```
 
-Operators overloaded
+##Operators overloaded
 ```C++
 number_t& number_t::operator /= (const number_t& x);
 number_t& number_t::operator /= (int x);

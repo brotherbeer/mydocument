@@ -53,7 +53,7 @@ number_t& number_t::sub_si(sword_t);
 number_t& number_t::sub_unit(unit_t);
 ```
 
-Operators overloaded
+##Operators overloaded
 ```C++
 number_t& number_t::operator -- ();
 number_t& number_t::operator -- (int);
