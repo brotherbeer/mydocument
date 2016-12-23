@@ -3,8 +3,7 @@ Division
 
 ##Functions
 
-Set a / b to q, and a % b to r
-If b is 0, the functions return 0, otherwise return 1
+Set a / b to q, and a % b to r. If b is 0, the functions return 0, otherwise return 1
 ```C++
 int div(const number_t& a, const number_t& b, number_t& q, number_t& r);
 int div(const number_t& a, const number_t& b, number_t& q);
@@ -30,6 +29,7 @@ void div(long long x, const number_t& b, number_t& res);
 void div(unsigned long long x, const number_t& b, number_t& res);
 ```
 
+Return a / b
 ```C++
 number_t div(const number_t& a, const number_t& b);
 ```

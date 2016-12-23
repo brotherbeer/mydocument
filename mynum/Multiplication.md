@@ -3,8 +3,7 @@ Multiplication
 
 ##Functions
 
-Set res to a * b
-kmul uses Karatsuba algorithm
+Set res to a * b. kmul uses Karatsuba algorithm
 ```C++
 void mul(const number_t& a, const number_t& b, number_t& res);
 void kmul(const number_t& a, const number_t& b, number_t& res);
