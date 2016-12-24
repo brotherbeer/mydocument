@@ -1,4 +1,4 @@
-String convertion
+String conversion
 -------------
 
 ##Member Functions
