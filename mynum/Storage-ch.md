@@ -27,11 +27,11 @@ unit_t是最基本的计算单元的类型，是一种无符号基本整数类�
 
 显然，可以将number_t对象理解成一个具有n位进制为BASE的数(n=abs(len); BASE=MASK+1)，第i位的值即是第i个单元U<sub>i</sub>的值(n > i >= 0)，记作：
 
-〈U<sub>n-1</sub>, ..., U<sub>1</sub>, U<sub>0</sub>〉<sub>base=BASE</sub>
+〈U<sub>n-1</sub>, ..., U<sub>1</sub>, U<sub>0</sub>〉<sub>base=BASE</sub> = U<sub>n-1</sub> \* BASE<sup>n-1</sup> + ... + U<sub>1</sub> \* BASE<sup>1</sup> + U<sub>0</sub> \* BASE<sup>0</sup>
 
-unit_t是一个系统相关的类型，在64位系统中为32位无符号整类(unsigned int)，在32位系统中为16位无符号整型(unsigned short)。再举一个例子，构造一个number_t对象，其值为0xaaaabbbbccccddddeeeeffff，
-在32位系统中，对象的计算单元序列为6个unsigned short型变量，依次为0xffff，0xeeee，0xdddd，0xcccc，0xbbbb，0xaaaa。
-在64位系统中，对象的计算单元序列为3个unsigned int型变量，依次为0xeeeeffff，0xccccdddd，0xaaaabbbb。
+unit_t是一个系统相关的类型，在64位系统中为32位无符号整类(unsigned int)，在32位系统中为16位无符号整型(unsigned short)。再举一个例子，构造一个number_t对象，其值为0xaaaabbbbccccddddeeeeffff， 
+在32位系统中，对象的计算单元序列为6个unsigned short型变量: 〈0xffff，0xeeee，0xdddd，0xcccc，0xbbbb，0xaaaa〉
+在64位系统中，对象的计算单元序列为3个unsigned int型变量:〈0xeeeeffff，0xccccdddd，0xaaaabbbb〉
 
 根据表示16进制数的字符串"aaaabbbbccccddddeeeeffff"来构造number_t对象还是比较简单的，我们将在后面讨论如何用表示其它进制数的字符串构造number_t对象。
 
