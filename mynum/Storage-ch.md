@@ -25,7 +25,9 @@ unit_t是最基本的计算单元的类型，是一种无符号基本整数类�
 
 因为number_t对象将大整数在内存中用二进制方式存储，一个内存比特位记录大整数的一个二进制位，所有比特位都是连续的，所以可以将其理解为具有连续内存地址的计算单元序列，成员变量dat指向该序列，len的绝对值表示该序列中有效单元的个数，cap表示序列中所有单元的个数，cap永远大于或等于len的绝对值，len的符号表示number_t对象的符号，即len < 0时为负数，len > 0时为正数，len = 0时为0。
 
-显然，可以将number_t对象理解成一个具有l位进制为BASE的数(l=abs(len);BASE=MASK+1)，第i位的值即是第i个单元的值(abs(len) > i >= 0)
+显然，可以将number_t对象理解成一个具有n位进制为BASE的数(n=abs(len); BASE=MASK+1)，第i位的值即是第i个单元U<sub>i</sub>的值(n > i >= 0)，记作：
+
+〈U<sub>l-1</sub>, ..., U<sub>1</sub>, U<sub>0<sub>〉<sub>base=BASE</sub>
 
 unit_t是一个系统相关的类型，在64位系统中为32位无符号整类(unsigned int)，在32位系统中为16位无符号整型(unsigned short)。再举一个例子，构造一个number_t对象，其值为0xaaaabbbbccccddddeeeeffff，
 在32位系统中，对象的计算单元序列为6个unsigned short型变量，依次为0xffff，0xeeee，0xdddd，0xcccc，0xbbbb，0xaaaa。
