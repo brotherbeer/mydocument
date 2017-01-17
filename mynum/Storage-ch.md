@@ -26,13 +26,13 @@ unit_t是mynum基本计算单元的类型，其位数记为SHIFT，最大值记�
 
 因为number_t对象在内存中用二进制方式存储数据，一个内存比特位记录大整数的一个二进制位，所有比特位都是连续的，所以可以将其理解为具有连续内存地址的计算单元序列，成员变量dat指向该序列，len的绝对值表示该序列中有效单元的个数，cap表示序列中所有单元的个数，cap永远大于或等于len的绝对值，len的符号表示number_t对象的符号，即len < 0时为负数，len > 0时为正数，len = 0时为0。
 
-显然，可以将计算单元序列理解成一个具有n位进制为BASE的数(n=abs(len); BASE=MASK+1)，第i位的值即是第i个单元U<sub>i</sub>的值(n > i >= 0)，这个数的值即是number_t对象的值，其值为：U<sub>n-1</sub> \* BASE<sup>n-1</sup> + ... + U<sub>1</sub> \* BASE + U<sub>0</sub>。
+显然，可以将计算单元序列理解成一个具有n位进制为BASE的数(n=abs(len); BASE=MASK+1)，第i位的值即是第i个单元U<sub>i</sub>的值(n > i >= 0)，这个数的值即是number_t对象的值，其值为：U<sub>n-1</sub> \* BASE<sup>n-1</sup> + ... + U<sub>1</sub> \* BASE + U<sub>0</sub>
 
 对于任意的正整数n，i，b，d<sub>i</sub>，如果i∈[0,n)，d<sub>i</sub> < b，
 可以将式子：d<sub>n-1</sub> \* b<sup>n-1</sup> + ... + d<sub>1</sub> \* b + d<sub>0</sub> 简写为：〈d<sub>n-1</sub>, ..., d<sub>1</sub>, d<sub>0</sub>〉<sub>b</sub>，其中下标b如果省略则b的值为BASE。
 
-再举一个例子，构造一个number_t对象，其值为0xaaaabbbbccccddddeeeeffff，
-在32位系统中，其单元序列为:〈0xaaaa, 0xbbbb, 0xcccc, 0xdddd, 0xeeee, 0xffff〉<sub>0x10000</sub>
+再举一个例子，构造一个number_t对象，其值为0xaaaabbbbccccddddeeeeffff，  
+在32位系统中，其单元序列为:〈0xaaaa, 0xbbbb, 0xcccc, 0xdddd, 0xeeee, 0xffff〉<sub>0x10000</sub>  
 在64位系统中，其单元序列为:〈0xaaaabbbb, 0xccccdddd, 0xeeeeffff〉<sub>0x100000000</sub>
 
 根据表示16进制数的字符串"aaaabbbbccccddddeeeeffff"来构造number_t对象还是比较简单的，我们将在后面讨论如何用表示其它进制数的字符串构造number_t对象。
