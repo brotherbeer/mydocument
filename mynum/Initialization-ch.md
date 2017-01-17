@@ -8,6 +8,18 @@
 
 ##函数
 
+用字符串str初始化大整数对象a（str表示一个base进制的数，以'\0'结尾）。  
+str中的所有空白符会被忽略，空白符指空格、tab、换行、回车等。  
+如果字符串的格式正确则初始化a并返回1，否则返回0。  
+base ∈ [2, 36]，当base为0、1或大于36时，将根据字符串中的“前导字符”判断进制，如0x或0X表示16进制，0b或0B表示2进制，0表示8进制。  
+可用'-'表示负数，'-'可以在“前导字符”的左边也可以在右边，load函数可以处理相对复杂的情况，关于format参数，以及如何设置某进制的前导字符，请参见《[大整数的格式化输出]》
+
+```C++
+int load(number_t& a, const char* str, int base, const format_t* format = NULL);
+int load(number_t& a, const char* str, size_t length, int base, const format_t* format = NULL);
+int load(number_t& a, const string_t& str, int base, const format_t* format = NULL);
+```
+
 默认构造函数, \*this的值为0
 ```C++
 number_t::number_t();
@@ -23,9 +35,8 @@ number_t::number_t(unsigned long x);
 number_t::number_t(unsigned long long x);
 ```
 
-用表示base进制数的字符串（以'\0'结尾）构造大整数对象，base ∈ [2, 36]
-可以用'-'表示负数
-不接受任何空白符或标点符号
+用表示base进制数的字符串s（以'\0'结尾）构造大整数对象，base ∈ [2, 36]  
+可以用'-'表示负数，不接受前导字符以及任何空白符或标点符号，当s为空串时，对象的值为0
 ```C++
 number_t::number_t(const char* s, int base);
 ```
@@ -35,26 +46,35 @@ number_t::number_t(const char* s, int base);
 number_t::number_t(const char* s);
 ```
 
-也可以指定字符串的长度
+也可以用length参数指定字符串的长度
 ```C++
 number_t::number_t(const char* s, size_t length, int base);
 ```
 
 用string_t对象构造大整数对象
 ```C++
-number_t::number_t(const string_t&);
-number_t::number_t(const string_t&, int base);
-number_t::number_t(const string_t&, size_t length, int base);
+number_t::number_t(const string_t& str, int base);
+```
+
+如果省略base，则认为string_t对象表示的是10进制数
+```C++
+number_t::number_t(const string_t& str);
+```
+
+可以用bpos和epos参数指定字符串的起止位置，即用str中[bpos, epos)内的字符来构造大整数对象
+bpos从0开始计数，当epos大于str.length()时，则将epos设为str.length()，当bpos >= epos时，大整数对象的值为0
+```C++
+number_t::number_t(const string_t& str, size_t bpos, size_t epos, int base);
 ```
 
 拷贝构造函数
 ```C++
-number_t::number_t(const number_t&);
+number_t::number_t(const number_t& obj);
 ```
 
 用另一个大整数对象赋值
 ```C++
-number_t& assign(const number_t&);
+number_t& assign(const number_t& obj);
 ```
 
 用基本整数类型的变量赋值
@@ -74,7 +94,7 @@ number_t& assign(const char* s, int base);
 number_t& assign(const char* s, size_t length, int base);
 number_t& assign(const string_t& s);
 number_t& assign(const string_t& s, int base);
-number_t& assign(const string_t& s, size_t length, int base);
+number_t& assign(const string_t&, size_t bpos, size_t epos, int base);
 ```
 
 复制大整数对象
@@ -82,16 +102,22 @@ number_t& assign(const string_t& s, size_t length, int base);
 void copy(const number_t&);
 ```
 
-##注意事项
-为了更高的效率，由字符串构造大整数对象时，mynum不考虑任何前缀，如"0x"、"0b"等，也不考虑字符串的格式是否正确。
-如果字符串中有错误，那么构造的对象的值也是错误的，但不至于让程序崩溃。
-有效字符只有[0-9a-zA-Z]，'a' 和'A'表示10，'b'和'B'表示11，…， 'z'和'Z'表示35
-如果一个字符表示的数值大于指定的进制，大整数对象的值也将是错误的。
+检查字符串格式是否正确，可以与构造函数或assign函数配合使用
+```C++
+int check(const char* str, int base);
+int check(const char* strbegin, const char* strend, int base);
+```
 
-用表示16进制数的字符串构造对象时，效率是最高的。
+##注意事项
+为了更高的效率，以字符串为参数的构造函数不考虑任何“前导字符”，如"0x"、"0b"等，也不考虑字符串的格式是否正确。
+如果字符串中有错误，那么对象的值也是错误的，但不至于让程序崩溃。可以用check函数检查相关字符串是否正确。
+对于构造函数而言，有效字符为[0-9a-zA-Z]，'a' 和'A'表示10，'b'和'B'表示11，…， 'z'和'Z'表示35，如果一个字符表示的数值大于指定的进制，大整数对象的值也将是错误的。
+
+当初始化字符串比较复杂时，可用load函数处理格式比较复杂的字符串。
+
+用表示16进制数的字符串构造大整数对象时，时间复杂度最低。
 
 copy(const number_t&) 和 assign(const number_t&) 是不同的, assign 只是将另一个对象的值赋给*this，copy不但赋值而且还会分配与指定的对象相同内存空间。
-
 
 ##示例
 ```C++
@@ -124,25 +150,25 @@ assert(check(s, 8) == 0);     // 如果s表示8进制数，s是错误的
 
 ###用字符串构造对象
 
-设某个字符串s有n个字符，表示b进制的数，可用s构造一个number_t对象o，o与s表示的值相同。
+设某个字符串s有n个字符，表示b进制的数，可用s构造一个number_t对象o，o的值与s表示的值相同。
 
 首先要确定o需要多少内存才能装下s表示的数。
 
-显然，n位b进制数的最大值为b<sup>n</sup>-1，设o需要m个单元才能装下这个数，则m需要满足如下等式(设ln表示自然对数，ceil表示向上取整)：
+显然，n位b进制数的最大值为b<sup>n</sup>-1，设o需要m个单元才能装下这个数，则m需要满足如下等式(设ln表示对数，ceil表示向上取整)：
 
 BASE<sup>m</sup>-1 = b<sup>n</sup>-1
 
 ln(BASE<sup>m</sup>) = ln(b<sup>n</sup>)
 
-m = ceil(n \* ln(b) / ln(BASE))
+m = ceil(n \* ln(b) / ln(BASE)) 
 
 由此可求出需要分配的内存空间为m \* sizeof(unit_t)个字节。
 
-设S为s的字符序列对应的数值序列，s表示的整数可由下式表式：
+设S<sub>i</sub>为s的第i个字符对应的数值，i∈[0,n)，s表示的整数即：
 
-S[0]\*b<sup>n-1</sup> + S[1]\*b<sup>n-2</sup> + ... + S[n-1]\*b<sup>0</sup>
+〈S<sub>0</sub>, S<sub>1</sub>, ..., S<sub>n-1</sub>〉<sub>b</sub> =〈S<sub>0</sub>, S<sub>1</sub>, ..., S<sub>n-2</sub>〉<sub>b</sub> * b + S<sub>n-1</sub>
 
-该式的计算可由一个迭代过程完成，伪代码如下：
+故该式的计算可由一个迭代过程完成，伪代码如下：
 ```C++
 number_t::construct_from_string(const char* s, int b)
 {
@@ -158,31 +184,32 @@ number_t::construct_from_string(const char* s, int b)
 ```
 在for循环中，i为0时将o的值设为S[0]，以后每次用mul_unit方法将o的值乘以b再用add_unit方法将其加S[i]，循环n次后即完成了对象的初始化，关于mul_unit和add_unit方法请参见上一章《[mynum的数据存储方式](https://github.com/brotherbeer/mydocument/blob/master/mynum/Storage-ch.md)》。
 
-至此，将字符串转为number_t对象的原理已经说明，但在效率上可以改进。
+显然，该算法的时间复杂度为O(1 + 2 + ... + n) = O(n<sup>2</sup>)，至此，将字符串转为number_t对象的原理已经说明，但在效率上可以改进。
 
-设inner_digits是可以使b<sup>inner_digits</sup> <= MASK成立的最大值（MASK为计算单元的最大值），inner_base = b<sup>inner_digits</sup>。
-在for循环中，每次将inner_digits个字符转成一个单元进行处理，有效减少了乘法和加法的次数，从而提高了效率：
+设power_digits是可以使b<sup>power_digits</sup> <= MASK成立的最大值（MASK为计算单元的最大值），power_base = b<sup>power_digits</sup>。
+在for循环中，每次将power_digits个字符转成一个单元进行处理，有效减少了乘法和加法的次数，从而提高了效率：
 ```C++
 number_t::construct_from_string(const char* s, int b)
 {
     int n = strlen(s), i = 0;
     allocate_units(ceil(n * ln(b) / ln(BASE)));
-    int inner_base = get_inner_base(b);
-    int inner_digits = get_inner_digits(b);
-    for (; i < n - n % inner_digits; i += inner_digits)
+    int power_base = get_power_base(b);
+    int power_digits = get_power_digits(b);
+    for (; i < n - n % power_digits; i += power_digits)
     {
-        mul_unit(inner_base);
-        add_unit(str_to_unit(s + i, b, inner_digits)); // 每次将inner_digits个字符转为一个单元 
+        mul_unit(power_base);
+        add_unit(str_to_unit(s + i, b, power_digits)); // 每次将power_digits个字符转为一个单元 
     }
-    for (; i != n; i++)
+    for (; i != n; i++)     // 此for循环是为清晰起见，其实此处仍可优化
     {
         mul_unit(b);
         add_unit(char_to_int(s[i]));
     }
 }
 ```
+虽然改进后的算法在效率上有明显提升，但其时间复杂度仍为O(n<sup>2</sup>)。
 
-对于表示16进制数的字符串，因为每2个字符可以确定一个字节，32位环境中每4个字符可以确定一个计算单元，64位环境中每8个字符可以确定一个计算单元，所以不必进行乘法和加法就可以构造大整数对象。
+对于表示16进制数的字符串，因为每2个字符可以确定一个字节，32位环境中每4个字符可以确定一个计算单元，64位环境中每8个字符可以确定一个计算单元，所以不必进行乘法和加法就可以构造大整数对象，时间复杂度为O(n)。
 ```C++
 number_t::construct_from_hex_string(const char* s)
 {
