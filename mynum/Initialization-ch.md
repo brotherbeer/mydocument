@@ -8,11 +8,10 @@
 
 ##函数
 
-用字符串str初始化大整数对象a（str表示一个base进制的数，以'\0'结尾）。  
-str中的所有空白符会被忽略，空白符指空格、tab、换行、回车等。  
+用字符串str初始化大整数对象a（str表示一个base进制的数，以'\0'结尾）。str中的所有空白符会被忽略，空白符指空格、tab、换行、回车等。  
 如果字符串的格式正确则初始化a并返回1，否则返回0。  
-base ∈ [2, 36]，当base为0、1或大于36时，将根据字符串中的“前导字符”判断进制，如0x或0X表示16进制，0b或0B表示2进制，0表示8进制。  
-可用'-'表示负数，'-'可以在“前导字符”的左边也可以在右边，load函数可以处理相对复杂的情况，关于format参数，以及如何设置某进制的前导字符，请参见《[大整数的格式化输出]》
+base∈[2, 36]，当base为0、1或大于36时，根据字符串的“前导字符”判断进制，如0x或0X表示16进制，0b或0B表示2进制，0表示8进制。  
+可用'-'表示负数，'-'可以在“前导字符”的左边也可以在其右边，load函数可以处理相对复杂的情况，关于format参数，以及如何设置某进制的前导字符，请参见《[大整数对象的格式化输出](https://github.com/brotherbeer/mydocument/blob/master/mynum/Formatted-output-ch.md)》
 
 ```C++
 int load(number_t& a, const char* str, int base, const format_t* format = NULL);
@@ -61,7 +60,7 @@ number_t::number_t(const string_t& str, int base);
 number_t::number_t(const string_t& str);
 ```
 
-可以用bpos和epos参数指定字符串的起止位置，即用str中[bpos, epos)内的字符来构造大整数对象
+可以用bpos和epos参数指定字符串的起止位置，即用str中位置属于[bpos, epos)的字符来构造大整数对象，  
 bpos从0开始计数，当epos大于str.length()时，则将epos设为str.length()，当bpos >= epos时，大整数对象的值为0
 ```C++
 number_t::number_t(const string_t& str, size_t bpos, size_t epos, int base);
