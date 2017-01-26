@@ -32,6 +32,11 @@ Return the bits count
 size_t number_t::bits_count() const;
 ```
 
+Return the trailing 0-bits count, starting at the least significant bit position
+```C++
+size_t number_t::tzbits_count() const;
+```
+
 Allocate at least n bits memory
 ```C++
 void number_t::bits_reserve(size_t n);
