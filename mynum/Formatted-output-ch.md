@@ -8,7 +8,7 @@ number_t a("1234567890");
 format_t fmt;
 cout << fmt.dump(a, 16, s) << endl;  // 将a转为表示16进制数的字符串
 
-fmt.set(UPPER_CASE | SHOW_LEADING);
+fmt.set(UPPER_CASE | SHOW_LEADING);  // 用大写字母，并添加前导字符
 cout << fmt.dump(a, 16, s) << endl;
 ```
 输出：
@@ -19,15 +19,15 @@ cout << fmt.dump(a, 16, s) << endl;
 其中，UPPER_CASE和SHOW_LEADING是用以指定格式化信息的标志位，分别表示用大写字母记录各位数值和显示前导字符，默认情况下用小写字母并不显示前导字符。dump函数将大整数对象转为指定进制的字符串，示例中为16进制。
 关于format_t类的详细信息如下：
 
- * [标志位](#标志位)
- * [format_t构造函数](#构造函数)
- * [format_t成员函数](#成员函数)
+ * [格式化标志位](#格式化标志位)
+ * [format_t构造函数](#format_t构造函数)
+ * [format_t成员函数](#format_t成员函数)
  * [前导字符](#前导字符)
  * [分组与换行](#分组与换行)
  * [注意事项](#注意事项)
 
-##标志位
-格式化标志位为format_flags_t型的常量，各标志位定义如下：  
+##格式化标志位
+格式化标志位为format_flags_t型的常量，各标志位定义如下：
 
 |标志位|意义|
 |------|----|
@@ -41,10 +41,10 @@ cout << fmt.dump(a, 16, s) << endl;
 |ZERO_NO_LEADING| 如果指定的大整数为0，不输出前导字符，无此标志位则输出|
 |ZERO_POS| 如果存在SHOW_POS标志位且指定的大整数对象为0，则输出+号|
 |ZERO_NEG| 如果指定的大整数对象为0，输出-号|
-|EMPTY_AS_ERROR| 存在此标志位时将空字符串视为错误字符串，否则视为0|
-|MULTISIGN_AS_ERROR| 将多负号或多正号视为错误|
+|EMPTY_AS_ERROR| 存在此标志位时将空字符串视为错误字符串，否则视为0，仅在load函数中生效|
+|MULTISIGN_AS_ERROR| 将多负号或多正号视为错误，仅在load函数中生效|
 
-如：
+各标志位可由'\|'连接，如：
 ```C++
 format_t fmt;
 fmt.set(UPPER_CASE | SHOW_POS | SHOW_LEADING);
@@ -54,12 +54,12 @@ fmt.set(NO_FLAGS);   // 清除所有标志位
 assert(fmt.get() == 0);
 ```
 
-##构造函数
+##format_t构造函数
 可在构造时指定标志位，默认值为0，即不设定任何标志位
 ```C++
 format_t(format_flags_t ff = 0):
 ```
-##成员函数
+##format_t成员函数
 设定某（些）标志位
 ```C++
 void set(format_flags_t ff);
@@ -67,10 +67,6 @@ void set(format_flags_t ff);
 清除某（些）标志位
 ```C++
 void clear(format_flags_t ff);
-```
-清除所有标志位
-```C++
-void clear_all() { _flags = 0; }
 ```
 判断是否设定了某（些）标志位
 ```C++
@@ -209,4 +205,6 @@ assert(fmt.dump(a, 36, s) == "b36:-kf12oi");
 ```
 
 ##注意事项
-前导字符为全局数据，设置后load、dump函数以及标准输入输出流均生效，但没有任何线程安全措施，故尽量不要某个线程中调用set_leading函数而在另一个线程中调用load、dump等函数。
+前导字符为全局数据，设置后load、dump函数以及标准输入输出流均生效，但没有任何线程安全措施，故尽量不要某个子线程中调用set_leading函数而在另一个子线程中调用load、dump等函数。
+
+前导字符应能与字符串正文有效地区分开，不应有空白符，组分隔符也应与字符串正文有效地区分开，否则会引发歧义。

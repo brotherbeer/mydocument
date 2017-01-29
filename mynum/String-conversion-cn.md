@@ -40,6 +40,10 @@ string_t number_t::to_string(int base = 10) const;
 ```C++
 string_t number_t::operator () (int base) const;
 ```
+重载<<
+```C++
+std::ostream& operator << (std::ostream& os, const number_t& a)
+```
 
 ##注意事项
 为了更高的效率，所有与字符串转换相关的成员函数不会成生前导字符串或空白符，并只用小写字母。 
@@ -95,13 +99,13 @@ for (i = 0; u != 0; i++)
 
 〈u<sub>1</sub>, u<sub>2</sub>〉<sub>BASE</sub> =〈d<sub>n-1</sub> \* BASE, ..., d<sub>2</sub> \* BASE + q<sub>1</sub>, r<sub>1</sub>, r<sub>0</sub>〉<sub>base</sub>
 
-显然，利用相同的方法令d<sub>i</sub> \* BASE + q<sub>i-1</sub> = q<sub>i</sub> \* base + r<sub>i</sub>，即q<sub>i</sub> = (d<sub>i</sub> \* BASE + q<sub>i-1</sub>)/base, r<sub>i</sub> = (d<sub>i</sub> \* BASE + q<sub>i-1</sub>)%base，i > 1，可得：
+显然，利用相同的方法令d<sub>i</sub> \* BASE + q<sub>i-1</sub> = q<sub>i</sub> \* base + r<sub>i</sub>，即q<sub>i</sub> = (d<sub>i</sub> \* BASE + q<sub>i-1</sub>)/base, r<sub>i</sub> = (d<sub>i</sub> \* BASE + q<sub>i-1</sub>)%base，i >= 1，可得：
 
 〈u<sub>1</sub>, u<sub>2</sub>〉<sub>BASE</sub> =〈q<sub>n</sub>, r<sub>n-1</sub>, ..., r<sub>1</sub>, r<sub>0</sub>〉<sub>base</sub>
 
 令q<sub>n</sub> =〈r<sub>m</sub>, ..., r<sub>n</sub>〉<sub>base</sub> (m >= n)
 
-即完成了将〈u<sub>1</sub>, u<sub>2</sub>〉<sub>BASE</sub>转成base进制数〈r<sub>m</sub>, ..., r<sub>1</sub>, r<sub>0</sub>〉<sub>base</sub>的过程。
+即完成了将〈u<sub>1</sub>, u<sub>2</sub>〉<sub>BASE</sub>转成〈r<sub>m</sub>, ..., r<sub>1</sub>, r<sub>0</sub>〉<sub>base</sub>的过程。
 
 ###将大整数对象转为base进制数
 

@@ -26,7 +26,7 @@ number_t::number_t(unsigned long x);
 number_t::number_t(unsigned long long x);
 ```
 
-用表示base进制数的字符串s（以'\0'结尾）构造大整数对象，base ∈ [2, 36]  
+用表示base进制数的字符串s（以'\0'结尾）构造大整数对象，base∈[2, 36]  
 可以用'-'表示负数，不接受前导字符以及任何空白符或标点符号，当s指向空串或为空指针时，对象的值为0
 ```C++
 number_t::number_t(const char* s, int base);
@@ -89,7 +89,10 @@ number_t& assign(const string_t& s);
 number_t& assign(const string_t& s, int base);
 number_t& assign(const string_t&, size_t bpos, size_t epos, int base);
 ```
-
+重载>>
+```C++
+std::istream& operator >> (std::istream& is, number_t& a)
+```
 复制大整数对象
 ```C++
 void copy(const number_t&);

@@ -57,20 +57,16 @@ operator unsigned long long () const;
 将大整数对象转为基本整型变量之前应先判断其值是否在相应基本整型的范围内，如果不在该范围内，转化后的值为不正确的值。  
 另外，值为负时，不算入相应无符号类型的范围内，如-1不在unsigned int范围内，-2不在unsigned long范围内。  
 各类型范围：
-
-|type|range|
-|----|-----|
-|char| \[-128, 127\]|
-|short| \[-32768, 32767\]|
-|int| \[-2147483648, 2147483647\]|
+|char| [-128, 127]|
+|short| [-32768, 32767]|
+|int| [-2147483648, 2147483647]|
 |long| 随编译器而定|
-|long long| \[-9223372036854775808, 9223372036854775807\] |
-|unsigned char| \[0, 255\]|
-|unsigned short|\[0, 65535\]|
-|unsigned int| \[0, 4294967295\] |
+|long long| [-9223372036854775808, 9223372036854775807] |
+|unsigned char| [0, 255]|
+|unsigned short|[0, 65535]|
+|unsigned int| [0, 4294967295] |
 |unsigned long| 随编译器而定|
-|unsigned long long| \[0, 18446744073709551615\] |
-
+|unsigned long long| [0, 18446744073709551615] |
 其中，long/unsigned long型的范围随编译器而定，gcc编译环境中与long long/unsigned long long相同，MSVC环境中与int/unsigned int相同。
 
 ##示例
