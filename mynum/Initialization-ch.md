@@ -1,24 +1,17 @@
 大整数对象的初始化
 -------------
 
- * [函数](#函数)
+本文介绍如何初始化number_t对象（大整数对象），可以用字符串或基本整型变量初始化或赋值number_t对象，赋值相当于重新初始化。也可以将number_t对象转化为字符串或基本整型变量，详见后文《[大整数对象转为字符串](https://github.com/brotherbeer/mydocument/blob/master/mynum/String-conversion-cn.md)》、《[大整数对象转为基本整型变量](https://github.com/brotherbeer/mydocument/blob/master/mynum/To-basic-integer-cn.md)》。
+
+ * [number_t构造函数](#number_t构造函数)
+ * [number_t赋值函数](#number_t赋值函数)
  * [注意事项](#注意事项)
  * [示例](#示例)
  * [算法](#算法)
 
-##函数
+##number_t构造函数
 
-用字符串str初始化大整数对象a（str表示一个base进制的数，以'\0'结尾）。str中的所有空白符会被忽略，空白符指空格、tab、换行、回车等。如果字符串的格式正确则初始化a并返回1，否则返回0。  
-base∈[2, 36]，当base为0、1或大于36时，根据字符串的“前导字符”判断进制，如0x或0X表示16进制，0b或0B表示2进制，0表示8进制。  
-可用'-'表示负数，'-'可以在“前导字符”的左边也可以在其右边，load函数可以处理相对复杂的情况，关于format参数，以及如何设置某进制的前导字符，请参见《[大整数对象的格式化输出](https://github.com/brotherbeer/mydocument/blob/master/mynum/Formatted-output-ch.md)》
-
-```C++
-int load(number_t& a, const char* str, int base, const format_t* format = NULL);
-int load(number_t& a, const char* str, size_t length, int base, const format_t* format = NULL);
-int load(number_t& a, const string_t& str, int base, const format_t* format = NULL);
-```
-
-默认构造函数, \*this的值为0
+默认构造函数, 对象的值为0
 ```C++
 number_t::number_t();
 ```
@@ -34,7 +27,7 @@ number_t::number_t(unsigned long long x);
 ```
 
 用表示base进制数的字符串s（以'\0'结尾）构造大整数对象，base ∈ [2, 36]  
-可以用'-'表示负数，不接受前导字符以及任何空白符或标点符号，当s为空串时，对象的值为0
+可以用'-'表示负数，不接受前导字符以及任何空白符或标点符号，当s指向空串或为空指针时，对象的值为0
 ```C++
 number_t::number_t(const char* s, int base);
 ```
@@ -59,7 +52,7 @@ number_t::number_t(const string_t& str, int base);
 number_t::number_t(const string_t& str);
 ```
 
-可以用bpos和epos参数指定字符串的起止位置，即用str中位置属于[bpos, epos)的字符来构造大整数对象，  
+可以用bpos和epos参数指定字符串的起止位置，即用str中位置属于[bpos, epos)的字符序列构造大整数对象，  
 bpos从0开始计数，当epos大于str.length()时，则将epos设为str.length()，当bpos >= epos时，大整数对象的值为0
 ```C++
 number_t::number_t(const string_t& str, size_t bpos, size_t epos, int base);
@@ -69,6 +62,8 @@ number_t::number_t(const string_t& str, size_t bpos, size_t epos, int base);
 ```C++
 number_t::number_t(const number_t& obj);
 ```
+
+##number_t赋值函数
 
 用另一个大整数对象赋值
 ```C++
@@ -85,7 +80,7 @@ number_t& assign(unsigned long x);
 number_t& assign(unsigned long long x);
 ```
 
-用字符串赋值，各参数意义与构造函数相同
+用字符串赋值，各参数意义与相应构造函数相同
 ```C++
 number_t& assign(const char* s);
 number_t& assign(const char* s, int base);
@@ -107,15 +102,15 @@ int check(const char* strbegin, const char* strend, int base);
 ```
 
 ##注意事项
-为了更高的效率，以字符串为参数的构造函数不考虑任何“前导字符”，如"0x"、"0b"等，也不考虑字符串的格式是否正确。
-如果字符串中有错误，那么对象的值也是错误的，但不至于让程序崩溃。可以用check函数检查相关字符串是否正确。
-对于构造函数而言，有效字符为[0-9a-zA-Z]，'a' 和'A'表示10，'b'和'B'表示11，…， 'z'和'Z'表示35，如果一个字符表示的数值大于指定的进制，大整数对象的值也将是错误的。
+为了更高的效率，以字符串为参数的构造函数不接受任何空白符以及任何“前导字符”（如"0x"、"0b"），也不考虑字符串的格式是否正确。
+如果字符串中有错误，那么对象的值也是错误的，但不至于让程序崩溃。可用check函数检查相关字符串是否正确，如果正确再进行初始化，如果可以保证用以初始化的字符串是正确的，则可省去检查的开销。
+对于构造函数而言，有效字符为[0-9a-zA-Z]，'a' 和'A'表示的值为10，'b'和'B'表示的值为11，…， 'z'和'Z'表示的值为35，如果一个字符表示的数值大于指定的进制，大整数对象的值也将是错误的。
 
-当初始化字符串比较复杂时，可用load函数处理格式比较复杂的字符串。
+当然，mynum可以处理具有复杂格式的字符串，如用load函数处理格式比较复杂的字符串，详见《[格式化字符串转为大整数对象](https://github.com/brotherbeer/mydocument/blob/master/mynum/Formatted-input-ch.md)》。
 
 用表示16进制数的字符串构造大整数对象时，时间复杂度最低。
 
-copy(const number_t&) 和 assign(const number_t&) 是不同的, assign 只是将另一个对象的值赋给*this，copy不但赋值而且还会分配与指定的对象相同内存空间。
+copy(const number_t&) 和 assign(const number_t&) 是不同的, assign 只是根据另一个对象进行赋值，copy不但赋值而且还会分配与指定的对象相同内存空间。
 
 ##示例
 ```C++

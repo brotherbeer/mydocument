@@ -1,4 +1,4 @@
-大整数对象的格式化输出
+大整数对象转为格式化字符串
 -------------
 
 大整数(number_t)对象可以按指定的格式转化为字符串(string_t)对象。可由format_t类的对象指定格式，例如：
@@ -20,16 +20,14 @@ cout << fmt.dump(a, 16, s) << endl;
 关于format_t类的详细信息如下：
 
  * [标志位](#标志位)
- * [构造函数](#构造函数)
- * [成员函数](#成员函数)
+ * [format_t构造函数](#构造函数)
+ * [format_t成员函数](#成员函数)
  * [前导字符](#前导字符)
  * [分组与换行](#分组与换行)
  * [注意事项](#注意事项)
- * [示例](#示例)
- * [算法](#算法)
 
 ##标志位
-格式化标志位为format_flags_t型的常量，各标志位可由'|'连接组合，各标志位定义如下：
+格式化标志位为format_flags_t型的常量，各标志位可由'\|'连接组合，各标志位定义如下：
 |标志位|意义|
 |------|----|
 |UPPER_CASE| 用大写字母输出字符串，无此标志位则用小写字母|
@@ -49,10 +47,10 @@ cout << fmt.dump(a, 16, s) << endl;
 ```C++
 format_t fmt;
 fmt.set(UPPER_CASE | SHOW_POS | SHOW_LEADING);
-fmt.clear(SHOW_POS);
+fmt.clear(SHOW_POS); // 清除SHOW_POS标志位
 assert(fmt.get() == UPPER_CASE | SHOW_LEADING)
-fmt.clear_all();
-assert(fmt.get() == NO_FLAGS);
+fmt.set(NO_FLAGS);   // 清除所有标志位
+assert(fmt.get() == 0);
 ```
 
 ##构造函数
@@ -164,6 +162,8 @@ cout << fmt.dump(a, 16, s) << endl;
 可由set_line_separator设定行分隔符，默认为'\n'。
 
 ##前导字符
+可以按照惯例，在输出的字符串前加上“前导字符”以表示进制，如8进制为“0”，16进制为“0x”，可以用set_leading函数设定某进制的前导字符，也可以用get_leading函数获取某进制的前导字符：
+
 获取指定进制base的前导字符串，该字符串以'\0'结尾，如果无前导字符串则返回NULL  
 16进制的前导字符串默认为"0x"，2进制为"0b"，8进制为"0"
 ```C++
@@ -171,65 +171,41 @@ const char* get_leading(int base);
 ```
 
 将leading指定为进制base的前导字符串，一经设定，全局生效。  
-如果想删除某个进制的前导字符串，将leading置为NULL即可
+如果想删除某个进制的前导字符串，将leading置为NULL即可。
+注意！leading中不应存在任何空白符
 ```C++
 void set_leading(int base, const char* leading);
 ```
 
-##函数
-
-将大整数对象转为二进制字符串
+如果设定SHOW_LEADING标志位，则输出前导字符，否则不输出，如：
 ```C++
-string_t& number_t::to_bin_string(string_t& str) const;
+number_t a("1234567890");
+string_t s;
+set_leading(36, "b36:");
+
+format_t fmt(SHOW_LEADING);
+assert(fmt.dump(a, 36, s) == "b36:kf12oi");
+
+fmt.set(UPPER_CASE);
+assert(fmt.dump(a, 36, s) == "b36:KF12OI");
+
+fmt.set(UPPER_LEADING);
+assert(fmt.dump(a, 36, s) == "B36:KF12OI");
 ```
+注意，前导字符在mynum中是不区分大小写的，如果需要用大写字母显示前导字符，可以设置UPPER_LEADING标志位。
 
-将大整数对象转为八进制字符串
+对于有符号大整数对象，还存在一个问题，即符号应该显示在前导字符的左侧还是右侧，默认情况下mynum将符号显示在前导字符的左侧，可以通过设置SIGN_RIGHT_LEADING标志位，使符号显示在前导字符的右边，如：
 ```C++
-string_t& number_t::to_oct_string(string_t& str) const;
-```
+number_t a("-1234567890");
+string_t s;
+set_leading(36, "b36:");
 
-将大整数对象转为十进制字符串
-```C++
-string_t& number_t::to_dec_string(string_t& str) const;
-```
+format_t fmt(SHOW_LEADING);
+assert(fmt.dump(a, 36, s) == "-b36:kf12oi");
 
-将大整数对象转为十六进制字符串
-```C++
-string_t& number_t::to_hex_string(string_t& str) const;
-```
-
-将大整数对象转为base进制字符串
-```C++
-string_t& number_t::to_string(string_t& str, int base = 10) const;
-```
-
-返回string_t对象
-```C++
-string_t to_bin_string() const;
-string_t to_oct_string() const;
-string_t to_dec_string() const;
-string_t to_hex_string() const;
-string_t to_string(int base = 10) const;
-```
-
-括号被重载为字符串输出函数
-```C++
-string_t operator () (int base) const;
-```
-
-标准输出流运算符重载
-```C++
-std::ostream& operator << (std::ostream& os, const number_t& a)
+fmt.set(SIGN_RIGHT_LEADING);
+assert(fmt.dump(a, 36, s) == "b36:-kf12oi");
 ```
 
 ##注意事项
-为高效起见，number_t to_string系的成员函数不考虑格式化信息，如果需要一定的格式化请使用format_t类。
-
-set_leading函数设置进制的前导字符，设置后load、dump函数以及标准输入输出流均生效，但未引入任何线程安全性措施。
-
-##示例
-```C++
-
-```
-
-##算法
+前导字符为全局数据，设置后load、dump函数以及标准输入输出流均生效，但没有任何线程安全措施，故尽量不要某个线程中调用set_leading函数而在另一个线程中调用load、dump等函数。
