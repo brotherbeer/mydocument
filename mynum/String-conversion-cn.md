@@ -67,6 +67,7 @@ iloveyou
 ##算法
 
 1. 将一个计算单元转为base进制数（base∈[2, 36]）
+
 设u为一个计算单元，即0 <= u < BASE，相关定义请参见《[mynum的数据存储方式](https://github.com/brotherbeer/mydocument/blob/master/mynum/Storage-ch.md)》，将u转为base进制的数可由以下循环得出，其中d为整数数组，记录u转为base进制数后各位数值，i为整数
 ```C++
 for (i = 0; u != 0; i++)
@@ -75,10 +76,10 @@ for (i = 0; u != 0; i++)
 	u /= base;
 }
 ```
-设u转为base进制数后共n位，即u = d<sub>n-1</sub> \* base<sup>n-1</sup> + ... + d<sub>1</sub>\* base + d<sub>0</sub>  
-简记为：u =〈d<sub>n-1</sub>, ..., d<sub>1</sub>, d<sub>0</sub>〉<sub>base</sub>  
+设u转为base进制数后共n位，即u = d<sub>n-1</sub> \* base<sup>n-1</sup> + ... + d<sub>1</sub>\* base + d<sub>0</sub>，简记为：u =〈d<sub>n-1</sub>, ..., d<sub>1</sub>, d<sub>0</sub>〉<sub>base</sub>  
 
 2. 将两个计算单元转为base进制数（base∈[2, 36]）
+
 设u<sub>1</sub>、u<sub>2</sub>为两个计算单元，它们组成整数〈u<sub>1</sub>, u<sub>2</sub>〉<sub>BASE</sub>，此处讨论如何将该整数转为base进制数。
 根据1，可将u<sub>1</sub>转为〈d<sub>n-1</sub>, ..., d<sub>1</sub>, d<sub>0</sub>〉<sub>base</sub>
 
