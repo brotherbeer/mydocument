@@ -15,7 +15,7 @@ int load(number_t& a, const char* str, size_t length, int base = 0, const format
 int load(number_t& a, const string_t& str, int base = 0, const format_t* format = NULL);
 ```
 其中，base∈[0, 36]，当base为0或1时，根据字符串的“前导字符”判断进制，如0x或0X表示16进制，0b或0B表示2进制，0表示8进制，前导字符不区分大小写。  
-可用'-'表示负数，'-'可以在“前导字符”的左边也可以在其右边，
+可用'-'表示负数，'-'可以在“前导字符”的左边也可以在其右边。  
 与load函数相关的两个格式化标志位：
 
 |标志位|意义|
@@ -23,7 +23,7 @@ int load(number_t& a, const string_t& str, int base = 0, const format_t* format 
 |EMPTY_AS_ERROR| 存在此标志位时将空字符串视为错误字符串，否则视为0|
 |MULTISIGN_AS_ERROR| 将多负号或多正号视为错误|
 
-关于format_t、格式化标志位以及如何设置某进制的前导字符，详见《[大整数对象的格式化输出](https://github.com/brotherbeer/mydocument/blob/master/mynum/Formatted-output-ch.md)》
+关于format_t、格式化标志位以及如何设置某进制的前导字符，详见《[大整数对象转为格式化字符串](https://github.com/brotherbeer/mydocument/blob/master/mynum/Formatted-output-ch.md)》
 
 ##示例
 ```C++
