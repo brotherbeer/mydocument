@@ -2,7 +2,7 @@
 
 Mynum is a portable library for big integer arithmetic, it aims to provide convenience for the research of number theory，cryptology and other fields. [\[中文版\]](https://github.com/brotherbeer/mydocument/blob/master/mynum/README-ch.md)
 
-mynum is currently only available on the LITTLE-ENDIAN machines.
+Mynum is currently only available on the LITTLE-ENDIAN machines.
 
 Documents:
 

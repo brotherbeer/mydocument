@@ -1,6 +1,6 @@
 ![logo](https://github.com/brotherbeer/mydocument/blob/master/mynum/mynum-logo.png?raw=true)
 
-`mynum`是一个轻便的大数算法库，致力于为数论、密码学等研究提供便利。
+Mynum是一个轻便的大数算法库，致力于为数论、密码学等研究提供便利。
 
 文档：
 
@@ -21,23 +21,23 @@
  * [位运算](https://github.com/brotherbeer/mydocument/blob/master/mynum/Bitwise-operation-cn.md)
  * [其它](https://github.com/brotherbeer/mydocument/blob/master/mynum/Other-utils-cn.md)
 
-`mynum`的性能并不逊于GMP等名库太多，而其接口却简便得多，相比于java、python等语言的内置大数库，`mynum`在某些方面的效率甚至更高。
+Mynum的性能并不逊于GMP等名库太多，而其接口却简便得多，相比于java、python等语言的内置大数库，mynum在某些方面的效率甚至更高。
 
-作者希望`mynum`能够有用，但不作任何保证，并对`mynum`源码的传播与修改不作任何限制，如有疑问请联系 <brotherbeer@163.com>
+作者希望mynum能够有用，但不作任何保证，并对mynum源码的传播与修改不作任何限制，如有疑问请联系 <brotherbeer@163.com>
 
 [mynumheaderfile]: https://github.com/brotherbeer/mynum/blob/master/mynum.h
 [mynumcppfile]: https://github.com/brotherbeer/mynum/blob/master/mynum.cpp
 [myoperatorheaderfile]: https://github.com/brotherbeer/mynum/blob/master/operators.h
 [testcppfile]: https://github.com/brotherbeer/mynum/blob/master/test.cpp
 
-##Installation
+##安装与编译
 [mynum.h][mynumheaderfile]和[mynum.cpp][mynumcppfile] 是mynum的核心文件，其它文件为功能扩展。在项目中引入[mynum.h][mynumheaderfile]和[mynum.cpp][mynumcppfile]即可。
 
 [myoperators.h][myoperatorheaderfile] 重载了相关的C++运算符。
 
 [test.cpp][testcppfile]包含了测试用试。
 
-也可将`mynum`编译成动态库，如：
+也可将mynum编译成动态库，如：
 
 `g++ -fPIC -shared -O2 -DNDEBUG mynum.cpp -o mynum.so`
 
