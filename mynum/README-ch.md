@@ -1,15 +1,15 @@
 ![logo](https://github.com/brotherbeer/mydocument/blob/master/mynum/mynum-logo.png?raw=true)
 
-mynum 是一个轻便的大数算法库，致力于为数论、密码学等研究提供便利。
+`mynum`是一个轻便的大数算法库，致力于为数论、密码学等研究提供便利。
 
 文档：
 
- * [mynum的数据存储方式](https://github.com/brotherbeer/mydocument/blob/master/mynum/Storage-ch.md)
- * [大整数对象的初始化](https://github.com/brotherbeer/mydocument/blob/master/mynum/Initialization-ch.md)
- * [大整数对象转为字符串](https://github.com/brotherbeer/mydocument/blob/master/mynum/String-conversion-cn.md)
- * [大整数对象转为基本整型变量](https://github.com/brotherbeer/mydocument/blob/master/mynum/To-basic-integer-cn.md)
- * [格式化字符串转为大整数对象](https://github.com/brotherbeer/mydocument/blob/master/mynum/Formatted-input-ch.md)
- * [大整数对象转为格式化字符串](https://github.com/brotherbeer/mydocument/blob/master/mynum/Formatted-output-ch.md)
+ * [数据存储方式](https://github.com/brotherbeer/mydocument/blob/master/mynum/Storage-ch.md)
+ * [初始化](https://github.com/brotherbeer/mydocument/blob/master/mynum/Initialization-ch.md)
+ * [字符串转换](https://github.com/brotherbeer/mydocument/blob/master/mynum/String-conversion-cn.md)
+ * [整型变量转换](https://github.com/brotherbeer/mydocument/blob/master/mynum/To-basic-integer-cn.md)
+ * [格式化字符串转大整数](https://github.com/brotherbeer/mydocument/blob/master/mynum/Formatted-input-ch.md)
+ * [大整数转格式化字符串](https://github.com/brotherbeer/mydocument/blob/master/mynum/Formatted-output-ch.md)
  * [加法](https://github.com/brotherbeer/mydocument/blob/master/mynum/Addition-cn.md)
  * [减法](https://github.com/brotherbeer/mydocument/blob/master/mynum/Subtraction-cn.md)
  * [乘法](https://github.com/brotherbeer/mydocument/blob/master/mynum/Multiplication-cn.md)
@@ -21,9 +21,9 @@ mynum 是一个轻便的大数算法库，致力于为数论、密码学等研�
  * [位运算](https://github.com/brotherbeer/mydocument/blob/master/mynum/Bitwise-operation-cn.md)
  * [其它](https://github.com/brotherbeer/mydocument/blob/master/mynum/Other-utils-cn.md)
 
-mynum的性能并不逊于GMP等名库太多，而其接口却简便得多，相比于java、python等语言的内置大数库，mynum在某些方面的效率甚至更高。
+`mynum`的性能并不逊于GMP等名库太多，而其接口却简便得多，相比于java、python等语言的内置大数库，`mynum`在某些方面的效率甚至更高。
 
-作者希望mynum能够有用，但不作任何保证，并对mynum源码的传播与修改不作任何限制，如有疑问请联系 <brotherbeer@163.com>
+作者希望`mynum`能够有用，但不作任何保证，并对`mynum`源码的传播与修改不作任何限制，如有疑问请联系 <brotherbeer@163.com>
 
 [mynumheaderfile]: https://github.com/brotherbeer/mynum/blob/master/mynum.h
 [mynumcppfile]: https://github.com/brotherbeer/mynum/blob/master/mynum.cpp
@@ -37,7 +37,7 @@ mynum的性能并不逊于GMP等名库太多，而其接口却简便得多，相
 
 [test.cpp][testcppfile]包含了测试用试。
 
-也可将mynum编译成动态库，如：
+也可将`mynum`编译成动态库，如：
 
 `g++ -fPIC -shared -O2 -DNDEBUG mynum.cpp -o mynum.so`
 
