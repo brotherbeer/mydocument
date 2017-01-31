@@ -127,11 +127,11 @@ int check(const char* strbegin, const char* strend, int base);
 ```
 
 ##注意事项
-为了更高的效率，以字符串为参数的构造函数不接受'+'、任何空白符以及任何“前导字符”（如"0x"、"0b"），也不考虑字符串的格式是否正确。
+为了更高的效率，以字符串为参数的构造函数和赋值函数不接受'+'、任何空白符以及任何“前导字符”（如"0x"、"0b"），也不考虑字符串中的字符是否正确。
 如果字符串中有错误，那么对象的值也是错误的，但不至于让程序崩溃。可用check函数检查相关字符串是否正确，如果正确再进行初始化，如果可以保证用以初始化的字符串是正确的，则可省去检查的开销。
-对于构造函数而言，有效字符为[0-9a-zA-Z]，'a' 和'A'表示的值为10，'b'和'B'表示的值为11，…， 'z'和'Z'表示的值为35，如果一个字符表示的数值大于或等于指定的进制，大整数对象的值也将是错误的。
+对于构造函数和赋值函数而言，有效字符为[0-9a-zA-Z]，'a' 和'A'表示的值为10，'b'和'B'表示的值为11，…， 'z'和'Z'表示的值为35，如果一个字符表示的数值大于或等于指定的进制，大整数对象的值也将是错误的。
 
-当然，mynum可以处理具有复杂格式的字符串，如用load函数处理格式比较复杂的字符串，详见《[格式化字符串转为大整数对象](https://github.com/brotherbeer/mydocument/blob/master/mynum/Formatted-input-ch.md)》。
+当然，这只是构造函数和赋值函数的特性，mynum可以处理具有复杂格式的字符串，详见《[格式化字符串转为大整数对象](https://github.com/brotherbeer/mydocument/blob/master/mynum/Formatted-input-ch.md)》以及《[大整数对象转为格式化字符串](https://github.com/brotherbeer/mydocument/blob/master/mynum/Formatted-output-ch.md)》。
 
 用表示16进制数的字符串构造大整数对象时，时间复杂度最低。
 

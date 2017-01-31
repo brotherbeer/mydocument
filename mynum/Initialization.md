@@ -25,7 +25,7 @@ number_t::number_t(unsigned long long x);
 
 Construct a new big integer from _s_, a null-terminated C string in base _base_ (_base_ ∈ [2, 36]).
 The string may contain an optional minus sign to indicate its value is minus, and the chars are case insensitive.
-Any spaces or punctuations are not allowed.
+'+' and any spaces or punctuations are not allowed.
 ```C++
 number_t::number_t(const char* s, int base);
 ```
@@ -82,15 +82,25 @@ Copy from another object
 void copy(const number_t&);
 ```
 
+check whether _str_ is right for _base_  
+If right, return the length of _str_, otherwise return 0
+```C++
+int check(const char* str, int base);
+int check(const char* strbegin, const char* strend, int base);
+```
+
 ##Attentions
-In order to achieve a higher efficiency, when constructing from string, mynum does not consider any prefixes, such as "0x", "0b", and all the constructors donot detect any wrong char in the string parameter.
-If the string parameter is wrong, the value of the object is wrong too, but the program will not crash.
-The chars in the string parameter are only [0-9a-zA-Z], 'a' and 'A' mean 10, 'b' and 'B' mean 11, and so on, 'z' and 'Z' mean 35.
-If a digit denoted by a char is bigger than the specified base, the value of the big integer object is wrong. 
+To achieve a higher efficiency, when constructing or assigning from a string, the constructors and the assignment functions do not consider '+' and any prefixes, such as "0x", "0b", and do not detect any wrong char in the string argument.
+If the string argument is wrong, the value of the object is wrong too, but the program will not crash.
+The legal chars in the string argument are only [0-9a-zA-Z], 'a' and 'A' mean 10, 'b' and 'B' mean 11, and so on, 'z' and 'Z' mean 35.
+If a digit denoted by a char is equal to or bigger than the specified base, the value of the big integer object is wrong. 
 
-When using a string that denotes a hexadecimal intger, the efficiency is the highest.
+Of course, this is just a feature of the constructors and the assignment functions, mynum can handle strings with complex formats, see [\[Formatted string to big integer\]](https://github.com/brotherbeer/mydocument/blob/master/mynum/Formatted-input.md)
+ and [\[Big integer to formatted string\]](https://github.com/brotherbeer/mydocument/blob/master/mynum/Formatted-output.md)
 
-copy(const number_t&) and assign(const number_t&) are not the same, the 'assign' only sets the value of another object to *this, the 'copy' not only copies the value but also allocate the same memory as the object specified.
+When using a string that denotes a hexadecimal intger, the time complexity is the lowest.
+
+`copy(const number_t` and `assign(const number_t&)` are not the same, `assign` only sets the value of another object to *this, `copy` not only copies the value but also allocate the same memory as the object specified.
 
 ##Examples
 ```C++
@@ -109,8 +119,8 @@ number_t y("1,234,567", 8);   // ',' and other punctuations are not acceptable
 number_t z("1 234 567", 8);   // the blank spaces are not acceptable
 ```
 
-If you want to test the correctness of the string, you can use the 'check' function, for example:
-The function 'check' returns the string length if the string is right, or 0 if the string is wrong.
+If you want to test the correctness of the string, you can use the `check` function, for example:
+The `check` function returns the string length if the string is right, or 0 if the string is wrong.
 ```C++
 const char* s = "1234567890";
 assert(check(s, 10) > 0);     // if s denotes a decimal number, then s is correct
@@ -119,7 +129,7 @@ assert(check(s, 8) == 0);     // if s denotes an octal number, then s is wrong
 
 ##Algorithms
 
-For the BASE, MASK and other constants, see the previous chapter [The data storage model of mynum](https://github.com/brotherbeer/mydocument/blob/master/mynum/Storage.md).
+For the `BASE`, `MASK` and other constants, see the previous chapter [Data storage model](https://github.com/brotherbeer/mydocument/blob/master/mynum/Storage.md).
 
 ###Construct a big integer object form a string
 
@@ -156,7 +166,7 @@ number_t::construct_from_string(const char* s, int b)
 }
 ```
 In the for loop, when _i_ is 0, set the value of _o_ to _S[0]_, when _i_ > 0, use the mul_unit to multiply _o_by _b_, and use add_unit to add _o_ with _S[i]_
-About mul_unit and add_unit see previous chapter [The data storage model of mynum](https://github.com/brotherbeer/mydocument/blob/master/mynum/Storage.md).
+About mul_unit and add_unit see previous chapter [Data storage model](https://github.com/brotherbeer/mydocument/blob/master/mynum/Storage.md).
 
 So far, the principle of converting strings to number_t objects has been described, but the efficiency can be improved.
 

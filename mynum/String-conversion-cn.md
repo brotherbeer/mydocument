@@ -1,46 +1,49 @@
 大整数对象转为字符串
 -------------
 
- * [相关成员函数](#相关成员函数)
+ * [number_t成员函数](#成员函数)
+ * [输出流运算符](#输出流运算符)
  * [注意事项](#注意事项)
  * [示例](#示例)
  * [算法](#算法)
 
-##相关成员函数
+##number_t成员函数
 
 按2进制转为字符串str
 ```C++
-string_t& number_t::to_bin_string(string_t& str) const;
+string_t& to_bin_string(string_t& str) const;
 ```
 按8进制转为字符串str
 ```C++
-string_t& number_t::to_oct_string(string_t& str) const;
+string_t& to_oct_string(string_t& str) const;
 ```
 按10进制转为字符串str
 ```C++
-string_t& number_t::to_dec_string(string_t& str) const;
+string_t& to_dec_string(string_t& str) const;
 ```
 按16进制转为字符串str
 ```C++
-string_t& number_t::to_hex_string(string_t& str) const;
+string_t& to_hex_string(string_t& str) const;
 ```
 按base进制转为字符串str
 ```C++
-string_t& number_t::to_string(string_t& str, int base = 10) const;
+string_t& to_string(string_t& str, int base = 10) const;
 ```
-按对象返回
+返回对象
 ```C++
-string_t number_t::to_bin_string() const;
-string_t number_t::to_oct_string() const;
-string_t number_t::to_dec_string() const;
-string_t number_t::to_hex_string() const;
-string_t number_t::to_string(int base = 10) const;
+string_t to_bin_string() const;
+string_t to_oct_string() const;
+string_t to_dec_string() const;
+string_t to_hex_string() const;
+string_t to_string(int base = 10) const;
 ```
 重载()，按base进制返回字符串对象
 ```C++
-string_t number_t::operator () (int base) const;
+string_t operator () (int base) const;
 ```
-重载<<
+
+##输出流运算符
+
 ```C++
 std::ostream& operator << (std::ostream& os, const number_t& a)
 ```

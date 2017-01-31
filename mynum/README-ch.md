@@ -16,7 +16,7 @@
  * [除法](https://github.com/brotherbeer/mydocument/blob/master/mynum/Division-cn.md)
  * [模运算](https://github.com/brotherbeer/mydocument/blob/master/mynum/Modulo-operation-cn.md)
  * [乘方](https://github.com/brotherbeer/mydocument/blob/master/mynum/Exponentiation-cn.md)
- * [幂取模](https://github.com/brotherbeer/mydocument/blob/master/mynum/Modular-Exponentiation-cn.md)
+ * [幂取模](https://github.com/brotherbeer/mydocument/blob/master/mynum/Modular-exponentiation-cn.md)
  * [比较](https://github.com/brotherbeer/mydocument/blob/master/mynum/Comparison-cn.md)
  * [位运算](https://github.com/brotherbeer/mydocument/blob/master/mynum/Bitwise-operation-cn.md)
  * [其它](https://github.com/brotherbeer/mydocument/blob/master/mynum/Other-utils-cn.md)

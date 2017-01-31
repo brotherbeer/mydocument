@@ -17,7 +17,7 @@ Set _a_ to its absolute value
 number_t& set_abs(number_t& a);
 ```
 
-Member functions
+成员函数
 ```C++
 number_t number_t::abs() const;
 number_t& number_t::set_abs();
