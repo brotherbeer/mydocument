@@ -72,9 +72,12 @@ iloveyou
 
 ##算法
 
-###将一个计算单元转为base进制数（base∈[2, 36]）
+根据前文，大整数对象的值相当于一个BASE进制的数，各计算单元的值即是其各位的值，将一个有n个单元(n>=0)的大整数对象转为任意指定的base进制数，即是将
+〈u<sub>n-1</sub>, ..., u<sub>1</sub>, u<sub>0</sub>〉<sub>BASE</sub>转为〈r<sub>m-1</sub>, ..., r<sub>1</sub>, r<sub>0</sub>〉<sub>base</sub>的过程，转换后的base进制数有m位，r<sub>i</sub>为其各位数值(0 <= i < m)。将r<sub>i</sub>依次转为字符串，大整数对象便转成了字符串。
 
-设u为一个计算单元，即0 <= u < BASE，相关定义请参见《[mynum的数据存储方式](https://github.com/brotherbeer/mydocument/blob/master/mynum/Storage-ch.md)》，将u转为base进制的数可由以下循环得出，其中d为一个数组，记录u转为base进制数后各位数值，i为数组下标：
+**当n为1时：**
+
+设u为一个计算单元，即0 <= u < BASE，将u转为base进制的数可由以下循环得出，其中d为一个数组，记录u转为base进制数后各位数值，i为数组下标：
 ```C++
 for (i = 0; u != 0; i++)
 {
@@ -82,24 +85,24 @@ for (i = 0; u != 0; i++)
 	u /= base;
 }
 ```
-设u转为base进制数后共n位，即u = d<sub>n-1</sub> \* base<sup>n-1</sup> + ... + d<sub>1</sub>\* base + d<sub>0</sub>，简记为：u =〈d<sub>n-1</sub>, ..., d<sub>1</sub>, d<sub>0</sub>〉<sub>base</sub>  
 
-###将两个计算单元转为base进制数
+**当n为2时：**
 
-设u<sub>1</sub>、u<sub>2</sub>为两个计算单元，它们组成整数〈u<sub>1</sub>, u<sub>2</sub>〉<sub>BASE</sub>，此处讨论如何将该整数转为base进制数。
-根据前面的结论，可将u<sub>1</sub>转为〈d<sub>n-1</sub>, ..., d<sub>1</sub>, d<sub>0</sub>〉<sub>base</sub>
+设u<sub>1</sub>、u<sub>2</sub>为两个计算单元，它们组成整数〈u<sub>1</sub>, u<sub>2</sub>〉<sub>BASE</sub>，
+根据上一步的结论，可将u<sub>1</sub>转为〈d<sub>n-1</sub>, ..., d<sub>1</sub>, d<sub>0</sub>〉<sub>base</sub>
 
-〈u<sub>1</sub>, u<sub>2</sub>〉<sub>BASE</sub> =〈d<sub>n-1</sub>, ..., d<sub>1</sub>, d<sub>0</sub>〉<sub>base</sub> * BASE + u<sub>2</sub>
+〈u<sub>1</sub>, u<sub>2</sub>〉<sub>BASE</sub> =〈d<sub>n-1</sub>, ..., d<sub>1</sub>, d<sub>0</sub>〉<sub>base</sub> * BASE + u<sub>2</sub> =〈d<sub>n-1</sub> \* BASE, ..., d<sub>1</sub> \* BASE, d<sub>0</sub> \* BASE + u<sub>2</sub>〉<sub>base</sub>
 
-设d<sub>0</sub> \* BASE + u<sub>2</sub> = q<sub>0</sub> \* base + r<sub>0</sub>，r<sub>0</sub> < base:
 
-〈u<sub>1</sub>, u<sub>2</sub>〉<sub>BASE</sub> =〈d<sub>n-1</sub> \* BASE, ..., d<sub>2</sub> \* BASE, d<sub>1</sub> \* BASE + q<sub>0</sub>, r<sub>0</sub>〉<sub>base</sub>
+设d<sub>0</sub> \* BASE + u<sub>2</sub> = q<sub>0</sub> \* base + r<sub>0</sub> (r<sub>0</sub> < base):
 
-设d<sub>1</sub> \* BASE + q<sub>0</sub> = q<sub>1</sub> \* base + r<sub>1</sub>，r<sub>1</sub> < base:
+〈u<sub>1</sub>, u<sub>2</sub>〉<sub>BASE</sub> = 〈d<sub>n-1</sub> \* BASE, ..., d<sub>1</sub> \* BASE, q<sub>0</sub> \* base + r<sub>0</sub>〉<sub>base</sub> =〈d<sub>n-1</sub> \* BASE, ..., d<sub>2</sub> \* BASE, d<sub>1</sub> \* BASE + q<sub>0</sub>, r<sub>0</sub>〉<sub>base</sub>
+
+设d<sub>1</sub> \* BASE + q<sub>0</sub> = q<sub>1</sub> \* base + r<sub>1</sub> (r<sub>1</sub> < base):
 
 〈u<sub>1</sub>, u<sub>2</sub>〉<sub>BASE</sub> =〈d<sub>n-1</sub> \* BASE, ..., d<sub>2</sub> \* BASE + q<sub>1</sub>, r<sub>1</sub>, r<sub>0</sub>〉<sub>base</sub>
 
-显然，利用相同的方法令d<sub>i</sub> \* BASE + q<sub>i-1</sub> = q<sub>i</sub> \* base + r<sub>i</sub>，即q<sub>i</sub> = (d<sub>i</sub> \* BASE + q<sub>i-1</sub>)/base, r<sub>i</sub> = (d<sub>i</sub> \* BASE + q<sub>i-1</sub>)%base，i >= 1，可得：
+显然，利用相同的方法令d<sub>i</sub> \* BASE + q<sub>i-1</sub> = q<sub>i</sub> \* base + r<sub>i</sub>，即q<sub>i</sub> = (d<sub>i</sub> \* BASE + q<sub>i-1</sub>) / base, r<sub>i</sub> = (d<sub>i</sub> \* BASE + q<sub>i-1</sub>) % base，i >= 1，可得：
 
 〈u<sub>1</sub>, u<sub>2</sub>〉<sub>BASE</sub> =〈q<sub>n</sub>, r<sub>n-1</sub>, ..., r<sub>1</sub>, r<sub>0</sub>〉<sub>base</sub>
 
@@ -115,8 +118,3 @@ for (i = 0; u != 0; i++)
 由于16进制的特殊性，每一个字节的数值可由两个字符表示，所以如果将大整数对象按16进制转为字符串不需要前面提到的迭代过程和除法运算，在O(n)时间复杂度内可完成转换。
 
 注：mynum参考了Donald Knuth的有关论述，完成了上述算法。
-
-
-
-
-

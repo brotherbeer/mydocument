@@ -5,6 +5,8 @@
 
  * [number_t构造函数](#number_t构造函数)
  * [number_t赋值函数](#number_t赋值函数)
+ * [number_t内存相关函数](#number_t内存相关函数)
+ * [字符串格式检查](#字符串格式检查)
  * [注意事项](#注意事项)
  * [示例](#示例)
  * [算法](#算法)
@@ -16,7 +18,7 @@
 number_t::number_t();
 ```
 
-用基本整数类型的变量构造大整数对象
+用基本整数类型的变量构造大整数对象，对象的值与其参数的值相同
 ```C++
 number_t::number_t(int x);
 number_t::number_t(long x);
@@ -98,6 +100,26 @@ std::istream& operator >> (std::istream& is, number_t& a)
 void copy(const number_t&);
 ```
 
+##number_t内存相关函数
+将对象的值清零，但其占有的内存空间不变
+```C++
+void clear();
+```
+彻底清除对象占有的全部内存，清除后对象的值为0
+```C++
+void release();
+```
+设定对象占有units个计算单元，当units小于当前单元个数时不生效
+```
+void reserve(size_t units);
+```
+将对象的值清零，再设定对象占有的单元个数，当units小于当前单元个数时只清零
+```
+void clear_and_reserve(size_t units);
+```
+
+##字符串格式检查
+
 检查字符串格式是否正确，可以与构造函数或assign函数配合使用
 ```C++
 int check(const char* str, int base);
@@ -107,7 +129,7 @@ int check(const char* strbegin, const char* strend, int base);
 ##注意事项
 为了更高的效率，以字符串为参数的构造函数不接受任何空白符以及任何“前导字符”（如"0x"、"0b"），也不考虑字符串的格式是否正确。
 如果字符串中有错误，那么对象的值也是错误的，但不至于让程序崩溃。可用check函数检查相关字符串是否正确，如果正确再进行初始化，如果可以保证用以初始化的字符串是正确的，则可省去检查的开销。
-对于构造函数而言，有效字符为[0-9a-zA-Z]，'a' 和'A'表示的值为10，'b'和'B'表示的值为11，…， 'z'和'Z'表示的值为35，如果一个字符表示的数值大于指定的进制，大整数对象的值也将是错误的。
+对于构造函数而言，有效字符为[0-9a-zA-Z]，'a' 和'A'表示的值为10，'b'和'B'表示的值为11，…， 'z'和'Z'表示的值为35，如果一个字符表示的数值大于或等于指定的进制，大整数对象的值也将是错误的。
 
 当然，mynum可以处理具有复杂格式的字符串，如用load函数处理格式比较复杂的字符串，详见《[格式化字符串转为大整数对象](https://github.com/brotherbeer/mydocument/blob/master/mynum/Formatted-input-ch.md)》。
 
@@ -229,7 +251,7 @@ number_t::construct_from_hex_string(const char* s)
 
 ###用基本类型的变量构造对象
 
-可以通过某个基本整数类型的变量v（如int、long等），构造一个number_t对象o，o与v的值相同。
+可以通过某个基本整数类型的变量v（如int、long等），构造一个number_t对象o，o的值与v的值相等。
 
 因为o以二进制方式存储数据，所以在初始化时可以直接分配大于或等于sizeof(v)的内存，然后再将v的值复制过来。
 
@@ -237,5 +259,5 @@ number_t::construct_from_hex_string(const char* s)
 
 高址的3个单元为0，是无效的，number_t成员变量len只表示有效单元的个数，所以o中的len应为1，而不是4。
 
-这种高址上的0单元在mynum中被称为『前导零』，前导零的数量不应计入len中。
+这种高地址上的0单元在mynum中被称为『前导零』，前导零的数量不应计入len中。
 
