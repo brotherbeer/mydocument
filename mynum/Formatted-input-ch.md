@@ -15,7 +15,7 @@ int load(number_t& a, const char* str, size_t length, int base = 0, const format
 int load(number_t& a, const string_t& str, int base = 0, const format_t* format = NULL);
 ```
 其中，base∈[0, 36]，当base为0或1时，根据字符串的“前导字符”判断进制，如0x或0X表示16进制，0b或0B表示2进制，0表示8进制，前导字符不区分大小写。  
-可用'-'表示负数，'-'可以在“前导字符”的左边也可以在其右边。  
+可用'-'表示负数，'-'可以在“前导字符”的左边也可以在其右边。'+'是可接受的，表示正数。  
 与load函数相关的两个格式化标志位：
 
 |标志位|意义|

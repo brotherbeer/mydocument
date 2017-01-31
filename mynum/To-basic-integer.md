@@ -1,13 +1,13 @@
-大整数对象转为基本整型变量
+Big integer to ordinary integer
 -------------
 
- * [相关成员函数](#相关成员函数)
- * [注意事项](#注意事项)
- * [示例](#示例)
+ * [Member functions](#member-functions)
+ * [Attentions](#attentions)
+ * [Examples](#examples)
 
-##相关成员函数
+##Member functions
 
-判断对象的值是否在指定的基本整型范围内
+Determines whether the value of the object is within the range of the ordinary integer type
 ```C++
 bool number_t::in_range_char() const;
 bool number_t::in_range_short() const;
@@ -23,7 +23,7 @@ bool number_t::in_range_word() const;
 bool number_t::in_range_sword() const;
 ```
 
-将对象的值转为相应基本整型变量
+Convert the value of the object to the ordinary integer
 ```C++
 char number_t::to_char() const;
 short number_t::to_short() const;
@@ -37,7 +37,7 @@ unsigned long number_t::to_ulong() const;
 unsigned long long number_t::to_ulonglong() const;
 ```
 
-类型转换运算符重载
+operators:
 ```C++
 operator bool () const;
 bool operator ! () const;
@@ -53,24 +53,24 @@ operator unsigned long () const;
 operator unsigned long long () const;
 ```
 
-##注意事项
-将大整数对象转为基本整型变量之前应先判断其值是否在相应基本整型的范围内，如果不在该范围内，转化后的值为不正确的值。  
-另外，值为负时，不算入相应无符号类型的范围内，如-1不在unsigned int范围内，-2不在unsigned long范围内。  
-各类型范围：
+##Attentions
+Before the conversion, you should determine whether the value of the object is within the range of the specified ordinary integer type, otherwise, the value of the ordinary integer converted maybe wrong.
+
+The ranges of the ordinary integer types：
 
 |char| [-128, 127]|
 |short| [-32768, 32767]|
 |int| [-2147483648, 2147483647]|
-|long| 由编译器决定|
+|long| decided by the compilers |
 |long long| [-9223372036854775808, 9223372036854775807] |
 |unsigned char| [0, 255]|
 |unsigned short|[0, 65535]|
 |unsigned int| [0, 4294967295] |
-|unsigned long| 由编译器决定|
+|unsigned long| decided by the compilers |
 |unsigned long long| [0, 18446744073709551615] |
-其中，long/unsigned long型的范围由编译器决定，gcc编译环境中与long long/unsigned long long相同，MSVC环境中与int/unsigned int相同。
+The range of long/unsigned long are decided by the compilers, in gcc, are the same as long long/unsigned long long, in MSVC, are the same as int/unsigned int.
 
-##示例
+##Examples
 ```C++
 number_t a(0xffffffff), b(-1);
 if (a.in_range_int()) cout << a.to_int() << endl;
@@ -78,7 +78,7 @@ if (a.in_range_uint()) cout << a.to_uint() << endl;
 if (b.in_range_int()) cout << a.to_int() << endl;
 if (b.in_range_uint()) cout << a.to_uint() << endl;
 ```
-输出：
+Output：
 ```
 4294967295
 -1

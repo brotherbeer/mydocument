@@ -29,3 +29,8 @@ Return the string_t object, which is in base _base_
 ```C++
 string_t number_t::operator () (int base) const;
 ```
+
+<< overloaded
+```C++
+std::ostream& operator << (std::ostream& os, const number_t& a)
+```

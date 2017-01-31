@@ -72,12 +72,12 @@ iloveyou
 
 ##算法
 
-根据前文，大整数对象的值相当于一个BASE进制的数，各计算单元的值即是其各位的值，将一个有n个单元(n>=0)的大整数对象转为任意指定的base进制数，即是将
-〈u<sub>n-1</sub>, ..., u<sub>1</sub>, u<sub>0</sub>〉<sub>BASE</sub>转为〈r<sub>m-1</sub>, ..., r<sub>1</sub>, r<sub>0</sub>〉<sub>base</sub>的过程，转换后的base进制数有m位，r<sub>i</sub>为其各位数值(0 <= i < m)。将r<sub>i</sub>依次转为字符串，大整数对象便转成了字符串。
+根据前文，大整数对象的值相当于一个BASE进制的数，各计算单元的值即是其各位的值，将一个有n个单元(n>=0)的大整数对象转为任意进制数，即是将
+〈u<sub>n-1</sub>, ..., u<sub>1</sub>, u<sub>0</sub>〉<sub>BASE</sub>转为〈r<sub>m-1</sub>, ..., r<sub>1</sub>, r<sub>0</sub>〉<sub>base</sub>的过程，base为任意进制，转换后的base进制数有m位，r<sub>i</sub>为其各位数值(0 <= i < m)。将r<sub>i</sub>依次转为字符串，大整数对象便转成了字符串。
 
 **当n为1时：**
 
-设u为一个计算单元，即0 <= u < BASE，将u转为base进制的数可由以下循环得出，其中d为一个数组，记录u转为base进制数后各位数值，i为数组下标：
+设u为一个计算单元，即0 <= u < BASE，将u转为base进制数可由以下循环完成，其中d为一个数组，记录u转为base进制数后各位数值，i为数组元素下标：
 ```C++
 for (i = 0; u != 0; i++)
 {
@@ -108,7 +108,7 @@ for (i = 0; u != 0; i++)
 
 其中d<sub>i</sub> \* BASE + q<sub>i-1</sub>的结果为一个dunit_t型变量，其高位设为d<sub>i</sub>，低位设为q<sub>i-1</sub>即可，无需乘法和加法计算。
 
-如果q<sub>n</sub> >= base，则令q<sub>n</sub> =〈r<sub>m-1</sub>, ..., r<sub>n</sub>〉<sub>base</sub>
+如果q<sub>n</sub> >= base，与n为1时相似，将q<sub>n</sub>转为base进制的序列〈r<sub>m-1</sub>, ..., r<sub>n</sub>〉<sub>base</sub>
 
 即完成了将〈u<sub>1</sub>, u<sub>2</sub>〉<sub>BASE</sub>转成〈r<sub>m-1</sub>, ..., r<sub>1</sub>, r<sub>0</sub>〉<sub>base</sub>的过程。
 
