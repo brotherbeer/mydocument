@@ -31,11 +31,11 @@ Mynum的性能并不逊于GMP等名库太多，而其接口却简便得多，相
 [testcppfile]: https://github.com/brotherbeer/mynum/blob/master/test.cpp
 
 ##安装与编译
-[mynum.h][mynumheaderfile]和[mynum.cpp][mynumcppfile] 是mynum的核心文件，其它文件为功能扩展。在项目中引入[mynum.h][mynumheaderfile]和[mynum.cpp][mynumcppfile]即可。
+[mynum.h][mynumheaderfile]和[mynum.cpp][mynumcppfile] 是mynum的核心文件，其它文件为功能扩展。在你的项目中引入[mynum.h][mynumheaderfile]和[mynum.cpp][mynumcppfile]即可。
 
 [myoperators.h][myoperatorheaderfile] 重载了相关的C++运算符。
 
-[test.cpp][testcppfile]包含了测试用试。
+[test.cpp][testcppfile]中为测试用例。
 
 也可将mynum编译成动态库，如：
 
