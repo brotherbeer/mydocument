@@ -89,32 +89,36 @@ for (i = 0; u != 0; i++)
 **当n为2时：**
 
 设u<sub>1</sub>、u<sub>2</sub>为两个计算单元，它们组成整数〈u<sub>1</sub>, u<sub>2</sub>〉<sub>BASE</sub>，
-根据上一步的结论，可将u<sub>1</sub>转为〈d<sub>n-1</sub>, ..., d<sub>1</sub>, d<sub>0</sub>〉<sub>base</sub>
+根据上一步的结论，可先将u<sub>1</sub>转为base进制数，设其有k位，即〈d<sub>k</sub>, ..., d<sub>1</sub>, d<sub>0</sub>〉<sub>base</sub>
 
-〈u<sub>1</sub>, u<sub>2</sub>〉<sub>BASE</sub> =〈d<sub>n-1</sub>, ..., d<sub>1</sub>, d<sub>0</sub>〉<sub>base</sub> * BASE + u<sub>2</sub> =〈d<sub>n-1</sub> \* BASE, ..., d<sub>1</sub> \* BASE, d<sub>0</sub> \* BASE + u<sub>2</sub>〉<sub>base</sub>
+〈u<sub>1</sub>, u<sub>2</sub>〉<sub>BASE</sub> =〈d<sub>k</sub>, ..., d<sub>1</sub>, d<sub>0</sub>〉<sub>base</sub> * BASE + u<sub>2</sub> =〈d<sub>k</sub> \* BASE, ..., d<sub>1</sub> \* BASE, d<sub>0</sub> \* BASE + u<sub>2</sub>〉<sub>base</sub>
 
 
-设d<sub>0</sub> \* BASE + u<sub>2</sub> = q<sub>0</sub> \* base + r<sub>0</sub> (r<sub>0</sub> < base):
+设d<sub>0</sub> \* BASE + u<sub>2</sub> = q<sub>0</sub> \* base + r<sub>0</sub>，r<sub>0</sub> < base:
 
-〈u<sub>1</sub>, u<sub>2</sub>〉<sub>BASE</sub> = 〈d<sub>n-1</sub> \* BASE, ..., d<sub>1</sub> \* BASE, q<sub>0</sub> \* base + r<sub>0</sub>〉<sub>base</sub> =〈d<sub>n-1</sub> \* BASE, ..., d<sub>2</sub> \* BASE, d<sub>1</sub> \* BASE + q<sub>0</sub>, r<sub>0</sub>〉<sub>base</sub>
+〈u<sub>1</sub>, u<sub>2</sub>〉<sub>BASE</sub> = 〈d<sub>k</sub> \* BASE, ..., d<sub>1</sub> \* BASE, q<sub>0</sub> \* base + r<sub>0</sub>〉<sub>base</sub> =〈d<sub>k</sub> \* BASE, ..., d<sub>2</sub> \* BASE, d<sub>1</sub> \* BASE + q<sub>0</sub>, r<sub>0</sub>〉<sub>base</sub>
 
-设d<sub>1</sub> \* BASE + q<sub>0</sub> = q<sub>1</sub> \* base + r<sub>1</sub> (r<sub>1</sub> < base):
+设d<sub>1</sub> \* BASE + q<sub>0</sub> = q<sub>1</sub> \* base + r<sub>1</sub>，r<sub>1</sub> < base:
 
-〈u<sub>1</sub>, u<sub>2</sub>〉<sub>BASE</sub> =〈d<sub>n-1</sub> \* BASE, ..., d<sub>2</sub> \* BASE + q<sub>1</sub>, r<sub>1</sub>, r<sub>0</sub>〉<sub>base</sub>
+〈u<sub>1</sub>, u<sub>2</sub>〉<sub>BASE</sub> =〈d<sub>k</sub> \* BASE, ..., d<sub>2</sub> \* BASE + q<sub>1</sub>, r<sub>1</sub>, r<sub>0</sub>〉<sub>base</sub>
 
 显然，利用相同的方法令d<sub>i</sub> \* BASE + q<sub>i-1</sub> = q<sub>i</sub> \* base + r<sub>i</sub>，即q<sub>i</sub> = (d<sub>i</sub> \* BASE + q<sub>i-1</sub>) / base, r<sub>i</sub> = (d<sub>i</sub> \* BASE + q<sub>i-1</sub>) % base，i >= 1，可得：
 
 〈u<sub>1</sub>, u<sub>2</sub>〉<sub>BASE</sub> =〈q<sub>n</sub>, r<sub>n-1</sub>, ..., r<sub>1</sub>, r<sub>0</sub>〉<sub>base</sub>
 
-令q<sub>n</sub> =〈r<sub>m</sub>, ..., r<sub>n</sub>〉<sub>base</sub> (m >= n)
+其中d<sub>i</sub> \* BASE + q<sub>i-1</sub>的结果为一个dunit_t型变量，其高位设为d<sub>i</sub>，低位设为q<sub>i-1</sub>即可，无需乘法和加法计算。
 
-即完成了将〈u<sub>1</sub>, u<sub>2</sub>〉<sub>BASE</sub>转成〈r<sub>m</sub>, ..., r<sub>1</sub>, r<sub>0</sub>〉<sub>base</sub>的过程。
+如果q<sub>n</sub> >= base，则令q<sub>n</sub> =〈r<sub>m-1</sub>, ..., r<sub>n</sub>〉<sub>base</sub>
 
-###将大整数对象转为base进制数
+即完成了将〈u<sub>1</sub>, u<sub>2</sub>〉<sub>BASE</sub>转成〈r<sub>m-1</sub>, ..., r<sub>1</sub>, r<sub>0</sub>〉<sub>base</sub>的过程。
+
+**当n > 2时：**
 
 设大整数对象的值为〈u<sub>n-1</sub>, ...u<sub>1</sub>, u<sub>0</sub>〉，结合前面的讨论，可以先将u<sub>n-1</sub>转成base进制数，再将〈u<sub>n-1</sub>, ...u<sub>n-2</sub>〉转成base进制数，最终将〈u<sub>n-1</sub>, ...u<sub>1</sub>, u<sub>0</sub>〉转为base进制数。显然该算法的时间复杂度为O(n<sup>2</sup>)，n与计算单元的数量有关。
 
-###将大整数对象转为16进制数
+大整数对象转任意进制数的讨论至此完毕。
+
+**将大整数对象转为16进制数**
 由于16进制的特殊性，每一个字节的数值可由两个字符表示，所以如果将大整数对象按16进制转为字符串不需要前面提到的迭代过程和除法运算，在O(n)时间复杂度内可完成转换。
 
 注：mynum参考了Donald Knuth的有关论述，完成了上述算法。
