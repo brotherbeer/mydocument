@@ -3,13 +3,23 @@
 
 ##Functions
 
-Set a / b to q, and a % b to r. If b is 0, the functions return 0, otherwise return 1
+Set _a_ / _b_ to _q_, and _a_ % _b_ to _r_. If _b_ is 0, the functions return 0, otherwise return 1
 ```C++
 int div(const number_t& a, const number_t& b, number_t& q, number_t& r);
 int div(const number_t& a, const number_t& b, number_t& q);
 ```
 
-Set a / x to res
+Set _a_ / _x_ to _res_, if the divisor _x_ is small and can be hold by `unit_t`, return the remainder
+```C++
+unit_t div_unit(const number_t& a, unit_t x, number_t& res);
+```
+
+_udm_ is the reciprocal of the divisor, use multiplication to do the division, return the remainder
+```C++
+unit_t div_unit(const number_t& a, const UDM& udm, number_t& res);
+```
+
+Set _a_ / _x_ to _res_ (_x_ is an ordinary integer)
 ```C++
 void div(const number_t& a, int x, number_t& res);
 void div(const number_t& a, unsigned int x, number_t& res);
@@ -19,7 +29,7 @@ void div(const number_t& a, long long x, number_t& res);
 void div(const number_t& a, unsigned long long x, number_t& res);
 ```
 
-Set x / b to res
+Set _x_ / _b_ to _res_ (_x_ is an ordinary integer)
 ```C++
 void div(int x, const number_t& b, number_t& res);
 void div(unsigned int x, const number_t& b, number_t& res);
@@ -29,20 +39,24 @@ void div(long long x, const number_t& b, number_t& res);
 void div(unsigned long long x, const number_t& b, number_t& res);
 ```
 
-Return a / b
+Return _a_ / _b_
 ```C++
 number_t div(const number_t& a, const number_t& b);
 ```
 
 ##Member functions
 
-Divide *this by o, r is the remainder
+Divide _*this_ by another number_t object _x_, _r_ is the remainder
 ```C++
-number_t& number_t::div(const number_t& o);
-number_t& number_t::div(const number_t& o, number_t& r);
+number_t& number_t::div(const number_t& x);
+number_t& number_t::div(const number_t& x, number_t& r);
 ```
-
-Divide *this by x (a basic type variable)
+Divide _*this_ by _x_ (_x_ is an unit)
+```
+unit_t number_t::div_unit(unit_t x);
+unit_t number_t::div_unit(const UDM& x);
+```
+Divide _*this_ by _x_ (_x_ is an ordinary integer)
 ```C++
 number_t& number_t::div_ui(word_t x);
 number_t& number_t::div_si(sword_t x);
@@ -92,5 +106,4 @@ number_t operator / (unsigned long long a, const number_t& b);
 
 ##Attentions
 
-If the divisor is zero, mynum will not do the calculation, so you would better check the divisor before call the division functions.
-
+如果除数为0，将不做任何计算，所以你最好在做除法之前检查除数是否为0

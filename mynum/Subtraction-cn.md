@@ -3,12 +3,17 @@
 
 ##Functions
 
-Set res to a - b
+Set _res_ to _a_ - _b_
 ```C++
 void sub(const number_t& a, const number_t& b, number_t& res);
 ```
 
-Set res to a - x (x is a basic type variable)
+Set _res_ to _a_ - _x_, _x_ is an unit.
+```C++
+void sub_unit(const number_t& a, unit_t x, number_t& res);
+```
+
+Set _res_ to _a_ - _x_ (_x_ is an ordinary integer)
 ```C++
 void sub(const number_t& a, int x, number_t& res);
 void sub(const number_t& a, unsigned int x, number_t& res);
@@ -18,7 +23,7 @@ void sub(const number_t& a, long long x, number_t& res);
 void sub(const number_t& a, unsigned long long x, number_t& res);
 ```
 
-Set res to x - b (x is a basic type variable)
+Set _res_ to _x_ - _b_ (_x_ is an ordinary integer)
 ```C++
 void sub(int x, const number_t& b, number_t& res);
 void sub(unsigned int x, const number_t& b, number_t& res);
@@ -27,19 +32,27 @@ void sub(unsigned long x, const number_t& b, number_t& res);
 void sub(long long x, const number_t& b, number_t& res);
 void sub(unsigned long long x, const number_t& b, number_t& res);
 ```
-Return a - b
+Return _a_ - _b_
 ```C++
 number_t sub(const number_t& a, const number_t& b);
 ```
 
 ##Member functions
 
-Sub *this with o
+Sub _*this_ with another number_t object _x_
 ```C++
-number_t& sub(const number_t& o);
+number_t& sub(const number_t& x);
 ```
-
-Sub *this with a basic type variable
+Sub _*this_ with a unit
+```C++
+void number_t::sub_unit(unit_t x);
+```
+Sub _*this_ with a word type variable
+```C++
+number_t& number_t::sub_ui(word_t x);
+number_t& number_t::sub_si(sword_t x);
+```
+Sub _*this_ with an ordinary integer
 ```C++
 number_t& number_t::sub(int x);
 number_t& number_t::sub(unsigned int x);
@@ -47,10 +60,6 @@ number_t& number_t::sub(long x);
 number_t& number_t::sub(unsigned long x);
 number_t& number_t::sub(long long x);
 number_t& number_t::sub(unsigned long long x);
-
-number_t& number_t::sub_ui(word_t);
-number_t& number_t::sub_si(sword_t);
-number_t& number_t::sub_unit(unit_t);
 ```
 
 ##Operators overloaded

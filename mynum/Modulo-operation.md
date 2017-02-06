@@ -2,10 +2,19 @@ Modulo operation
 -------------
 
 ##Functions
-Set _r_ to _a_ % _b_,
+Set _res_ to _a_ % _b_,
 if b is zero, return 0, otherwise return 1
 ```C++
-int mod(const number_t& a, const number_t& b, number_t& r);
+int mod(const number_t& a, const number_t& b, number_t& res);
+```
+
+Set _res_ to _a_ % _x_, _x_ is an unit.
+```C++
+void mod_unit(const number_t& a, unit_t x, number_t& res);
+```
+_udm_ is the reciprocal of the divisor, use multiplication to do the division
+```C++
+void mod_unit(const number_t& a, const UDM& udm, number_t& res);
 ```
 
 Set _res_ to _a_ % _x_ (_x_ is a basic type variable)
@@ -34,8 +43,20 @@ number_t mod(const number_t& a, const number_t& b);
 ```
 
 ##Member Functions
+
 ```C++
 number_t& number_t::mod(const number_t&);
+```
+Return the absolute value of the remainder
+```C++
+unit_t number_t::absrem_unit(unit_t x) const;
+unit_t number_t::absrem_unit(const UDM& x) const;
+```
+```C++
+void number_t::mod_unit(unit_t);
+void number_t::mod_unit(const UDM&);
+```
+```C++
 number_t& number_t::mod_ui(word_t);
 number_t& number_t::mod_si(sword_t);
 number_t& number_t::mod(int x);
@@ -44,7 +65,6 @@ number_t& number_t::mod(long x);
 number_t& number_t::mod(unsigned long x);
 number_t& number_t::mod(long long x);
 number_t& number_t::mod(unsigned long long x);
-number_t& number_t::mod_unit(unit_t);
 ```
 
 ##Operators overloaded

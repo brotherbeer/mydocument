@@ -3,12 +3,17 @@
 
 ##Functions
 
-Set res to a + b
+Set _res_ to _a_ + _b_
 ```C++
 void add(const number_t& a, const number_t& b, number_t& res);
 ```
 
-Set res to a + x (x is a basic type variable)
+Set _res_ to _a_ + _x_, _x_ is an unit.
+```C++
+void add_unit(const number_t& a, unit_t x, number_t& res);
+```
+
+Set _res_ to _a_ + _x_ (_x_ is an ordinary integer)
 ```C++
 void add(const number_t& a, int x, number_t& res);
 void add(const number_t& a, unsigned int x, number_t& res);
@@ -18,7 +23,7 @@ void add(const number_t& a, long long x, number_t& res);
 void add(const number_t& a, unsigned long long x, number_t& res);
 ```
 
-Set res to x + b (x is a basic type variable)
+Set _res_ to _x_ + _b_ (_x_ is an ordinary integer)
 ```C++
 void add(int x, const number_t& b, number_t& res);
 void add(unsigned int x, const number_t& b, number_t& res);
@@ -28,19 +33,27 @@ void add(long long x, const number_t& b, number_t& res);
 void add(unsigned long long x, const number_t& b, number_t& res);
 ```
 
-Return a + b
+Return _a_ + _b_
 ```C++
 number_t add(const number_t& a, const number_t& b);
 ```
 
 ##Member functions
 
-Add *this with o
+Add _*this_ with another number_t object _x_
 ```C++
-number_t& number_t::add(const number_t& o);
+number_t& number_t::add(const number_t& _x_);
 ```
-
-Add *this with a basic type variable
+Add _*this_ with a unit
+```C++
+void number_t::add_unit(unit_t);
+```
+Add _*this_ with a word type variable
+```C++
+number_t& number_t::add_ui(word_t x);
+number_t& number_t::add_si(sword_t x);
+```
+Add _*this_ with an ordinary integer
 ```C++
 number_t& number_t::add(int x);
 number_t& number_t::add(unsigned int x);
@@ -48,17 +61,6 @@ number_t& number_t::add(long x);
 number_t& number_t::add(unsigned long x);
 number_t& number_t::add(long long x);
 number_t& number_t::add(unsigned long long x);
-```
-
-Add *this with a word type variable
-```C++
-number_t& number_t::add_ui(word_t);
-number_t& number_t::add_si(sword_t);
-```
-
-Add *this with a unit
-```C++
-number_t& number_t::add_unit(unit_t);
 ```
 
 ##Operators overloaded

@@ -3,13 +3,18 @@
 
 ##Functions
 
-Set res to a * b. kmul uses Karatsuba algorithm
+Set _res_ to _a_ \* _b_. kmul uses Karatsuba algorithm
 ```C++
 void mul(const number_t& a, const number_t& b, number_t& res);
 void kmul(const number_t& a, const number_t& b, number_t& res);
 ```
 
-Set res to a * x (x is a basic type variable)
+Set _res_ to _a_ \* _x_, _x_ is an unit.
+```C++
+void mul_unit(const number_t& a, unit_t x, number_t& res);
+```
+
+Set _res_ to _a_ \* _x_ (_x_ is a basic type variable)
 ```C++
 void mul(const number_t& a, int x, number_t& res);
 void mul(const number_t& a, unsigned int x, number_t& res);
@@ -19,7 +24,7 @@ void mul(const number_t& a, long long x, number_t& res);
 void mul(const number_t& a, unsigned long long x, number_t& res);
 ```
 
-Set res to x * b (x is a basic type variable)
+Set _res_ to _x_ \* _b_ (_x_ is a basic type variable)
 ```C++
 void mul(int x, const number_t& b, number_t& res);
 void mul(unsigned int x, const number_t& b, number_t& res);
@@ -29,7 +34,7 @@ void mul(long long x, const number_t& b, number_t& res);
 void mul(unsigned long long x, const number_t& b, number_t& res);
 ```
 
-Return a * b
+Return _a_ \* _b_
 ```C++
 number_t mul(const number_t& a, const number_t& b);
 number_t kmul(const number_t& a, const number_t& b);
@@ -37,13 +42,21 @@ number_t kmul(const number_t& a, const number_t& b);
 
 ##Member functions
 
-Multiply *this by o
+Multiply _*this_ by another number_t object _x_
 ```C++
-number_t& number_t::mul(const number_t& o);
-number_t& number_t::kmul(const number_t& o);
+number_t& number_t::mul(const number_t& x);
+number_t& number_t::kmul(const number_t& x);
 ```
-
-Multiply *this by x (a basic type variable)
+Multiply _*this_ by an unit
+```C++
+void number_t::mul_unit(unit_t x);
+```
+Multiply _*this_ with a word type variable
+```C++
+number_t& number_t::mul_ui(word_t x);
+number_t& number_t::mul_si(sword_t x);
+```
+Multiply _*this_ by an ordinary integer
 ```C++
 number_t& number_t::mul(int x);
 number_t& number_t::mul(unsigned int x);
@@ -51,9 +64,6 @@ number_t& number_t::mul(long x);
 number_t& number_t::mul(unsigned long x);
 number_t& number_t::mul(long long x);
 number_t& number_t::mul(unsigned long long x);
-number_t& number_t::mul_ui(word_t x);
-number_t& number_t::mul_si(sword_t x);
-number_t& number_t::mul_unit(unit_t x);
 ```
 
 ##Operators overloaded

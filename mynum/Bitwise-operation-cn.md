@@ -91,6 +91,12 @@ void bit_xor(unsigned long x, const number_t& b, number_t& res);
 void bit_xor(long long x, const number_t& b, number_t& res);
 void bit_xor(unsigned long long x, const number_t& b, number_t& res);
 ```
+Bitwise operation with unit
+```C++
+void bit_and_unit(const number_t& a, unit_t x, number_t& res);
+void bit_or_unit(const number_t& a, unit_t x, number_t& res);
+void bit_xor_unit(const number_t& a, unit_t x, number_t& res);
+```
 
 Result as return value
 ```C++
@@ -106,7 +112,8 @@ number_t bit_not(const number_t& a);
 ```C++
 number_t& number_t::shr(size_t);
 number_t& number_t::shl(size_t);
-
+```
+```C++
 number_t& number_t::bit_or(const number_t&);
 number_t& number_t::bit_and(const number_t&);
 number_t& number_t::bit_xor(const number_t&);
@@ -117,7 +124,8 @@ number_t& number_t::bit_xor_ui(word_t);
 number_t& number_t::bit_and_si(sword_t);
 number_t& number_t::bit_or_si(sword_t);
 number_t& number_t::bit_xor_si(sword_t);
-
+```
+```C++
 number_t& number_t::bit_and(int x);
 number_t& number_t::bit_and(unsigned int x);
 number_t& number_t::bit_and(long x);
@@ -136,10 +144,11 @@ number_t& number_t::bit_xor(long x);
 number_t& number_t::bit_xor(unsigned long x);
 number_t& number_t::bit_xor(long long x);
 number_t& number_t::bit_xor(unsigned long long x);
-
-number_t& number_t::bit_and_unit(unit_t);
-number_t& number_t::bit_or_unit(unit_t);
-number_t& number_t::bit_xor_unit(unit_t);
+```
+```C++
+void number_t::bit_and_unit(unit_t);
+void number_t::bit_or_unit(unit_t);
+void number_t::bit_xor_unit(unit_t);
 ```
 
 ##Operators overloaded
