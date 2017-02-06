@@ -6,6 +6,7 @@ Mynum is currently only available on the LITTLE-ENDIAN machines.
 
 Documents:
 
+ * [Compilation](https://github.com/brotherbeer/mydocument/blob/master/mynum/compilation.md)
  * [Data storage model](https://github.com/brotherbeer/mydocument/blob/master/mynum/Storage.md)
  * [Initialization](https://github.com/brotherbeer/mydocument/blob/master/mynum/Initialization.md)
  * [String conversion](https://github.com/brotherbeer/mydocument/blob/master/mynum/String-conversion.md)
@@ -38,14 +39,16 @@ If you have any questions, please contact <brotherbeer@163.com>
 ##Installation
 [mynum.h][mynumheaderfile] and [mynum.cpp][mynumcppfile] are the essential files mynum required, and other files are the expansion of the core functions.
 
-Include [mynum.h][mynumheaderfile] and [mynum.cpp][mynumcppfile] into your project, and #include "mynum.h" in whichever file you need big integer operations.
+Include [mynum.h][mynumheaderfile] and [mynum.cpp][mynumcppfile] into your project, and `#include "mynum.h"` in whichever file you need big integer arithmetic, and the namespace is `mynum`.
 
-[myoperators.h][myoperatorheaderfile] overloaded the associated C++ operators, if you want to use the operators to do the calculations, please #include "myoperators.h"
+[myoperators.h][myoperatorheaderfile] overloaded the associated C++ operators, if you want to use the operators to do the calculations, please `#include "myoperators.h"`
 
 [test.cpp][testcppfile] contained the examples and test cases
 
-mynum can also be compiled into a dynamic library, for example:
+The source code is currently applicable to g++, MSVC(2008 and above versions), clang. see [\[the compilation\]](https://github.com/brotherbeer/mydocument/blob/master/mynum/compilation.md)
 
-`g++ -fPIC -shared -O2 -DNDEBUG mynum.cpp -o mynum.so`
-
-The source code is currently applicable to g++, MSVC(2008 and above versions).
+##Communication
+ * If you **need help**, my email is <brotherbeer@163.com>
+ * If you **found a bug**, *and can provide steps to reliably reproduce it*, open an issue.
+ * If you **have a feature request**, open an issue.
+ * If you **want to contribute**, submit a pull request.

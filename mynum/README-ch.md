@@ -4,6 +4,7 @@ Mynum是一个轻便的大数算法库，致力于为数论、密码学等研究
 
 文档：
 
+ * [编译](https://github.com/brotherbeer/mydocument/blob/master/mynum/compilation-cn.md)
  * [数据存储方式](https://github.com/brotherbeer/mydocument/blob/master/mynum/Storage-ch.md)
  * [初始化](https://github.com/brotherbeer/mydocument/blob/master/mynum/Initialization-ch.md)
  * [字符串转换](https://github.com/brotherbeer/mydocument/blob/master/mynum/String-conversion-cn.md)
@@ -31,14 +32,17 @@ Mynum的性能并不逊于GMP等名库太多，而其接口却简便得多，相
 [testcppfile]: https://github.com/brotherbeer/mynum/blob/master/test.cpp
 
 ##安装与编译
-[mynum.h][mynumheaderfile]和[mynum.cpp][mynumcppfile] 是mynum的核心文件，其它文件为功能扩展。在你的项目中引入[mynum.h][mynumheaderfile]和[mynum.cpp][mynumcppfile]即可。
+[mynum.h][mynumheaderfile]和[mynum.cpp][mynumcppfile] 是mynum的核心文件，其它文件为功能扩展。在你的项目中引入[mynum.h][mynumheaderfile]和[mynum.cpp][mynumcppfile]即可，命名空间即是mynum。
 
 [myoperators.h][myoperatorheaderfile] 重载了相关的C++运算符。
 
 [test.cpp][testcppfile]中为测试用例。
 
-也可将mynum编译成动态库，如：
+源码目前适用于g++、clang、MSVC(2008及以上版本)编译，请参见《[mynum的编译](https://github.com/brotherbeer/mydocument/blob/master/mynum/compilation-cn.md)》。
 
-`g++ -fPIC -shared -O2 -DNDEBUG mynum.cpp -o mynum.so`
+##联系方式
 
-源码目前适用于g++或MSVC(2008及以上版本)编译。
+ * 如果需要帮助，欢迎来信 <brotherbeer@163.com>
+ * 如果发现可复现的bug，请开启一个issue
+ * 如果需要添加新功能，请开启一个issue
+ * 如果想提交代码，可以提交一个pull request
