@@ -7,7 +7,7 @@ Big integer to ordinary integer
 
 ##Number_t members
 
-Determines whether the value of *this is within the range of the ordinary integer type
+Determine whether the value of _*this_ is within the range of the ordinary integer type
 ```C++
 bool in_range_char() const;
 bool in_range_short() const;
@@ -23,7 +23,7 @@ bool in_range_word() const;
 bool in_range_sword() const;
 ```
 
-Convert the value of the object to the ordinary integer
+Convert to the ordinary integer
 ```C++
 char to_char() const;
 short to_short() const;

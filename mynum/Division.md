@@ -1,7 +1,13 @@
 Division
 -------------
 
-##Functions
+ * [Global functions](#global-functions)
+ * [Number_t members](#number_t-members)
+ * [Operators overloaded](#operators-overloaded)
+ * [Do the division via multiplication](#do-the-division-via-multiplication)
+ * [Attentions](#attentions)
+
+##Global functions
 
 Set _a_ / _b_ to _q_, and _a_ % _b_ to _r_. If _b_ is 0, the functions return 0, otherwise return 1
 ```C++
@@ -44,29 +50,29 @@ Return _a_ / _b_
 number_t div(const number_t& a, const number_t& b);
 ```
 
-##Member functions
+##Number_t members
 
 Divide _*this_ by another number_t object _x_, _r_ is the remainder
 ```C++
-number_t& number_t::div(const number_t& x);
-number_t& number_t::div(const number_t& x, number_t& r);
+number_t& div(const number_t& x);
+number_t& div(const number_t& x, number_t& r);
 ```
 Divide _*this_ by _x_ (_x_ is an unit)
 ```
-unit_t number_t::div_unit(unit_t x);
-unit_t number_t::div_unit(const UDM& x);
+unit_t div_unit(unit_t x);
+unit_t div_unit(const UDM& x);
 ```
 Divide _*this_ by _x_ (_x_ is an ordinary integer)
 ```C++
-number_t& number_t::div_ui(word_t x);
-number_t& number_t::div_si(sword_t x);
-number_t& number_t::div(int x);
-number_t& number_t::div(unsigned int x);
-number_t& number_t::div(long x);
-number_t& number_t::div(unsigned long x);
-number_t& number_t::div(long long x);
-number_t& number_t::div(unsigned long long x);
-number_t& number_t::div_unit(unit_t x);
+number_t& div_ui(word_t x);
+number_t& div_si(sword_t x);
+number_t& div(int x);
+number_t& div(unsigned int x);
+number_t& div(long x);
+number_t& div(unsigned long x);
+number_t& div(long long x);
+number_t& div(unsigned long long x);
+number_t& div_unit(unit_t x);
 ```
 
 ##Operators overloaded
@@ -103,6 +109,20 @@ number_t operator / (unsigned long a, const number_t& b);
 number_t operator / (const number_t& a, unsigned long long b);
 number_t operator / (unsigned long long a, const number_t& b);
 ```
+
+##Do the division via multiplication
+
+As well known, the cost of an integer division is several times that of an integer multiplication.  
+But fortunately, according to "[Division by Invariant Integers using Multiplication](https://github.com/brotherbeer/mydocument/blob/master/mynum/resource/divcnst-pldi94.pdf)" Torbjorn Granlund and Peter L. Montgomery, we can convert the division to the multiplication by the reciprocal of the divisor.
+
+If the divisor is a unit, we can use `UDM` class to derive the reciprocal of the divisor.
+```C++
+number_t a("1234567890");
+unit_t d = 123;
+UDM udm(d);  // UDM: Unit Divisor to Multiplier
+a.div_unit(udm); // faster than calling a.div_unit(d) directly
+```
+When the value of a number_t object is large, the division using UDM is much faster. If the divisors are predictable, the corresponding UDM objects can be reused. 
 
 ##Attentions
 

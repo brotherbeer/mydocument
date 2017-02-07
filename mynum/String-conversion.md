@@ -8,7 +8,7 @@ String conversion
 
 ##Number_t members
 
-Conver the value of *this to _str_
+Conver the value of _*this_ to _str_
 ```C++
 string_t& to_bin_string(string_t& str) const;
 string_t& to_oct_string(string_t& str) const;
@@ -16,7 +16,7 @@ string_t& to_dec_string(string_t& str) const;
 string_t& to_hex_string(string_t& str) const;
 ```
 
-Conver the value of *this to _str_, which is in specified base _base_
+Conver the value of _*this_ to _str_, which is in specified base _base_
 ```C++
 string_t& to_string(string_t& str, int base = 10) const;
 ```
@@ -45,7 +45,7 @@ std::ostream& operator << (std::ostream& os, const number_t& a)
 To achieve a higher efficiency, all the string conversion functions do not generate leading charactors or blank charactors, and only lower case letters are used.  
 If you want to generate formatted string, you can use the format_t class, see [\[Big integer to formatted string\]](https://github.com/brotherbeer/mydocument/blob/master/mynum/Formatted-output.md)
 
-The time complexity of `to_hex_string` function is the lowest.
+The run time complexity of `to_hex_string` function is the lowest.
 
 ##Examples
 ```C++
