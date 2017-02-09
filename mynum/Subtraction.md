@@ -49,8 +49,8 @@ void number_t::sub_unit(unit_t x);
 ```
 Sub _*this_ with a word type variable
 ```C++
-number_t& number_t::sub_ui(word_t x);
-number_t& number_t::sub_si(sword_t x);
+void number_t::sub_word(word_t x);
+void number_t::sub_sword(sword_t x);
 ```
 Sub _*this_ with an ordinary integer
 ```C++

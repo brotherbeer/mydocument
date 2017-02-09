@@ -53,8 +53,8 @@ void number_t::mul_unit(unit_t x);
 ```
 Multiply _*this_ with a word type variable
 ```C++
-number_t& number_t::mul_ui(word_t x);
-number_t& number_t::mul_si(sword_t x);
+void number_t::mul_word(word_t x);
+void number_t::mul_sword(sword_t x);
 ```
 Multiply _*this_ by an ordinary integer
 ```C++

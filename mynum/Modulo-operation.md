@@ -57,8 +57,10 @@ void number_t::mod_unit(unit_t);
 void number_t::mod_unit(const UDM&);
 ```
 ```C++
-number_t& number_t::mod_ui(word_t);
-number_t& number_t::mod_si(sword_t);
+void number_t::mod_word(word_t);
+void number_t::mod_sword(sword_t);
+```
+```C++
 number_t& number_t::mod(int x);
 number_t& number_t::mod(unsigned int x);
 number_t& number_t::mod(long x);

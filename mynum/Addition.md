@@ -50,8 +50,8 @@ void number_t::add_unit(unit_t);
 ```
 Add _*this_ with a word type variable
 ```C++
-number_t& number_t::add_ui(word_t x);
-number_t& number_t::add_si(sword_t x);
+void number_t::add_word(word_t x);
+void number_t::add_sword(sword_t x);
 ```
 Add _*this_ with an ordinary integer
 ```C++

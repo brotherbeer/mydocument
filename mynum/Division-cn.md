@@ -15,12 +15,12 @@ int div(const number_t& a, const number_t& b, number_t& q, number_t& r);
 int div(const number_t& a, const number_t& b, number_t& q);
 ```
 
-Set _a_ / _x_ to _res_, if the divisor _x_ is small and can be hold by `unit_t`, return the remainder
+Set _a_ / _x_ to _res_, the divisor _x_ is an unit, return the absolute value of the remainder
 ```C++
 unit_t div_unit(const number_t& a, unit_t x, number_t& res);
 ```
 
-_udm_ is the reciprocal of the divisor, use multiplication to do the division, return the remainder
+_udm_ is the reciprocal of the divisor, use multiplication to do the division, return the absolute value of the remainder
 ```C++
 unit_t div_unit(const number_t& a, const UDM& udm, number_t& res);
 ```
@@ -57,15 +57,20 @@ Divide _*this_ by another number_t object _x_, _r_ is the remainder
 number_t& div(const number_t& x);
 number_t& div(const number_t& x, number_t& r);
 ```
-Divide _*this_ by _x_ (_x_ is an unit)
+Divide _*this_ by an unit  
+Return the absolute value of the remainder
 ```
 unit_t div_unit(unit_t x);
 unit_t div_unit(const UDM& x);
 ```
+Divide _*this_ by a word or a signed word  
+Return the absolute value of the remainder
+```C++
+word_t div_word(word_t x);
+word_t div_sword(sword_t x);
+```
 Divide _*this_ by _x_ (_x_ is an ordinary integer)
 ```C++
-number_t& div_ui(word_t x);
-number_t& div_si(sword_t x);
 number_t& div(int x);
 number_t& div(unsigned int x);
 number_t& div(long x);
