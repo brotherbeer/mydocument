@@ -9,10 +9,14 @@ Division
 
 ##Global functions
 
-Set _a_ / _b_ to _q_, and _a_ % _b_ to _r_. If _b_ is 0, the functions return 0, otherwise return 1
+Set _a_ / _b_ to _q_. If _b_ is 0, the functions return 0, otherwise return 1  
+```C++
+int div(const number_t& a, const number_t& b, number_t& q);
+```
+Set _a_ / _b_ to _q_, and _a_ % _b_ to _r_  
+If _q_ and _r_ refer to the same object, the behavior of this function is unexpected
 ```C++
 int div(const number_t& a, const number_t& b, number_t& q, number_t& r);
-int div(const number_t& a, const number_t& b, number_t& q);
 ```
 
 Set _a_ / _x_ to _res_, the divisor _x_ is an unit, return the absolute value of the remainder
@@ -52,7 +56,8 @@ number_t div(const number_t& a, const number_t& b);
 
 ##Number_t members
 
-Divide _*this_ by another number_t object _x_, _r_ is the remainder
+Divide _*this_ by another number_t object _x_, _r_ is the remainder  
+_r_ and _*this_ should not be the same
 ```C++
 number_t& div(const number_t& x);
 number_t& div(const number_t& x, number_t& r);
@@ -133,3 +138,14 @@ When the value of a number_t object is large, the division using UDM is much fas
 
 If the divisor is zero, mynum will not do the calculation, so you would better check the divisor before call the division functions.
 
+The function:
+```C++
+int div(const number_t& a, const number_t& b, number_t& q, number_t& r);
+```
+_q_ and _r_ should not refer to the same object, otherwise the result is unexpected.
+
+The number_t member function:
+```C++
+int div(const number_t& b, number_t& r);
+```
+_r_ and _*this_ should not be the same, otherwise the result is unexpected.
