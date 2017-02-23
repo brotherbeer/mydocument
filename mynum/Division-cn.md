@@ -206,7 +206,7 @@ d * y<sub>0</sub> * BASE + d * y<sub>1</sub> >= t * y<sub>1</sub> - (r * BASE + 
 
 d * Y >= t * y<sub>1</sub> -〈r, x<sub>2</sub>〉
 
-故d = &#9121;(t * y<sub>1</sub> -〈r, x<sub>2</sub>〉) / Y&#9124; = (t * y<sub>1</sub> -〈r, x<sub>2</sub>〉) / Y + ((t * y<sub>1</sub> -〈r, x<sub>2</sub>〉) % Y != 0)
+故d = &#8968;(t * y<sub>1</sub> -〈r, x<sub>2</sub>〉) / Y&#8969; = (t * y<sub>1</sub> -〈r, x<sub>2</sub>〉) / Y + ((t * y<sub>1</sub> -〈r, x<sub>2</sub>〉) % Y != 0)
 
 t - d 即为商的实际值，r + d * y<sub>0</sub>即是余数的实际值，代码如下：
 
@@ -293,7 +293,7 @@ X =〈x<sub>0</sub>, x<sub>1</sub>, x<sub>2</sub>〉* A + LX
 所以t * Y与X进行比较，即是将t * LY与LX进行比较。
 
 1. 如果t * LY <= LX  
-显然，0 < X - &#9123;t&#9126; * Y < Y，&#9123;t&#9126;即是整数除法的商
+显然，0 < X - &#8970;t&#8971; * Y < Y，&#8970;t&#8971;即是整数除法的商
 
 2. 如果t * LY > LX  
 说明t大于实际值Q，此时t比Q大了多少呢，可以考察t - 1与Q的关系。
