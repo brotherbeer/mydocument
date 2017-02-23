@@ -155,15 +155,15 @@ r与*this不应为同一对象，否则结果是不可预期的。
 
 《[数据存储方式](https://github.com/brotherbeer/mydocument/blob/master/mynum/Storage-ch.md)》一节指出，一个大整数对象可以理解成一个n位进制为BASE的数（n>=0），下文为简明起见，将一个具有n个数据单元的大整数对象简称为“n位数”，如无特殊声明，以下讨论中的各符号均为整数，运算符“/”、“%”表示整数除法和取余。
 
- * [D.0 2位数除以1位数](#D.0-2位数除以1位数)
- * [D.1 3位数除以2位数](#D.1-3位数除以2位数)
- * [D.2 n位数除以1位数（n > 2）](#D.2-n位数除以1位数（n->-2）)
- * [D.3 n+1位数除以n位数（n > 3）](#D.3-n+1位数除以n位数（n->-3）)
- * [D.4 任意位数之间的除法](#D.4-任意位数之间的除法)
+ * [D.0 2位数除以1位数](#D_0)
+ * [D.1 3位数除以2位数](#D_1)
+ * [D.2 n位数除以1位数（n > 2）](#D_2)
+ * [D.3 n+1位数除以n位数（n > 3）](#D_3)
+ * [D.4 任意位数之间的除法](#D_4)
 
-###D.0 2位数除以1位数
+###<span id="D_0">D.0 2位数除以1位数</span>
 
-设2位被除数为〈x<sub>0</sub>, x<sub>1</sub>〉，除数为d，x<sub>0</sub>、x<sub>1</sub>、d均小于BASE，那么〈x<sub>0</sub>, x<sub>1</sub>〉在一个字长范围内，故可直接利用计算机的除法指令获取商和余数。
+设2位被除数为〈x<sub>0</sub>, x<sub>1</sub>〉，除数为d，x<sub>0</sub>、x<sub>1</sub>、d均小于BASE，那么〈x<sub>0</sub>, x<sub>1</sub>〉在字长范围内，故可直接利用计算机的除法指令获取商和余数。
 ```C++
 q = ((dunit_t)x0 << SHIFT | x1) / d;
 r = ((dunit_t)x0 << SHIFT | x1) % d;
@@ -177,7 +177,7 @@ r = __make_dunit(x0, x1) % d;
 ```
 `__make_dunit(x0, x1)`也就是〈x<sub>0</sub>, x<sub>1</sub>〉，即`(dunit_t)x0 << SHIFT | x1`。
 
-###D.1 3位数除以2位数
+###<span id="D_1">D.1 3位数除以2位数</span>
 
 设3位被除数为X =〈x<sub>0</sub>, x<sub>1</sub>, x<sub>2</sub>〉，2位除数为Y =〈y<sub>0</sub>, y<sub>1</sub>〉，被除数已经超过了字长范围，故无法直接求解。
 
@@ -245,7 +245,7 @@ dunit_t __original_div_3by2(dunit_t x0x1, unit_t x2, dunit_t y0y1, dunit_t* pr)
 
 对于〈x<sub>0</sub>, x<sub>1</sub>〉>〈y<sub>0</sub>, y<sub>1</sub>〉这种情况不予讨论，因为在本算法被使用的过程中，这种情况根本不会发生。
 
-###D.2 n位数除以1位数（n > 2）
+###<span id="D_2">D.2 n位数除以1位数（n > 2）</span>
 
 设n位被除数为〈x<sub>0</sub>, x<sub>1</sub>, ..., x<sub>n-1</sub>〉，1位除数为d，结果为〈q<sub>0</sub>, q<sub>1</sub>, ..., q<sub>n-1</sub>〉，q<sub>i</sub> >= 0，i∈[0, n-1]。
 
@@ -271,7 +271,7 @@ q<sub>0</sub> * d + r<sub>0</sub> = 〈0, x<sub>0</sub>〉
 
 故〈q<sub>0</sub>, q<sub>1</sub>, ..., q<sub>n-1</sub>〉* d + r<sub>n-1</sub> =〈x<sub>0</sub>, x<sub>1</sub>, ..., x<sub>n-1</sub>〉，算法得证，r<sub>n-1</sub>即为余数。
 
-###D.3 n+1位数除以n位数（n > 3）
+###<span id="D_3">D.3 n+1位数除以n位数（n > 3）</span>
 
 设n+1位除数X =〈x<sub>0</sub>, x<sub>1</sub>, ..., x<sub>n</sub>〉，n位除数Y =〈y<sub>0</sub>, y<sub>1</sub>, ..., y<sub>n-1</sub>〉，x<sub>0</sub> != 0，y<sub>0</sub> !=0，n > 3。
 
@@ -314,7 +314,7 @@ Q * Y = X =〈x<sub>0</sub>, x<sub>1</sub>, x<sub>2</sub>〉* A + LX
 
 利用算法M.4，求出R = X - t * Y的值，R即为余数，如果没有借位，t和R即为整数除法的结果，如果出现借位，t减1，R加上Y，即为最终结果。
 
-###D.4 任意位数之间的除法
+###<span id="D_4">D.4 任意位数之间的除法</span>
 
 设被除数X为m位，除数Y为n位(n > 0, m > 0)。
 
