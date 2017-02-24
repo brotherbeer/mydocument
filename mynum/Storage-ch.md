@@ -22,7 +22,7 @@ struct number_t {
 const unit_t UNITMAX = ~unit_t(0);
 const dunit_t BASE = (dunit_t)1 << UNITBITS;
 ```
-unit_t即数据单元的类型，是一个系统相关的无符号整数类型，在64位系统中为32位(unsigned int)，在32位系统中为16位(unsigned short)。其位数记为UNITBITS，最大值记为UNITMAX。slen_t是有符号整数类型，用以表示长度。成员变量dat指向数据单元序列，存储在低地址的单元记录大整数的低位，高地址的单元记录大整数的高位，存储在最高地址的单元简称为最高单元。len的绝对值表示该序列中有效单元的个数。cap表示序列中所有单元的个数，cap永远大于或等于len的绝对值，len的符号表示number_t对象的符号，即len < 0时为负数，len > 0时为正数，len = 0时为0。
+unit_t即数据单元的类型，是一个系统相关的无符号整数类型，在64位系统中为32位(unsigned int)，在32位系统中为16位(unsigned short)。其位数记为UNITBITS，最大值记为UNITMAX。slen_t是有符号整数类型，用以表示长度。成员变量dat指向数据单元序列，存储在低地址的单元记录大整数的低位，高地址的单元记录大整数的高位，存储在最高地址的单元简称为最高单元。len的绝对值表示该序列中有效单元的个数，len的符号表示number_t对象的符号，即len < 0时为负数，len > 0时为正数，len = 0时为0。cap表示序列中所有单元的个数，cap永远大于或等于len的绝对值。
 
 显然，可以将具有n个数据单元的序列理解成一个具有n位进制为BASE的数(n >= 0; BASE = UNITMAX + 1)，第i位的值即是第i个单元U<sub>i</sub>的值(i∈[0, n)，这个数的值即是number_t对象的值，其值为：U<sub>n-1</sub> \* BASE<sup>n-1</sup> + ... + U<sub>1</sub> \* BASE + U<sub>0</sub>
 
