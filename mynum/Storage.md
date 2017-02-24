@@ -15,11 +15,10 @@ There are 3 important member variables in number_t:
 ```
 and some useful constants:
 ```C++
-const unit_t  SHIFT = sizeof(unit_t) << 3;
-const dunit_t BASE = (dunit_t)1 << SHIFT;
-const unit_t  MASK = ~unit_t(0);
+const dunit_t BASE = (dunit_t)1 << UNITBITS;
+const unit_t  UNITMAX = ~unit_t(0);
 ```
-The **unit_t** is the most basic computing unit type, it is an unsigned integer type, SHIFT-bit, and the max value is MASK. Hereafter the **unit_t** variable will be abbreviated as unit. The **slen_t** is a signed integer type that represents the length.
+The **unit_t** is the most basic computing unit type, it is an unsigned integer type, UNITBITS-bit, and the max value is UNITMAX. Hereafter the **unit_t** variable will be abbreviated as unit. The **slen_t** is a signed integer type that represents the length.
 
 Because the number_t object stores the big integer in binary form, so it can be understood as a sequence of units, the member variable _dat_ points to the sequence, the absolute value of _len_ is the count of the valid units in the sequence, _cap_ is the count of all units in the sequence.
 When _len_ < 0, the object is negative, when _len_ > 0, the object is positive, and when _len_ = 0, the object is 0.
@@ -39,16 +38,16 @@ The size of an unit is a half of a word, if dunit_t is the word type, we can use
 unit_t add(unit_t a, unit_t b, unit_t& res)
 {
     dunit_t sum = (dunit_t)a + b;
-    *res = sum & MASK;
-    return sum >> SHIFT;
+    *res = sum & UNITMAX;
+    return sum >> UNITBITS;
 }
 
 // res = a * b + c, and return the carry
 unit_t muladd(unit_t a, unit_t b, unit_t c, unit_t& res)
 {
     dunit_t sum = (dunit_t)a * b + c;
-    *res = sum & MASK;
-    return sum >> SHIFT;
+    *res = sum & UNITMAX;
+    return sum >> UNITBITS;
 }
 ```
 0xffff * 0xffff + 0xffff = 0xffff0000, so the data in the functions will not overflow, Similarly in the 64-bit environment it will not overflow too.

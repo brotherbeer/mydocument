@@ -75,12 +75,12 @@ iloveyou
 
 ##算法
 
-根据前文，大整数对象的值相当于一个BASE进制的数，各计算单元的值即是其各位的值，将一个有n个单元(n>=0)的大整数对象转为任意进制数，即是将
+根据前文，大整数对象的值相当于一个BASE进制的数，各数据单元的值即是其各位的值，将一个有n个单元(n>=0)的大整数对象转为任意进制数，即是将
 〈u<sub>n-1</sub>, ..., u<sub>1</sub>, u<sub>0</sub>〉<sub>BASE</sub>转为〈r<sub>m-1</sub>, ..., r<sub>1</sub>, r<sub>0</sub>〉<sub>base</sub>的过程，base为任意进制，转换后的base进制数有m位，r<sub>i</sub>为其各位数值(0 <= i < m)。将r<sub>i</sub>依次转为字符串，大整数对象便转成了字符串。
 
 **当n为1时：**
 
-设u为一个计算单元，即0 <= u < BASE，将u转为base进制数可由以下循环完成，其中d为一个数组，记录u转为base进制数后各位数值，i为数组元素下标：
+设u为一个数据单元，即0 <= u < BASE，将u转为base进制数可由以下循环完成，其中d为一个数组，记录u转为base进制数后各位数值，i为数组元素下标：
 ```C++
 for (i = 0; u != 0; i++)
 {
@@ -91,7 +91,7 @@ for (i = 0; u != 0; i++)
 
 **当n为2时：**
 
-设u<sub>1</sub>、u<sub>2</sub>为两个计算单元，它们组成整数〈u<sub>1</sub>, u<sub>2</sub>〉<sub>BASE</sub>，
+设u<sub>1</sub>、u<sub>2</sub>为两个数据单元，它们组成整数〈u<sub>1</sub>, u<sub>2</sub>〉<sub>BASE</sub>，
 根据上一步的结论，可先将u<sub>1</sub>转为base进制数，设其有k位，即〈d<sub>k</sub>, ..., d<sub>1</sub>, d<sub>0</sub>〉<sub>base</sub>
 
 〈u<sub>1</sub>, u<sub>2</sub>〉<sub>BASE</sub> =〈d<sub>k</sub>, ..., d<sub>1</sub>, d<sub>0</sub>〉<sub>base</sub> * BASE + u<sub>2</sub> =〈d<sub>k</sub> \* BASE, ..., d<sub>1</sub> \* BASE, d<sub>0</sub> \* BASE + u<sub>2</sub>〉<sub>base</sub>
@@ -117,7 +117,7 @@ for (i = 0; u != 0; i++)
 
 **当n > 2时：**
 
-设大整数对象的值为〈u<sub>n-1</sub>, ...u<sub>1</sub>, u<sub>0</sub>〉，结合前面的讨论，可以先将u<sub>n-1</sub>转成base进制数，再将〈u<sub>n-1</sub>, ...u<sub>n-2</sub>〉转成base进制数，最终将〈u<sub>n-1</sub>, ...u<sub>1</sub>, u<sub>0</sub>〉转为base进制数。显然该算法的时间复杂度为O(n<sup>2</sup>)，n与计算单元的数量有关。
+设大整数对象的值为〈u<sub>n-1</sub>, ...u<sub>1</sub>, u<sub>0</sub>〉，结合前面的讨论，可以先将u<sub>n-1</sub>转成base进制数，再将〈u<sub>n-1</sub>, ...u<sub>n-2</sub>〉转成base进制数，最终将〈u<sub>n-1</sub>, ...u<sub>1</sub>, u<sub>0</sub>〉转为base进制数。显然该算法的时间复杂度为O(n<sup>2</sup>)，n与数据单元的数量有关。
 
 大整数对象转任意进制数的讨论至此完毕。
 

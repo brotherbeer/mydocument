@@ -109,7 +109,7 @@ void clear();
 ```C++
 void release();
 ```
-设定对象占有units个计算单元，当units小于当前单元个数时不生效
+设定对象占有units个数据单元，当units小于当前单元个数时不生效
 ```
 void reserve(size_t units);
 ```
@@ -164,7 +164,7 @@ assert(check(s, 8) == 0);     // 如果s表示8进制数，s是错误的
 
 ##算法
 
-对于下列论述中的BASE、MASK等常量，可参见上一章《[数据存储方式](https://github.com/brotherbeer/mydocument/blob/master/mynum/Storage-ch.md)》。
+对于下列论述中的BASE、UNITMAX等常量，可参见上一章《[数据存储方式](https://github.com/brotherbeer/mydocument/blob/master/mynum/Storage-ch.md)》。
 
 ###用字符串构造对象
 
@@ -204,7 +204,7 @@ number_t::construct_from_string(const char* s, int b)
 
 显然，该算法的时间复杂度为O(1 + 2 + ... + n) = O(n<sup>2</sup>)，至此，将字符串转为number_t对象的原理已经说明，但在效率上可以改进。
 
-设power_digits是可以使b<sup>power_digits</sup> <= MASK成立的最大值（MASK为计算单元的最大值），power_base = b<sup>power_digits</sup>。
+设power_digits是可以使b<sup>power_digits</sup> <= UNITMAX成立的最大值（UNITMAX为数据单元的最大值），power_base = b<sup>power_digits</sup>。
 在for循环中，每次将power_digits个字符转成一个单元进行处理，有效减少了乘法和加法的次数，从而提高了效率：
 ```C++
 number_t::construct_from_string(const char* s, int b)
@@ -227,7 +227,7 @@ number_t::construct_from_string(const char* s, int b)
 ```
 虽然改进后的算法在效率上有明显提升，但其时间复杂度仍为O(n<sup>2</sup>)。
 
-对于表示16进制数的字符串，因为每2个字符可以确定一个字节，32位环境中每4个字符可以确定一个计算单元，64位环境中每8个字符可以确定一个计算单元，所以不必进行乘法和加法就可以构造大整数对象，时间复杂度为O(n)。
+对于表示16进制数的字符串，因为每2个字符可以确定一个字节，32位环境中每4个字符可以确定一个数据单元，64位环境中每8个字符可以确定一个数据单元，所以不必进行乘法和加法就可以构造大整数对象，时间复杂度为O(n)。
 ```C++
 number_t::construct_from_hex_string(const char* s)
 {

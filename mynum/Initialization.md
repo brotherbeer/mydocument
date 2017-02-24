@@ -129,7 +129,7 @@ assert(check(s, 8) == 0);     // if s denotes an octal number, then s is wrong
 
 ##Algorithms
 
-For the `BASE`, `MASK` and other constants, see the previous chapter [Data storage model](https://github.com/brotherbeer/mydocument/blob/master/mynum/Storage.md).
+For the `BASE`, `UNITMAX` and other constants, see the previous chapter [Data storage model](https://github.com/brotherbeer/mydocument/blob/master/mynum/Storage.md).
 
 ###Construct a big integer object form a string
 
@@ -170,7 +170,7 @@ About mul_unit and add_unit see previous chapter [Data storage model](https://gi
 
 So far, the principle of converting strings to number_t objects has been described, but the efficiency can be improved.
 
-Let _inner\_digits_ be the max value which makes _b<sup>inner\_digits</sup>_ <= MASK, _inner\_base_ = _b<sup>inner\_digits</sup>_. 
+Let _inner\_digits_ be the max value which makes _b<sup>inner\_digits</sup>_ <= UNITMAX, _inner\_base_ = _b<sup>inner\_digits</sup>_. 
 Each times conver _inner\_digits_ chars to an unit, reduce multiplication and addition times effectively, the efficiency is improved.
 ```C++
 number_t::construct_from_string(const char* s, int b)

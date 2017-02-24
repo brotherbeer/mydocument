@@ -126,7 +126,7 @@ number_t operator / (unsigned long long a, const number_t& b);
 
 众所周知, 整数除法指令的执行效率相比于乘法指令是相当低的，往往是乘法指令的数倍，幸运地是，根据Torbjorn Granlund和Peter L. Montgomery的论文"[Division by Invariant Integers using Multiplication](https://github.com/brotherbeer/mydocument/blob/master/mynum/resource/divcnst-pldi94.pdf)", 可以将除法转为除数倒数相关的乘法。
 
-如果除数是一个计算单元，可用UDM类获取除数的倒数，再进行除法，如：
+如果除数是一个数据单元，可用UDM类获取除数的倒数，再进行除法，如：
 ```C++
 number_t a("1234567890");
 unit_t d = 123;
@@ -155,7 +155,7 @@ r与*this不应为同一对象，否则结果是不可预期的。
 
 本节讨论任意大整数之间除法的算法(D.4)，该算法依赖于算法D.0—D.3。
 
-《[数据存储方式](https://github.com/brotherbeer/mydocument/blob/master/mynum/Storage-ch.md)》一节指出，一个大整数对象可以理解成一个n位进制为BASE的数（n>=0），下文为简明起见，将一个具有n个数据单元的大整数对象简称为“n位数”，如无特殊声明，以下讨论中的各符号均为整数，运算符“/”、“%”表示整数除法和取余。
+《[数据存储方式](https://github.com/brotherbeer/mydocument/blob/master/mynum/Storage-ch.md)》一节指出，一个大整数对象可以理解成一个n位进制为BASE的数（n >= 0），下文为简明起见，将一个具有n个数据单元的大整数对象简称为“n位数”，如无特殊声明，以下讨论中的各符号均为整数，运算符“/”、“%”表示整数除法和取余，“=”表示相等。
 
  * [D.0 2位数除以1位数](#D0)
  * [D.1 3位数除以2位数](#D1)
@@ -169,16 +169,16 @@ r与*this不应为同一对象，否则结果是不可预期的。
 
 将两个单元组成一个字(word)
 ```
-dunit_t double_unit = (dunit_t)x0 << UNITBITS | x1;
+word_t word = (word_t)x0 << UNITBITS | x1;
 ```
 计算商和余数
 ```C++
-q = double_unit / d;
-r = double_unit % d;
+q = word / d;
+r = word % d;
 ```
 关于数据单元、BASE、UNITBITS的详细信息请参见《[数据存储方式](https://github.com/brotherbeer/mydocument/blob/master/mynum/Storage-ch.md)》。
 
-在实际代码中用__make_dunit函数将两个数据单元组成一个字：
+在实际代码中用`__make_dunit`函数将两个数据单元组成一个字：
 ```C++
 dunit_t double_unit = __make_dunit(x0, x1);
 ```
