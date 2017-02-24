@@ -153,6 +153,8 @@ r与*this不应为同一对象，否则结果是不可预期的。
 
 ##算法
 
+本节讨论任意大整数之间除法的算法(D.4)，该算法依赖于算法D.0—D.3。
+
 《[数据存储方式](https://github.com/brotherbeer/mydocument/blob/master/mynum/Storage-ch.md)》一节指出，一个大整数对象可以理解成一个n位进制为BASE的数（n>=0），下文为简明起见，将一个具有n个数据单元的大整数对象简称为“n位数”，如无特殊声明，以下讨论中的各符号均为整数，运算符“/”、“%”表示整数除法和取余。
 
  * [D.0 2位数除以1位数](#D0)
@@ -163,48 +165,55 @@ r与*this不应为同一对象，否则结果是不可预期的。
 
 <h3 id="D0">D.0 2位数除以1位数</h3>
 
-设2位被除数为〈x<sub>0</sub>, x<sub>1</sub>〉，除数为d，x<sub>0</sub>、x<sub>1</sub>、d均小于BASE，那么〈x<sub>0</sub>, x<sub>1</sub>〉在字长范围内，故可直接利用计算机的除法指令获取商和余数。
-```C++
-q = ((dunit_t)x0 << SHIFT | x1) / d;
-r = ((dunit_t)x0 << SHIFT | x1) % d;
-```
-q和r分别为商和余数，BASE、SHIFT等常量可参见《[数据存储方式](https://github.com/brotherbeer/mydocument/blob/master/mynum/Storage-ch.md)》。
+设2位被除数为〈x<sub>0</sub>, x<sub>1</sub>〉，除数为d，x<sub>0</sub>、x<sub>1</sub>、d均为数据单元，两个数据单元可组成一个字(word)，故可直接利用计算机的除法指令获取商和余数。
 
-在实际代码中往往用__make_dunit函数将两个数据单元组成一个字：
-```C++
-q = __make_dunit(x0, x1) / d;
-r = __make_dunit(x0, x1) % d;
+将两个单元组成一个字(word)
 ```
-`__make_dunit(x0, x1)`也就是〈x<sub>0</sub>, x<sub>1</sub>〉，即`(dunit_t)x0 << SHIFT | x1`。
+dunit_t double_unit = (dunit_t)x0 << UNITBITS | x1;
+```
+计算商和余数
+```C++
+q = double_unit / d;
+r = double_unit % d;
+```
+关于数据单元、BASE、UNITBITS的详细信息请参见《[数据存储方式](https://github.com/brotherbeer/mydocument/blob/master/mynum/Storage-ch.md)》。
+
+在实际代码中用__make_dunit函数将两个数据单元组成一个字：
+```C++
+dunit_t double_unit = __make_dunit(x0, x1);
+```
+`__make_dunit(x0, x1)`也就是〈x<sub>0</sub>, x<sub>1</sub>〉，即`(dunit_t)x0 << UNITBITS | x1`。
 
 <h3 id="D1">D.1 3位数除以2位数</h3>
 
-设3位被除数为X =〈x<sub>0</sub>, x<sub>1</sub>, x<sub>2</sub>〉，2位除数为Y =〈y<sub>0</sub>, y<sub>1</sub>〉，被除数已经超过了字长范围，故无法直接求解。
+设3位被除数为X =〈x<sub>0</sub>, x<sub>1</sub>, x<sub>2</sub>〉，2位除数为Y =〈y<sub>0</sub>, y<sub>1</sub>〉，求Q = X / Y，x<sub>0</sub>、x<sub>1</sub>、x<sub>2</sub>和y<sub>0</sub>、y<sub>1</sub>均为数据单元，Y != 0。
 
-先讨论〈x<sub>0</sub>, x<sub>1</sub>〉<〈y<sub>0</sub>, y<sub>1</sub>〉时的情况：
+被除数已经超过了字长范围，故无法直接求解。先讨论〈x<sub>0</sub>, x<sub>1</sub>〉<〈y<sub>0</sub>, y<sub>1</sub>〉时的情况：
 
-可先用t =〈x<sub>0</sub>, x<sub>1</sub>〉/ y<sub>0</sub> 来估商，设商的实际值为Q，t一定大于或等于Q，证明参见#9。因为〈x<sub>0</sub>, x<sub>1</sub>〉< Y，故t必然小于BASE，即t可由一个数据单元记录。
+可先用t =〈x<sub>0</sub>, x<sub>1</sub>〉/ y<sub>0</sub> 来估商，t一定大于或等于Q，证明参见#9。因为〈x<sub>0</sub>, x<sub>1</sub>〉<〈y<sub>0</sub>, y<sub>1</sub>〉，故t必然小于BASE，即t可由一个数据单元记录。
 
-然后再检验并修正t的值，当t * Y <= X时，说明t的值即为Q的值，而当t * Y > X，则说明t值偏大，t应该适当减小。
+然后再用x<sub>2</sub>和y<sub>1</sub>的值修正t的值，当t * Y <= X时，说明t的值即为Q的值，当t * Y > X，则说明t值偏大，t应该被减小。
 t * Y和X的值都超过了字长范围，故不能直接计算，但  
 
-t * Y = t * y0 * BASE + t * y1 =〈x<sub>0</sub>, x<sub>1</sub>〉* BASE - r * BASE + t * y<sub>1</sub>
+t * Y = t * y0 * BASE + t * y<sub>1</sub> =〈x<sub>0</sub>, x<sub>1</sub>〉* BASE - r * BASE + t * y<sub>1</sub>
 
 其中，r =〈x<sub>0</sub>, x<sub>1</sub>〉% y<sub>0</sub> 
 
-而〈x<sub>0</sub>, x<sub>1</sub>, x<sub>2</sub>〉=〈x<sub>0</sub>, x<sub>1</sub>〉* BASE + x<sub>3</sub>
+而〈x<sub>0</sub>, x<sub>1</sub>, x<sub>2</sub>〉=〈x<sub>0</sub>, x<sub>1</sub>〉* BASE + x<sub>2</sub>
 
-所以t * Y 与X的比较就转化成了 -r * BASE + t * y<sub>1</sub>与x<sub>3</sub>的比较，即t * y<sub>1</sub>与〈r, x<sub>2</sub>〉的比较，这时可以直接计算。
+所以t * Y 与X的比较就转化成了 -r * BASE + t * y<sub>1</sub>与x<sub>2</sub>的比较，即t * y<sub>1</sub>与〈r, x<sub>2</sub>〉的比较，这时可以直接计算。
 
-如果t * y<sub>1</sub> >〈r, x<sub>2</sub>〉，将t减1，r增加y<sub>0</sub>，再代入该不等式中，如果不等式成立，则此时t与实际值相等，如果不成立则重复将t减1、r增加y<sub>0</sub>的过程直至不等式成立，这个过程我们称为试商过程。
+不等式I：t * y<sub>1</sub> <=〈r, x<sub>2</sub>〉
 
-可以再引入一次除法来加速试商过程，设d是t与实际值的差值，即〈r + d * y<sub>0</sub>, x<sub>2</sub>〉>= (t - d) * y<sub>1</sub>，可得
+如果当前的t值不能满足不等式I，则将t减1，r增加y<sub>0</sub>，再代入该不等式中，如果不等式成立，则此时t与实际值相等，如果不成立则重复将t减1、r增加y<sub>0</sub>的过程直至不等式成立，这个过程我们称为试商过程。
 
-r * BASE + d * y<sub>0</sub> * BASE + x<sub>2</sub> >= t * y<sub>1</sub> - d * y<sub>1</sub>
+可以再引入一次除法来加速试商过程，设d是t与实际值Q的差值，即(t - d) * y<sub>1</sub> <=〈r + d * y<sub>0</sub>, x<sub>2</sub>〉，可得
 
-d * y<sub>0</sub> * BASE + d * y<sub>1</sub> >= t * y<sub>1</sub> - (r * BASE + x<sub>2</sub>)
+t * y<sub>1</sub> - d * y<sub>1</sub> <= r * BASE + d * y<sub>0</sub> * BASE + x<sub>2</sub>
 
-d * Y >= t * y<sub>1</sub> -〈r, x<sub>2</sub>〉
+t * y<sub>1</sub> - (r * BASE + x<sub>2</sub>) <= d * y<sub>0</sub> * BASE + d * y<sub>1</sub>
+
+t * y<sub>1</sub> -〈r, x<sub>2</sub>〉<= d * Y
 
 故d = &#8968;(t * y<sub>1</sub> -〈r, x<sub>2</sub>〉) / Y&#8969; = (t * y<sub>1</sub> -〈r, x<sub>2</sub>〉) / Y + ((t * y<sub>1</sub> -〈r, x<sub>2</sub>〉) % Y != 0)
 
@@ -214,7 +223,7 @@ t - d 即为商的实际值，r + d * y<sub>0</sub>即是余数的实际值，�
 dunit_t __original_div_3by2(dunit_t x0x1, unit_t x2, dunit_t y0y1, dunit_t* pr)
 {
     dunit_t t, r, u, v, d;
-    unit_t y0 = y0y1 >> SHIFT, y1 = y0y1 & MASK;
+    unit_t y0 = y0y1 >> UNITBITS, y1 = y0y1 & UNITMAX;
 
 	assert(x0x1 <= y0y1 && y0 != 0);
 
@@ -222,7 +231,7 @@ dunit_t __original_div_3by2(dunit_t x0x1, unit_t x2, dunit_t y0y1, dunit_t* pr)
     r = x0x1 % y0;
     if (t >= BASE)
     {
-        t = MASK;
+        t = UNITMAX;
         r = x0x1 - t * y0;
     }
     u = t * y1;
@@ -239,17 +248,17 @@ dunit_t __original_div_3by2(dunit_t x0x1, unit_t x2, dunit_t y0y1, dunit_t* pr)
     return t;  // the quotient, in unit_t range
 }
 ```
-需要注意的是有时r的值会超出一个数据单元的范围，即r >= BASE，如果r >= BASE，那么t * y<sub>1</sub>的值必然小于〈r, x<sub>2</sub>〉，最后〈r + d * y<sub>0</sub>, x<sub>2</sub>〉的值也可能超出字长范围，但对余数的计算并无影响，因为余数必然在字长范围内，所以在代码中，即使忽略v溢出的高位，v - u的结果也总是正确的。
+需要注意的是有时r的值会超出一个数据单元的范围，即r >= BASE，如果r >= BASE，那么t * y<sub>1</sub>的值必然小于〈r, x<sub>2</sub>〉，最后〈r + d * y<sub>0</sub>, x<sub>2</sub>〉的值也可能超出字长范围，但对余数的计算并无影响，因为除数在字长范围内，所以余数也必然在字长范围内，在代码中，即使忽略v溢出的高位，v - u的结果也总是正确的。
 
-可见〈x<sub>0</sub>, x<sub>1</sub>〉<〈y<sub>0</sub>, y<sub>1</sub>〉时，本算法输出商的实际值，而当〈x<sub>0</sub>, x<sub>1</sub>〉=〈y<sub>0</sub>, y<sub>1</sub>〉时，如果仍然套用上面的算法，则t会被置为MASK即BASE - 1，这时t * y<sub>1</sub>一定小于〈r, x<sub>2</sub>〉，所以当〈x<sub>0</sub>, x<sub>1</sub>〉= Y时，会输出MASK，而实际值应为BASE，但在用到本算法的地方并不算错误，在算法D.4中会继续讨论这个问题。
+可见〈x<sub>0</sub>, x<sub>1</sub>〉<〈y<sub>0</sub>, y<sub>1</sub>〉时，本算法输出商的实际值，而当〈x<sub>0</sub>, x<sub>1</sub>〉=〈y<sub>0</sub>, y<sub>1</sub>〉时，如果仍然套用上面的算法，则t会被置为UNITMAX即BASE - 1，这时t * y<sub>1</sub>一定小于〈r, x<sub>2</sub>〉，所以当〈x<sub>0</sub>, x<sub>1</sub>〉= Y时，会输出UNITMAX，即比实际值小1，但在本算法的应用场景中并不算错误，在算法D.4中会继续讨论这个问题。
 
-对于〈x<sub>0</sub>, x<sub>1</sub>〉>〈y<sub>0</sub>, y<sub>1</sub>〉这种情况不予讨论，因为在本算法被使用的过程中，这种情况根本不会发生。
+对于〈x<sub>0</sub>, x<sub>1</sub>〉>〈y<sub>0</sub>, y<sub>1</sub>〉这种情况不予讨论，因为在本算法的应用场景中，这种情况根本不会发生。
 
 <h3 id="D2">D.2 n位数除以1位数（n > 2）</h3>
 
-设n位被除数为〈x<sub>0</sub>, x<sub>1</sub>, ..., x<sub>n-1</sub>〉，1位除数为d，结果为〈q<sub>0</sub>, q<sub>1</sub>, ..., q<sub>n-1</sub>〉，q<sub>i</sub> >= 0，i∈[0, n-1]。
+设n位被除数为〈x<sub>0</sub>, x<sub>1</sub>, ..., x<sub>n-1</sub>〉，1位除数为d，结果为〈q<sub>0</sub>, q<sub>1</sub>, ..., q<sub>n-1</sub>〉，d、x<sub>i</sub>以及q<sub>i</sub>均为数据单元，且q<sub>i</sub> >= 0，i∈[0, n-1]。
 
-可以利用一个循环得出结果：
+可以利用一个循环在线性时间复杂度内得出结果：
 
 q<sub>0</sub>, r<sub>0</sub> =〈0, x<sub>0</sub>〉/ d,〈0, x<sub>0</sub>〉% d
 
@@ -271,21 +280,26 @@ q<sub>0</sub> * d + r<sub>0</sub> = 〈0, x<sub>0</sub>〉
 
 故〈q<sub>0</sub>, q<sub>1</sub>, ..., q<sub>n-1</sub>〉* d + r<sub>n-1</sub> =〈x<sub>0</sub>, x<sub>1</sub>, ..., x<sub>n-1</sub>〉，算法得证，r<sub>n-1</sub>即为余数。
 
-<h3 id="D3">D.3 n+1位数除以n位数（n > 3）</h3>
+<h3 id="D3">D.3 n+1位数除以n位数(n > 3)</h3>
 
-设n+1位除数X =〈x<sub>0</sub>, x<sub>1</sub>, ..., x<sub>n</sub>〉，n位除数Y =〈y<sub>0</sub>, y<sub>1</sub>, ..., y<sub>n-1</sub>〉，x<sub>0</sub> != 0，y<sub>0</sub> !=0，n > 3。
+设n+1位除数X =〈x<sub>0</sub>, x<sub>1</sub>, ..., x<sub>n</sub>〉，n位被除数Y =〈y<sub>0</sub>, y<sub>1</sub>, ..., y<sub>n-1</sub>〉，x<sub>0</sub> != 0，y<sub>0</sub> != 0，n > 3。
+
+设t =〈x<sub>0</sub>, x<sub>1</sub>, x<sub>2</sub>〉/〈y<sub>0</sub>, y<sub>1</sub>〉，当〈x<sub>0</sub>, x<sub>1</sub>〉<=〈y<sub>0</sub>, y<sub>1</sub>〉时，X / Y 的值可能是t，也可能是t - 1，由算法M.4求X - t * Y，不存在借位时，t = X / Y，X - t * Y即为余数，当存在借位时，t - 1 = X / Y，再将X - t * Y加上Y即可得到余数。
+
+证明：
 
 设  
 LX =〈x<sub>3</sub>, ..., x<sub>n</sub>〉 
-LY =〈y<sub>2</sub>, ..., 2<sub>n-1</sub>〉  
-A = BASE<sup>n-3</sup>  
+LY =〈y<sub>2</sub>, ..., y<sub>n-1</sub>〉  
+A = BASE<sup>n-3</sup>
+
 则  
 X =〈x<sub>0</sub>, x<sub>1</sub>, x<sub>2</sub>〉* A + LX  
 Y =〈y<sub>0</sub>, y<sub>1</sub>〉* A + LY
 
 设
-Q为X与Y进行实数除法的商，t为〈x<sub>0</sub>, x<sub>1</sub>, x<sub>2</sub>〉与〈y<sub>0</sub>, y<sub>1</sub>〉进行实数除法的商。
-将t * Y与X进行比较：
+Q为X与Y进行实数除法的商，t为〈x<sub>0</sub>, x<sub>1</sub>, x<sub>2</sub>〉与〈y<sub>0</sub>, y<sub>1</sub>〉进行实数除法的商，t在这里为实数。  
+将t * Y与X进行比较，如果t * Y < X说明t偏小，t * Y > X说明t偏大：
 
 t * Y = t * (〈y<sub>0</sub>, y<sub>1</sub>〉* A + LY) =〈x<sub>0</sub>, x<sub>1</sub>, x<sub>2</sub>〉* A + t * LY
 X =〈x<sub>0</sub>, x<sub>1</sub>, x<sub>2</sub>〉* A + LX
@@ -296,7 +310,7 @@ X =〈x<sub>0</sub>, x<sub>1</sub>, x<sub>2</sub>〉* A + LX
 显然，0 < X - &#8970;t&#8971; * Y < Y，&#8970;t&#8971;即是整数除法的商
 
 2. 如果t * LY > LX  
-说明t大于实际值Q，此时t比Q大了多少呢，可以考察t - 1与Q的关系。
+说明t大于实际值Q，此时t比Q大了多少呢，考察t - 1与Q的关系。
 
 Q * Y = X =〈x<sub>0</sub>, x<sub>1</sub>, x<sub>2</sub>〉* A + LX
 
@@ -312,8 +326,6 @@ Q * Y = X =〈x<sub>0</sub>, x<sub>1</sub>, x<sub>2</sub>〉* A + LX
 
 在本算法的实际使用中，X的高n位总是小于Y，所以t的值小于BASE，可由一个数据单元记录。
 
-利用算法M.4，求出R = X - t * Y的值，R即为余数，如果没有借位，t和R即为整数除法的结果，如果出现借位，t减1，R加上Y，即为最终结果。
-
 <h3 id="D4">D.4 任意位数之间的除法</h3>
 
 设被除数X为m位，除数Y为n位(n > 0, m > 0)。
@@ -322,26 +334,27 @@ Q * Y = X =〈x<sub>0</sub>, x<sub>1</sub>, x<sub>2</sub>〉* A + LX
 
 当n <= m时，如果Y为1位数，由可由算法D.2求得结果，下以讨论Y的位数大于等于2的情况。
 
-如果X的最高单元大于或等于Y的最高单元，则将X的最高单元更高的单元置0，m增1，从而保证了X的高n位一定小于Y，则商必为m - n位数，也保证了算法D.3的前提条件。
+如果X的最高单元大于或等于Y的最高单元，则将X比最高单元更高的单元置0，m增1，从而保证了X的高n位一定小于Y，则商必为m - n位数，也保证了算法D.3的前提条件。
 
-任意位数之间的除法，其原理与算法D.2是相同的，可以将n位除数Y视作一个整体，利用算法D.3，每次用X的高n + 1位除以Y，得到一个商值，并将余数写回X的高n + 1位，写回余数后X的最高单元为0，即X的位数会减1，所以重复这样的除法直到X的位数与Y相同，每次求得的商从高位到低位排列，即是原X除以Y的商，最后X的值即为余数。
+任意位数之间的除法，在原理上与算法D.2是相同的，可以将n位除数Y视作一个整体，利用算法D.3，每次用X的高n + 1位除以Y，得到一个商值，并将余数写回X的高n + 1位，写回余数后X的最高单元为0，即X的位数会减1，重复这样的除法直到X的位数与Y相同，每次求得的商从高位到低位排列，即是原X除以Y的商，最后X的值即为余数。
 
 每次用X的高n + 1位除以Y时，算法D.3的前提条件都是满足的，而且X的高n位都小于Y，每次用算法D.1估商的值都应该小于BASE，即可用一个数据单元记录。
 
-有一个特殊情况，设〈x<sub>0</sub>, x<sub>1</sub>〉为X最高位的两个单元，〈y<sub>0</sub>, y<sub>1</sub>〉是Y最高位的两个单元，〈x<sub>0</sub>, x<sub>1</sub>〉与〈y<sub>0</sub>, y<sub>1</sub>〉有可能相等，这时用算法D.1来估商得到MASK，可以证明本次除法商的实际值就是MASK。
+有一个特殊情况，设〈x<sub>0</sub>, x<sub>1</sub>〉为X最高位的两个单元，〈y<sub>0</sub>, y<sub>1</sub>〉是Y最高位的两个单元，〈x<sub>0</sub>, x<sub>1</sub>〉与〈y<sub>0</sub>, y<sub>1</sub>〉有可能相等，这时用算法D.1来估商得到UNITMAX，可以证明本次除法商的实际值就是UNITMAX。
 
 证明：  
-设X =〈x<sub>0</sub>, x<sub>1</sub>, ..., x<sub>n</sub>〉  
+设  
+X =〈x<sub>0</sub>, x<sub>1</sub>, ..., x<sub>n</sub>〉  
 Y =〈y<sub>0</sub>, y<sub>1</sub>, ..., y<sub>n-1</sub>〉  
 LX =〈x<sub>2</sub>, ..., x<sub>n-1</sub>〉 
 LY =〈y<sub>2</sub>, ..., y<sub>n-1</sub>〉 
 
 x<sub>0</sub> = y<sub>0</sub>，x<sub>1</sub> = y<sub>1</sub>
 
-X - Y * MASK = X - Y * BASE + Y = (LX - LY) * BASE + x<sub>n</sub> + Y
+X - Y * UNITMAX = X - Y * BASE + Y = (LX - LY) * BASE + x<sub>n</sub> + Y
 
 -LY <= LX - LY <= -1，x<sub>n</sub> < BASE
 
-LY 最大为n-2位数，所以0 < X - Y * MASK < Y，故X / Y的值为MASK。
+LY 最大为n-2位数，所以0 < X - Y * UNITMAX < Y，故X / Y的值为UNITMAX。
 
 至此关于除法的算法暂告一段落。
