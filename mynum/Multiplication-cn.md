@@ -100,3 +100,108 @@ number_t operator * (unsigned long a, const number_t& b);
 number_t operator * (const number_t& a, unsigned long long b);
 number_t operator * (unsigned long long a, const number_t& b);
 ```
+
+##算法
+
+本节讨论任意大整数之间乘法的算法。
+
+《[数据存储方式](https://github.com/brotherbeer/mydocument/blob/master/mynum/Storage-ch.md)》一章指出，一个大整数对象可以理解成一个n位进制为BASE的数（n >= 0），下文为简明起见，将一个具有n个数据单元的大整数对象简称为“n位数”，如无特殊声明，以下讨论中的各符号均为整数，运算符“*”、“+”表示整数乘法和加法，“=”表示相等。
+
+ * [M.0 1位数乘1位数再与1位数相加](#M0)
+ * [M.1 n位数乘以1位数（n > 1）](#M1)
+ * [M.2 任意位数之间的基本乘法](#M2)
+ * [M.3 任意位数的基本平方算法](#M3)
+ * [M.4 n位数减去m位数乘以1位数的积（m > n, n > 1）](#M4)
+ * [M.5 Karatsuba算法](#M5)
+
+<h3 id="M0">M.0 1位数乘1位数再与1位数相加</h3>
+
+设a、b、c为1位数，即1个数据单元，a * b + c的结果需要用2个数据单元记录，低位单元为计算结果，高位单元为进位，代码如下：
+```C++
+unit_t muladd(unit_t a, unit_t b, unit_t c, unit_t& res)
+{
+    dunit_t sum = (dunit_t)a * b + c;
+    *res = sum & UNITMAX;
+    return sum >> UNITBITS;
+}
+```
+该算法将res指向的单元设为结果，并返回进位。
+
+1个计算单元的最大值为BASE-1，1个字(word)的最大值为BASE<sup>2</sup> - 1，2个具有最大值的计算单元相乘后再与1个最大值的单元相加：  
+
+(BASE - 1)<sup>2</sup> + BASE - 1 = BASE<sup>2</sup> - BASE < BASE<sup>2</sup> - 1
+
+即结果不会超出字长范围，所以这段代码的每一步都是可靠的，不难发现，2个具有最大值的计算单元相乘后再与2个最大值的单元相加，结果刚好为BASE<sup>2</sup> - 1，也不会溢出，这里给出`muladd`函数的一个重载，计算a * b + c + d，d亦为一个数据单元：
+```C++
+unit_t muladd(unit_t a, unit_t b, unit_t c, unit_t d, unit_t& res)
+{
+    dunit_t sum = (dunit_t)a * b + c + d;
+    *res = sum & UNITMAX;
+    return sum >> UNITBITS;
+}
+```
+
+<h3 id="M1">M.0 n位数乘以1位数（n > 1）</h3>
+
+设X =〈x<sub>n-1</sub>, ..., x<sub>1</sub>, x<sub>0</sub>〉为n位数，y为1位数，X与y的乘积为〈z<sub>n</sub>, ..., z<sub>1</sub>, z<sub>0</sub>〉，0 <= z<sub>i</sub> < BASE，i∈[0, n]，X与y的积可能有n + 1位：  
+```C++
+slen_t __mul_unit_core(const unit_t* x, slen_t n, unit_t y, unit_t* z)
+{
+    unit_t carry = 0;
+    const unit_t* e = x + n;
+
+    for (; x != e; x++, z++)
+    {
+        carry = addmul(*x, *y, carry, z);  // M.0
+    }
+	if (carry)
+	{
+		n++;
+		*z = carry;
+	}
+	return n;
+}
+```
+其中指针x指向X的数据单元序列，z指向结果数据单元序列，该代码将X与y的乘积输出到z，返回乘积的位数。  
+请注意，具体实现中，存储在低地址的数据单元记录大整数数值的低位，存储在高地址的单元记录数值的高位。表达式〈x<sub>n-1</sub>, ..., x<sub>1</sub>, x<sub>0</sub>〉中左侧的单元表示高位，右侧的单元表示低位，单元的下标仅作单元区分之用，与高低位无关。
+
+<h3 id="M3">M.3 任意位数之间的基本乘法</h3>
+
+设m位数X =〈x<sub>m-1</sub>, ..., x<sub>1</sub>, x<sub>0</sub>〉，n位数Y =〈y<sub>n-1</sub>, ..., y<sub>1</sub>, y<sub>0</sub>〉(m >= 0, n >= 0)，显然如果m与n有一者为0，结果即为0，下面讨论m、n均不为0的情况。任意位数之间的基本乘法我们在小学的时候已经学过了，这里复习一下。
+
+X * Y = Σ(x<sub>i<sub> * Y * BASE<sup>i</sup>) i = 0 → m-1
+
+利用M.0可以得出：
+```C++
+slen_t __mul_core(const unit_t* x, slen_t m, const unit_t* y, slen_t n, unit_t* res)  // not inplace
+{
+    assert(res != x && res != y);
+
+    unit_t carry = 0, u;
+    unit_t *pr, *rb = res;
+    const unit_t *ex = x + m;
+    const unit_t *ey = y + n, *py;
+
+    for (; x != ex; rb++, x++)
+    {
+        for (u = *x, pr = rb, py = y; py < ey; py++, pr++)
+        {
+			carry = addmul(u, *py, *pr, carry, pr);  // M.0
+        }
+        if (carry)
+        {
+            *pr = carry;
+            carry = 0;
+        }
+    }
+    m += n;
+    __trim_leading_zeros(res, m);
+    return m;
+}
+```
+其中指针x指向X的单元序列，y指向Y的单元序列，res指向结果的单元序列。内层循环中的u即x<sub>i<sub>，ex、ey分别指向X和Y的单元序列末尾。
+
+显然，算法的时间复杂度为O(m * n)
+
+注意，考虑到代码的优化，本节讨论的算法代码与mynum的具体实现并不完全相同，但在原理上是一致的。
+
