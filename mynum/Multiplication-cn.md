@@ -118,7 +118,7 @@ number_t operator * (unsigned long long a, const number_t& b);
 
 设a、b、c为1位数，即1个数据单元，a * b + c的结果需要用2个数据单元记录，低位单元为计算结果，高位单元为进位，代码如下：
 ```C++
-unit_t muladd(unit_t a, unit_t b, unit_t c, unit_t& res)
+unit_t muladd(unit_t a, unit_t b, unit_t c, unit_t* res)
 {
     dunit_t sum = (dunit_t)a * b + c;
     *res = sum & UNITMAX;
@@ -133,7 +133,7 @@ unit_t muladd(unit_t a, unit_t b, unit_t c, unit_t& res)
 
 即结果不会超出字长范围，所以这段代码的每一步都是可靠的，不难发现，2个具有最大值的计算单元相乘后再与2个最大值的单元相加，结果刚好为BASE<sup>2</sup> - 1，也不会溢出，这里给出`muladd`函数的一个重载，计算a * b + c + d，d亦为一个数据单元：
 ```C++
-unit_t muladd(unit_t a, unit_t b, unit_t c, unit_t d, unit_t& res)
+unit_t muladd(unit_t a, unit_t b, unit_t c, unit_t d, unit_t* res)
 {
     dunit_t sum = (dunit_t)a * b + c + d;
     *res = sum & UNITMAX;
@@ -169,7 +169,7 @@ slen_t __mul_unit_core(const unit_t* x, slen_t n, unit_t y, unit_t* z)
 
 设m位数X =〈x<sub>m-1</sub>, ..., x<sub>1</sub>, x<sub>0</sub>〉，n位数Y =〈y<sub>n-1</sub>, ..., y<sub>1</sub>, y<sub>0</sub>〉(m >= 0, n >= 0)，显然如果m与n有一者为0，结果即为0，下面讨论m、n均不为0的情况。任意位数之间的基本乘法我们在小学的时候已经学过了，这里复习一下。
 
-X * Y = Σ(x<sub>i<sub> * Y * BASE<sup>i</sup>) i = 0 → m-1
+X * Y = Σ(x<sub>i</sub> * Y * BASE<sup>i</sup>) i = 0 → m-1
 
 利用M.0可以得出：
 ```C++
@@ -199,7 +199,7 @@ slen_t __mul_core(const unit_t* x, slen_t m, const unit_t* y, slen_t n, unit_t* 
     return m;
 }
 ```
-其中指针x指向X的单元序列，y指向Y的单元序列，res指向结果的单元序列。内层循环中的u即x<sub>i<sub>，ex、ey分别指向X和Y的单元序列末尾。
+其中指针x指向X的单元序列，y指向Y的单元序列，res指向结果的单元序列。内层循环中的u即x<sub>i</sub>，ex、ey分别指向X和Y的单元序列末尾。
 
 显然，算法的时间复杂度为O(m * n)
 
