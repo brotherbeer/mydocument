@@ -1,13 +1,12 @@
-大整数对象转为字符串
--------------
+<h1>大整数对象转为字符串</h1>
 
- * [number_t成员函数](#成员函数)
- * [输出流运算符](#输出流运算符)
- * [注意事项](#注意事项)
- * [示例](#示例)
- * [算法](#算法)
+ * [成员函数](#nemberfunctions)
+ * [输出流运算符](#ostreamoperator)
+ * [注意事项](#attentions)
+ * [示例](#examples)
+ * [算法](#algorithms)
 
-##number_t成员函数
+<h2 id="memberfunctions">成员函数</h2>
 
 按2进制转为字符串str
 ```C++
@@ -42,19 +41,21 @@ string_t to_string(int base = 10) const;
 string_t operator () (int base) const;
 ```
 
-##输出流运算符
+<h2 id="ostreamoperator">输出流运算符</h2>
 
 ```C++
 std::ostream& operator << (std::ostream& os, const number_t& a)
 ```
 
-##注意事项
+<h2 id="attentions">注意事项</h2>
+
 为了更高的效率，所有与字符串转换相关的成员函数不会成生前导字符串或空白符，并只用小写字母。 
 当然，mynum可以将大整数对象转为具有复杂格式的字符串，如用format_t类的dump函数，具体请参见《[大整数对象转为格式化字符串](https://github.com/brotherbeer/mydocument/blob/master/mynum/Formatted-output-ch.md)》
 
 将大整数对象按16进制转为字符串的时间复杂度最低。
 
-##示例
+<h2 id="examples">示例</h2>
+
 ```C++
 number_t a, b(123), c("abcdef", 16);
 number_t d("gogogo", 32), e("iloveyou", 36);
@@ -73,7 +74,7 @@ gogogo
 iloveyou
 ```
 
-##算法
+<h2 id="algorithms">算法</h2>
 
 根据前文，大整数对象的值相当于一个BASE进制的数，各数据单元的值即是其各位的值，将一个有n个单元(n>=0)的大整数对象转为任意进制数，即是将
 〈u<sub>n-1</sub>, ..., u<sub>1</sub>, u<sub>0</sub>〉<sub>BASE</sub>转为〈r<sub>m-1</sub>, ..., r<sub>1</sub>, r<sub>0</sub>〉<sub>base</sub>的过程，base为任意进制，转换后的base进制数有m位，r<sub>i</sub>为其各位数值(0 <= i < m)。将r<sub>i</sub>依次转为字符串，大整数对象便转成了字符串。

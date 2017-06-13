@@ -1,9 +1,14 @@
-模运算
--------------
+<h1>模运算</h1>
 
-##Functions
+ * [函数](#functions)
+ * [成员函数](#membersfunctions)
+ * [运算符](#operatorsoverloaded)
+ * [注意事项](#attentions)
+
+<h2 id="functions">函数</h2>
+
 Set _res_ to _a_ % _b_,
-if b is zero, return 0, otherwise return 1
+if _b_ is zero, return 0, otherwise return 1
 ```C++
 int mod(const number_t& a, const number_t& b, number_t& res);
 ```
@@ -42,7 +47,7 @@ Return the result
 number_t mod(const number_t& a, const number_t& b);
 ```
 
-##Member Functions
+<h2 id="memberfunctions">成员函数</h2>
 
 ```C++
 number_t& number_t::mod(const number_t&);
@@ -69,7 +74,8 @@ number_t& number_t::mod(long long x);
 number_t& number_t::mod(unsigned long long x);
 ```
 
-##Operators overloaded
+<h2 id="operatorsoverloaded">运算符</h2>
+
 ```C++
 number_t& number_t::operator %= (const number_t& x);
 number_t& number_t::operator %= (int x);
@@ -103,3 +109,7 @@ number_t operator % (unsigned long a, const number_t& b);
 number_t operator % (const number_t& a, unsigned long long b);
 number_t operator % (unsigned long long a, const number_t& b);
 ```
+
+<h2 id="attentions">注意事 </h2>
+
+如果除数为0，所有模运算的函数除了直接返回0之外什么也不做

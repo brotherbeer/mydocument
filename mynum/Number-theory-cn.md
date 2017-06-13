@@ -1,11 +1,10 @@
-数论相关
--------------
+<h1>数论相关函数</h1>
 
- * [全局函数](#全局函数)
- * [注意事项](#注意事项)
- * [算法](#算法)
+ * [函数](#functions)
+ * [注意事项](#attentions)
+ * [算法](#algorithms)
 
-##全局函数
+<h2 id="functions">Functions</h2>
 
 返回a和b的Jacobi符号
 ```C++
@@ -43,6 +42,6 @@ int pom(const number_t& a, const number_t& b, const number_t& c, number_t& res);
 int inv(const number_t& a, const number_t& m, number_t& res);
 ```
 
-##注意事项
+<h2 id="attentions">注意事项</h2>
 
-##算法
+<h2 id="algorithms">算法</h2>

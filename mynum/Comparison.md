@@ -1,7 +1,9 @@
-Comparison
--------------
+<h1>Comparison</h1>
 
-##Functions
+ * [Functions](#functions)
+ * [Operators overloaded](#operatorsoverloaded)
+
+<h2 id="functions">Functions</h2>
 
 Compare _a_ and _b_, return 1 if _a_ > _b_, 0 if _a_ = _b_, -1 if _a_ < _b_
 ```C++
@@ -127,7 +129,8 @@ bool egt(long long a, const number_t& b);
 bool egt(unsigned long long a, const number_t& b);
 ```
 
-##Operators overloaded
+<h2 id="operatorsoverloaded">Operators overloaded</h2>
+
 ```C++
 bool operator == (const number_t& a, const number_t& b);
 bool operator == (const number_t& a, bool b);

@@ -1,11 +1,10 @@
-Big integer to ordinary integer
--------------
+<h1>Big integer to ordinary integer</h1>
 
- * [Number_t members](#number_t-members)
+ * [Member functions](#memberfunctions)
  * [Attentions](#attentions)
  * [Examples](#examples)
 
-##Number_t members
+<h2 id="memberfunctions">Member functions</h2>
 
 Determine whether the value of _*this_ is within the range of the ordinary integer type
 ```C++
@@ -53,7 +52,8 @@ operator unsigned long () const;
 operator unsigned long long () const;
 ```
 
-##Attentions
+<h2 id="attentions">Attentions</h2>
+
 Before the conversion, you should determine whether the value of the number_t object is within the range of the specified ordinary integer type, otherwise, the value of the ordinary integer converted may be wrong.
 
 The ranges of the ordinary integer types:
@@ -73,7 +73,8 @@ The ranges of the ordinary integer types:
 
 The range of long/unsigned long are decided by the compilers, in gcc, are the same as long long/unsigned long long, in MSVC, are the same as int/unsigned int.
 
-##Examples
+<h2 id="examples">Examples</h2>
+
 ```C++
 number_t a(0xffffffff), b(-1);
 if (a.in_range_int()) cout << a.to_int() << endl;

@@ -1,5 +1,4 @@
-Primality test
--------------
+<h1>Primality test</h1>
 
  * [Functions](#functions)
  * [Algorithms](#algorithms)
@@ -21,7 +20,7 @@ Set _res_ to be the previous number of _n_ who can pass the roughly primality te
 void prime_prev_roughly(const number_t& n, number_t& res);
 ```
 
-Miller-Rabin test, _times_ is the test times
+Do Miller-Rabin test for _n_, _times_ is the test times
 ```C++
 bool MR_prime_test(const number_t& n, size_t times);
 ```

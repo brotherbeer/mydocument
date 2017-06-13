@@ -1,5 +1,4 @@
-The data storage model of mynum
--------------
+<h1>The data storage model of mynum</h1>
 
 _Mynum is currently only available on the LITTLE-ENDIAN machines, which store the least significant byte (LSB) of a word at the lowest memory address, and store the other bytes following in increasing order of significance._
 

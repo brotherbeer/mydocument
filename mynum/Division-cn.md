@@ -1,14 +1,13 @@
-除法
--------------
+<h1>除法</h1>
 
- * [全局函数](#全局函数)
- * [Number_t成员函数](#number_t成员函数)
- * [运算符](#运算符)
- * [用乘法作除法](#用乘法作除法)
- * [注意事项](#注意事项)
- * [算法](#算法)
+ * [函数](#functions)
+ * [成员函数](#memberfunctions)
+ * [运算符](#operatorsoverloaded)
+ * [用乘法作除法](#dothedivisionviamultiplication)
+ * [注意事项](#attentions)
+ * [算法](#algorithms)
 
-##全局函数
+<h2 id="functions">函数</h2>
 
 Set _a_ / _b_ to _q_, and _a_ % _b_ to _r_. If _b_ is 0, the functions return 0, otherwise return 1
 ```C++
@@ -56,7 +55,7 @@ Return _a_ / _b_
 number_t div(const number_t& a, const number_t& b);
 ```
 
-##Number_t成员函数
+<h2 id="memberfunctions">成员函数</h2>
 
 Divide _*this_ by another number_t object _x_, _r_ is the remainder  
 _r_ and _*this_ should not be the same
@@ -87,7 +86,8 @@ number_t& div(unsigned long long x);
 number_t& div_unit(unit_t x);
 ```
 
-##运算符
+<h2 id="operatorsoverloaded">运算符</h2>
+
 ```C++
 number_t& number_t::operator /= (const number_t& x);
 number_t& number_t::operator /= (int x);
@@ -122,7 +122,7 @@ number_t operator / (const number_t& a, unsigned long long b);
 number_t operator / (unsigned long long a, const number_t& b);
 ```
 
-##用乘法作除法
+<h2 id="dothedivisionviamultiplication">用乘法作除法</h2>
 
 众所周知, 整数除法指令的执行效率相比于乘法指令是相当低的，往往是乘法指令的数倍，幸运地是，根据Torbjorn Granlund和Peter L. Montgomery的论文"[Division by Invariant Integers using Multiplication](https://github.com/brotherbeer/mydocument/blob/master/mynum/resource/divcnst-pldi94.pdf)", 可以将除法转为除数倒数相关的乘法。
 
@@ -135,7 +135,7 @@ a.div_unit(udm); // 比直接调用a.div_unit(d)快
 ```
 当大整数对象的值比较大时，利用UDM的除法明显比直接除法快。如果除数是可预见的，则其对应的UDM对象是可重用的。
 
-##注意事项
+<h2 id="attentions">注意事项</h2>
 
 如果除数为0，将不做任何计算，所以最好在做除法之前检查除数是否为0。
 
@@ -151,7 +151,7 @@ int div(const number_t& b, number_t& r);
 ```
 r与*this不应为同一对象，否则结果是不可预期的。
 
-##算法
+<h2 id="algorithms">算法</h2>
 
 本节讨论任意大整数之间除法的算法(D.4)，该算法依赖于算法D.0—D.3。
 

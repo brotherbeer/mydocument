@@ -1,11 +1,9 @@
-比较
--------------
+<h1>比较</h1>
 
- * [全局函数](#全局函数)
- * [运算符](#运算符)
- * [算法](#算法)
+ * [函数](#functions)
+ * [运算符](#operatorsoverloaded)
 
-##全局函数
+<h2 id="functions">函数</h2>
 
 Compare _a_ and _b_, return 1 if _a_ > _b_, 0 if _a_ = _b_, -1 if _a_ < _b_
 ```C++
@@ -131,7 +129,8 @@ bool egt(long long a, const number_t& b);
 bool egt(unsigned long long a, const number_t& b);
 ```
 
-##运算符
+<h2 id="operatorsoverloaded">运算符</h2>
+
 ```C++
 bool operator == (const number_t& a, const number_t& b);
 bool operator == (const number_t& a, bool b);
@@ -278,5 +277,3 @@ bool operator <= (unsigned long a, const number_t& b);
 bool operator <= (const number_t& a, unsigned long long b);
 bool operator <= (unsigned long long a, const number_t& b);
 ```
-
-##算法

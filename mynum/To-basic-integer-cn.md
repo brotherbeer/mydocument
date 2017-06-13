@@ -1,11 +1,10 @@
-大整数对象转为基本整型变量
--------------
+<h1>大整数对象转为基本整型变量</h1>
 
- * [number_t成员函数](#number_t成员函数)
- * [注意事项](#注意事项)
- * [示例](#示例)
+ * [成员函数](#memberfunctions)
+ * [注意事项](#attentions)
+ * [示例](#examples)
 
-##相关成员函数
+<h2 id="memberfunctions">相关成员函数</h2>
 
 判断对象的值是否在指定的基本整型范围内
 ```C++
@@ -53,7 +52,8 @@ operator unsigned long () const;
 operator unsigned long long () const;
 ```
 
-##注意事项
+<h2 id="attentions">注意事项</h2>
+
 将大整数对象转为基本整型变量之前应先判断其值是否在相应基本整型的范围内，如果不在该范围内，转化后的值为不正确的值。  
 另外，值为负时，不算入相应无符号类型的范围内，如-1不在unsigned int范围内，-2不在unsigned long范围内。  
 各类型范围：
@@ -73,7 +73,8 @@ operator unsigned long long () const;
 
 其中，long/unsigned long型的范围由编译器决定，gcc编译环境中与long long/unsigned long long相同，MSVC环境中与int/unsigned int相同。
 
-##示例
+<h2 id="examples">示例</h2>
+
 ```C++
 number_t a(0xffffffff), b(-1);
 if (a.in_range_int()) cout << a.to_int() << endl;

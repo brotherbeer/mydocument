@@ -1,9 +1,14 @@
-Modulo operation
--------------
+<h1>Modulo operation</h1>
 
-##Functions
+ * [Functions](#functions)
+ * [Member functions](#membersfunctions)
+ * [Operators overloaded](#operatorsoverloaded)
+ * [Attentions](#attentions)
+
+<h2 id="functions">Functions</h2>
+
 Set _res_ to _a_ % _b_,
-if b is zero, return 0, otherwise return 1
+if _b_ is zero, return 0, otherwise return 1
 ```C++
 int mod(const number_t& a, const number_t& b, number_t& res);
 ```
@@ -42,7 +47,7 @@ Return the result
 number_t mod(const number_t& a, const number_t& b);
 ```
 
-##Member Functions
+<h2 id="memberfunctions">Member functions</h2>
 
 ```C++
 number_t& number_t::mod(const number_t&);
@@ -69,7 +74,8 @@ number_t& number_t::mod(long long x);
 number_t& number_t::mod(unsigned long long x);
 ```
 
-##Operators overloaded
+<h2 id="operatorsoverloaded">Operators overloaded</h2>
+
 ```C++
 number_t& number_t::operator %= (const number_t& x);
 number_t& number_t::operator %= (int x);
@@ -103,3 +109,7 @@ number_t operator % (unsigned long a, const number_t& b);
 number_t operator % (const number_t& a, unsigned long long b);
 number_t operator % (unsigned long long a, const number_t& b);
 ```
+
+<h2 id="attentions">Attentions</h2>
+
+If the divisor is 0, Modulo functions return 0 and do nothing

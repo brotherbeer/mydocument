@@ -1,14 +1,14 @@
-随机数
--------------
+<h1>随机数</h1>
 
- * [随机数生成器](#随机数生成器)
- * [全局函数](#全局函数)
- * [注意事项](#注意事项)
- * [算法](#算法)
+ * [随机数生成器](#rng)
+ * [函数](#functions)
+ * [注意事项](#attentions)
+ * [算法](#algorithms)
 
-##随机数生成器
+<h2 id="rng">随机数生成器</h2>
 
-###随机数生成器虚基类
+<h3>随机数生成器虚基类</h3>
+
 
 ```C++
 struct RNG
@@ -37,27 +37,27 @@ bool gen_bytes(void* buf, size_t n);
 bool valid() const;
 ```
 
-###原始线性同余生成器
+<h3>原始线性同余生成器</h3>
 ```
 struct LCG_t;
 ```
 
-###改进的线性同余生成器
+<h3>改进的线性同余生成器</h3>
 ```
 struct XLCG_t;
 ```
 
-###异或移位生成器
+<h3>异或移位生成器</h3>
 ```C++
 struct XORSP_t: public RNG
 ```
 
-###加密随机数生成器
+<h3>加密随机数生成器</h3>
 ```C++
 struct CRNG_t: public RNG
 ```
 
-##全局函数
+<h2 id="functions">函数</h2>
 
 返回当前默认成生器的引用
 ```C++
@@ -139,15 +139,15 @@ bool rand(size_t minbits, size_t maxbits, RNG& rng, number_t& n);
 bool rand(size_t length, const string_t& chars, RNG& rng, string_t& s);
 ```
 
-##注意事项
+<h2 id="attentions">注意事项</h2>
 
 `bool rand(size_t maxbits, RNG& rng, number_t& n)` 函数并非生成二进制位数在[0, maxbits]区间内均匀分布的随机数，如果想生成位数在某区间内均匀分布的随机数，请用`bool rand(size_t minbits, size_t maxbits, RNG& rng, number_t& n)`函数。
 
 在默认情况下，默认随机数数生成器为异位移位生成器XORSP_t。
 
-##算法
+<h2 id="algorithms">算法</h2>
 
-###随机数生成器
+<h3>随机数生成器</h3>
 
 利用随机数生成器生成序列{x<sub>0</sub>, x<sub>1</sub>, ..., x<sub>n</sub>, x<sub>n+1</sub>} (x<sub>i</sub>为字长型变量，i <= n + 1)
 
@@ -162,7 +162,7 @@ XORSP_t 为异或移位生成器，生成随机数的效率和质量均较高，
 
 CRNG_t利用操作系统的接口实现(类Unix上为/dev/urandom，Windows上为系统API CryptGenRandom)，效率较低，但生成随机数的质量非常高，是可以满足加密需求的随机数成生器，具体实现请参见源代码。
 
-###关于随机数种子
+<h3>关于随机数种子</h3>
 
 随机数种子可以作为随机数生成器构造函数的参数赋于生成器，CRNG_t是可以生成近乎于真随机数的生成器，故不需要指定种子。
 

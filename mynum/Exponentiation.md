@@ -1,10 +1,9 @@
-Exponentiation
--------------
+<h1>Exponentiation</h1>
 
- * [Functions](#Functions)
- * [Member functions](#Member-functions)
+ * [Functions](#functions)
+ * [Member functions](#memberfunctions)
 
-##Functions
+<h2 id="functions">Functions</h2>
 
 Set _res_ to _a<sup>2</sup>_, using basic algorithm  
 ```C++
@@ -32,7 +31,7 @@ If _c_ is zero, returns 0, otherwise returns 1
 int pom(const number_t& a, const number_t& b, const number_t& c, number_t& res);
 ```
 
-##Member Functions
+<h2 id="memberfunctions">Member functions</h2>
 
 ```C++
 number_t& number_t::sqr();

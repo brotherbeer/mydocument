@@ -1,7 +1,10 @@
-Subtraction
--------------
+<h1>Subtraction</h1>
 
-##Functions
+ * [Functions](#functions)
+ * [Member functions](#membersfunctions)
+ * [Operators overloaded](#operatorsoverloaded)
+
+<h2 id="functions">Functions</h2>
 
 Set _res_ to _a_ - _b_
 ```C++
@@ -23,21 +26,21 @@ void sub(const number_t& a, long long x, number_t& res);
 void sub(const number_t& a, unsigned long long x, number_t& res);
 ```
 
-Set _res_ to _x_ - _b_ (_x_ is an ordinary integer)
+Set _res_ to _x_ - _a_ (_x_ is an ordinary integer)
 ```C++
-void sub(int x, const number_t& b, number_t& res);
-void sub(unsigned int x, const number_t& b, number_t& res);
-void sub(long x, const number_t& b, number_t& res);
-void sub(unsigned long x, const number_t& b, number_t& res);
-void sub(long long x, const number_t& b, number_t& res);
-void sub(unsigned long long x, const number_t& b, number_t& res);
+void sub(int x, const number_t& a, number_t& res);
+void sub(unsigned int x, const number_t& a, number_t& res);
+void sub(long x, const number_t& a, number_t& res);
+void sub(unsigned long x, const number_t& a, number_t& res);
+void sub(long long x, const number_t& a, number_t& res);
+void sub(unsigned long long x, const number_t& a, number_t& res);
 ```
 Return _a_ - _b_
 ```C++
 number_t sub(const number_t& a, const number_t& b);
 ```
 
-##Member functions
+<h2 id="memberfunctions">Member functions</h2>
 
 Sub _*this_ with another number_t object _x_
 ```C++
@@ -62,7 +65,8 @@ number_t& number_t::sub(long long x);
 number_t& number_t::sub(unsigned long long x);
 ```
 
-##Operators overloaded
+<h2 id="operatorsoverloaded">Operators overloaded</h2>
+
 ```C++
 number_t& number_t::operator -- ();
 number_t& number_t::operator -- (int);

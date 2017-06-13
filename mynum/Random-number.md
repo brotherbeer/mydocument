@@ -1,9 +1,7 @@
-Random number
--------------
+<h1>Random number</h1>
 
  * [Random number generator](#rng)
  * [Functions](#functions)
- * [Algorithms](#Algorithms)
 
 <h2 id="rng">Random number generator</h2>
 

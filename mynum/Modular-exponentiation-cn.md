@@ -1,7 +1,6 @@
-幂取模
--------------
+<h1>幂取模</h1>
 
-##Functions
+<h2>函数</h2>
 
 Set _res_ to _a<sup>b</sup>_ % _c_
 ```C++

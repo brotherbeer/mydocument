@@ -1,5 +1,4 @@
-Big integer to formatted string
--------------
+<h1>Big integer to formatted string</h1>
 
 A `number_t` object can be converted into a `string_t` object in the specified format, The format can be specified by `format_t`  class, for example:
 

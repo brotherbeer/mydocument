@@ -1,12 +1,12 @@
-乘法
--------------
+<h1>乘法</h1>
 
- * [全局函数](#全局函数)
- * [Number_t成员函数](#number_t成员函数)
- * [运算符](#运算符)
- * [算法](#算法)
+ * [函数](#functions)
+ * [成员函数](#memberfunctions)
+ * [运算符](#operatorsoverloaded)
+ * [NTT类](#nttclass)
+ * [算法](#algorithms)
 
-##全局函数
+<h2 id="functions">函数</h2>
 
 用基本算法求a与b的乘积res
 ```C++
@@ -63,7 +63,7 @@ void ksqr(const number_t& a, number_t& res);
 void fsqr(const number_t& a, number_t& res);
 ```
 
-##Number_t成员函数
+<h2 id="memberfunctions">成员函数</h2>
 
 与另一个number_t对象相乘
 ```C++
@@ -89,7 +89,8 @@ number_t& number_t::mul(long long x);
 number_t& number_t::mul(unsigned long long x);
 ```
 
-##运算符
+<h2 id="operatorsoverloaded">运算符</h2>
+
 ```C++
 number_t& number_t::operator *= (const number_t& x);
 number_t& number_t::operator *= (int x);
@@ -124,7 +125,10 @@ number_t operator * (const number_t& a, unsigned long long b);
 number_t operator * (unsigned long long a, const number_t& b);
 ```
 
-##算法
+<h2 id="nttclass">NTT类</h2>
+
+
+<h2 id="algorithms">算法</h2>
 
 本节讨论任意大整数之间乘法的算法。
 

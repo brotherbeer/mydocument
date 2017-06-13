@@ -1,10 +1,9 @@
-Formatted string to big integer
--------------
+<h1>Formatted string to big integer</h1>
 
  * [Functions](#functions)
  * [Examples](#examples)
 
-##Functions
+<h2 id="functions">Functions</h2>
 
 You can use `load` functions to assign the value expressed by _str_ to the number_t object _a_.  
 The white spaces, tabs, '\r', '\n', '\v', '\f' are ignored, and the chars in the group separator specified by _format_ are ignored too.   
@@ -34,7 +33,8 @@ Default leading charactors:
 
 About format_t, format flags, and the setting of the leading charactors, see [Big integer to formatted string](https://github.com/brotherbeer/mydocument/blob/master/mynum/Formatted-output.md)
 
-##Examples
+<h2 id="examples">Examples</h2>
+
 ```C++
 number_t a;
 load(a, " 0x1234567890\r\n");

@@ -1,5 +1,4 @@
-大整数对象的初始化
--------------
+<h1>大整数对象的初始化</h1>
 
 本文介绍如何初始化number_t对象（大整数对象），可以用字符串或基本整型变量初始化或赋值number_t对象，赋值相当于重新初始化。也可以将number_t对象转化为字符串或基本整型变量，详见后文《[大整数对象转为字符串](https://github.com/brotherbeer/mydocument/blob/master/mynum/String-conversion-cn.md)》、《[大整数对象转为基本整型变量](https://github.com/brotherbeer/mydocument/blob/master/mynum/To-basic-integer-cn.md)》。
 
@@ -91,7 +90,7 @@ number_t& assign(const string_t& s);
 number_t& assign(const string_t& s, int base);
 number_t& assign(const string_t&, size_t bpos, size_t epos, int base);
 ```
-重载>>
+重载 >>
 ```C++
 std::istream& operator >> (std::istream& is, number_t& a)
 ```

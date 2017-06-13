@@ -1,5 +1,4 @@
-Bitwise operation
--------------
+<h1>Bitwise operation</h1>
 
  * [Functions](#functions)
  * [Member functions](#memberfunctions)

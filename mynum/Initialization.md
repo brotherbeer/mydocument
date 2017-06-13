@@ -1,12 +1,11 @@
-The initialization of the big integer object
--------------
+<h1>The initialization of the big integer object</h1>
 
  * [Functions](#functions)
  * [Attentions](#attentions)
  * [Examples](#examples)
  * [Algorithms](#algorithms)
 
-##Functions
+<h2 id="functions">Functions</h2>
 
 Default constructor, the value of \*this is 0
 ```C++
@@ -89,7 +88,8 @@ int check(const char* str, int base);
 int check(const char* strbegin, const char* strend, int base);
 ```
 
-##Attentions
+<h2 id="attentions">Attentions</h2>
+
 To achieve a higher efficiency, when constructing or assigning from a string, the constructors and the assignment functions do not consider '+' and any prefixes, such as "0x", "0b", and do not detect any wrong char in the string argument.
 If the string argument is wrong, the value of the object is wrong too, but the program will not crash.
 The legal chars in the string argument are only [0-9a-zA-Z], 'a' and 'A' mean 10, 'b' and 'B' mean 11, and so on, 'z' and 'Z' mean 35.
@@ -102,7 +102,8 @@ When using a string that denotes a hexadecimal intger, the time complexity is th
 
 `copy(const number_t` and `assign(const number_t&)` are not the same, `assign` only sets the value of another object to *this, `copy` not only copies the value but also allocate the same memory as the object specified.
 
-##Examples
+<h2 id="examples">Examples</h2>
+
 ```C++
 #include "mynum.h"
 using namespace mynum;        // the namespace of mynum
@@ -127,11 +128,11 @@ assert(check(s, 10) > 0);     // if s denotes a decimal number, then s is correc
 assert(check(s, 8) == 0);     // if s denotes an octal number, then s is wrong
 ```
 
-##Algorithms
+<h2 id="algorithms">Algorithms</h2>
 
 For the `BASE`, `UNITMAX` and other constants, see the previous chapter [Data storage model](https://github.com/brotherbeer/mydocument/blob/master/mynum/Storage.md).
 
-###Construct a big integer object form a string
+<h3>Construct a big integer object form a string</h3>
 
 If a string _s_ has _n_ chars, and it denotes an integer in base _b_, we can construct a number_t object _o_ whose value is the same as the integer denoted by _s_.
 
@@ -215,7 +216,7 @@ number_t::construct_from_hex_string(const char* s)
 ```
 So, when using a string that denotes a hexadecimal intger, the efficiency is the highest.
 
-###Construct a big integer object form a basic type variable
+<h3>Construct a big integer object form a basic type variable</h3>
 
 If _v_ is variable of basic integer type (int, long, etc.), we can construct a number_t object _o_ whose value is the same as _v_.
 

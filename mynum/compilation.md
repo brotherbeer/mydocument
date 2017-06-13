@@ -1,5 +1,4 @@
-Compilation
--------------
+<h1>Compilation</h1>
 
 The source code is currently applicable to g++, MSVC (2008 and above versions) and clang.
 

@@ -1,7 +1,6 @@
-Modular Exponentiation
--------------
+<h1>Modular Exponentiation</h1>
 
-##Functions
+<h2>Functions</h2>
 
 Set _res_ to _a<sup>b</sup>_ % _c_
 ```C++

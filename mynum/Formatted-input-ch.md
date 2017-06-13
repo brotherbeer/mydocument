@@ -1,10 +1,9 @@
-格式化字符串转为大整数对象
--------------
+<h1>格式化字符串转为大整数对象</h1>
 
- * [函数](#函数)
- * [示例](#示例)
+ * [函数](#functions)
+ * [示例](#examples)
 
-##函数
+<h2 id="functions">函数</h2>
 
 load函数可以将字符串str表示的值赋与number_t对象a。  
 str中的所有空白符会被忽略，空白符指空格、tab、换行、回车等，format参数中组分隔符中的字符也会被忽略。
@@ -34,7 +33,8 @@ int load(number_t& a, const string_t& str, int base = 0, const format_t* format 
 
 关于format_t、格式化标志位以及如何设置某进制的前导字符，详见《[大整数对象转为格式化字符串](https://github.com/brotherbeer/mydocument/blob/master/mynum/Formatted-output-ch.md)》
 
-##示例
+<h2 id="examples">示例</h2>
+
 ```C++
 number_t a;
 load(a, " 0x1234567890\r\n");

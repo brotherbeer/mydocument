@@ -1,5 +1,4 @@
-位运算
--------------
+<h1>位运算</h1>
 
  * [函数](#functions)
  * [成员函数](#memberfunctions)

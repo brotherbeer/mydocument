@@ -1,13 +1,12 @@
-Division
--------------
+<h1>Division</h1>
 
- * [Global functions](#global-functions)
- * [Number_t members](#number_t-members)
- * [Operators overloaded](#operators-overloaded)
- * [Do the division via multiplication](#do-the-division-via-multiplication)
+ * [Functions](#functions)
+ * [Member functions](#membersfunctions)
+ * [Operators overloaded](#operatorsoverloaded)
+ * [Do the division via multiplication](#dothedivisionviamultiplication)
  * [Attentions](#attentions)
 
-##Global functions
+<h2 id="functions">Functions</h2>
 
 Set _a_ / _b_ to _q_. If _b_ is 0, the functions return 0, otherwise return 1  
 ```C++
@@ -54,7 +53,7 @@ Return _a_ / _b_
 number_t div(const number_t& a, const number_t& b);
 ```
 
-##Number_t members
+<h2 id="memberfunctions">Member functions</h2>
 
 Divide _*this_ by another number_t object _x_, _r_ is the remainder  
 _r_ and _*this_ should not be the same
@@ -85,7 +84,8 @@ number_t& div(unsigned long long x);
 number_t& div_unit(unit_t x);
 ```
 
-##Operators overloaded
+<h2 id="operatorsoverloaded">Operators overloaded</h2>
+
 ```C++
 number_t& number_t::operator /= (const number_t& x);
 number_t& number_t::operator /= (int x);
@@ -120,7 +120,7 @@ number_t operator / (const number_t& a, unsigned long long b);
 number_t operator / (unsigned long long a, const number_t& b);
 ```
 
-##Do the division via multiplication
+<h2 id="dothedivisionviamultiplication">Do the division via multiplication</h2>
 
 As well known, the cost of an integer division is several times that of an integer multiplication.  
 But fortunately, according to "[Division by Invariant Integers using Multiplication](https://github.com/brotherbeer/mydocument/blob/master/mynum/resource/divcnst-pldi94.pdf)" Torbjorn Granlund and Peter L. Montgomery, we can convert the division to the multiplication by the reciprocal of the divisor.
@@ -134,7 +134,7 @@ a.div_unit(udm); // faster than calling a.div_unit(d) directly
 ```
 When the value of a number_t object is large, the division using UDM is much faster. If the divisors are predictable, the corresponding UDM objects can be reused. 
 
-##Attentions
+<h2 id="attentions">Attentions</h2>
 
 If the divisor is zero, mynum will not do the calculation, so you would better check the divisor before call the division functions.
 

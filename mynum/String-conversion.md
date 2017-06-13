@@ -1,12 +1,11 @@
-String conversion
--------------
+<h1>String conversion</h1>
 
- * [Number_t members](#Number_t members)
- * [Ostream operator](#ostream-operator)
+ * [Member functions](#nemberfunctions)
+ * [Ostream operator](#ostreamoperator)
  * [Attentions](#attentions)
  * [Examples](#examples)
 
-##Number_t members
+<h2 id="memberfunctions">Member functions</h2>
 
 Conver the value of _*this_ to _str_
 ```C++
@@ -35,19 +34,21 @@ Return the string_t object, which is in base _base_
 string_t operator () (int base) const;
 ```
 
-##Ostream operator
+<h2 id="ostreamoperator">Ostream operator</h2>
 
 ```C++
 std::ostream& operator << (std::ostream& os, const number_t& a)
 ```
 
-##Attentions
+<h2 id="attentions">Attentions</h2>
+
 To achieve a higher efficiency, all the string conversion functions do not generate leading charactors or blank charactors, and only lower case letters are used.  
 If you want to generate formatted string, you can use the format_t class, see [\[Big integer to formatted string\]](https://github.com/brotherbeer/mydocument/blob/master/mynum/Formatted-output.md)
 
 The run time complexity of `to_hex_string` function is the lowest.
 
-##Examples
+<h2 id="examples">Examples</h2>
+
 ```C++
 number_t a, b(123), c("abcdef", 16);
 number_t d("gogogo", 32), e("iloveyou", 36);

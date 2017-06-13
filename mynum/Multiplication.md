@@ -1,12 +1,11 @@
-Multiplication
--------------
+<h1>Multiplication</h1>
 
  * [Functions](#Functions)
- * [Member functions](#Member-functions)
- * [Operators overloaded](#Operators-overloaded)
- * [NTT class](#NTT-class)
+ * [Member functions](#memberfunctions)
+ * [Operators overloaded](#operatorsoverloaded)
+ * [NTT class](#nttclass)
 
-##Functions
+<h2 id="functions">Functions</h2>
 
 Set _res_ to _a_ \* _b_, using basic algorithm
 ```C++
@@ -63,7 +62,7 @@ Set _res_ to _a<sup>2</sup>_, using NTT(Number Theoretic Transform) algorithm
 void fsqr(const number_t& a, number_t& res);
 ```
 
-##Member functions
+<h2 id="memberfunctions">Member functions</h2>
 
 Multiply _*this_ by another number_t object _x_
 ```C++
@@ -89,7 +88,8 @@ number_t& number_t::mul(long long x);
 number_t& number_t::mul(unsigned long long x);
 ```
 
-##Operators overloaded
+<h2 id="operatorsoverloaded">Operators overloaded</h2>
+
 ```C++
 number_t& number_t::operator *= (const number_t& x);
 number_t& number_t::operator *= (int x);
@@ -124,4 +124,4 @@ number_t operator * (const number_t& a, unsigned long long b);
 number_t operator * (unsigned long long a, const number_t& b);
 ```
 
-##NTT class
+<h2 id="nttclass">NTT class</h2>
