@@ -2,15 +2,15 @@
 
 本文介绍如何初始化number_t对象（大整数对象），可以用字符串或基本整型变量初始化或赋值number_t对象，赋值相当于重新初始化。也可以将number_t对象转化为字符串或基本整型变量，详见后文《[大整数对象转为字符串](https://github.com/brotherbeer/mydocument/blob/master/mynum/String-conversion-cn.md)》、《[大整数对象转为基本整型变量](https://github.com/brotherbeer/mydocument/blob/master/mynum/To-basic-integer-cn.md)》。
 
- * [number_t构造函数](#number_t构造函数)
- * [number_t赋值函数](#number_t赋值函数)
- * [number_t内存相关函数](#number_t内存相关函数)
- * [字符串格式检查](#字符串格式检查)
- * [注意事项](#注意事项)
- * [示例](#示例)
- * [算法](#算法)
+ * [number_t构造函数](#t1)
+ * [number_t赋值函数](#t2)
+ * [number_t内存相关函数](#t3)
+ * [字符串格式检查](#t4)
+ * [注意事项](#t5)
+ * [示例](#t6)
+ * [算法](#t7)
 
-##number_t构造函数
+<h2 id="t1">number_t构造函数</h2>
 
 默认构造函数, 对象的值为0
 ```C++
@@ -64,7 +64,7 @@ number_t::number_t(const string_t& str, size_t bpos, size_t epos, int base);
 number_t::number_t(const number_t& obj);
 ```
 
-##number_t赋值函数
+<h2 id="t2">number_t赋值函数</h2>
 
 用另一个大整数对象赋值
 ```C++
@@ -99,7 +99,8 @@ std::istream& operator >> (std::istream& is, number_t& a)
 void copy(const number_t&);
 ```
 
-##number_t内存相关函数
+<h2 id="t3">number_t内存相关函数</h2>
+
 将对象的值清零，但其占有的内存空间不变
 ```C++
 void clear();
@@ -117,7 +118,7 @@ void reserve(size_t units);
 void clear_and_reserve(size_t units);
 ```
 
-##字符串格式检查
+<h2 id="t4">字符串格式检查</h2>
 
 检查字符串格式是否正确，可以与构造函数或assign函数配合使用
 ```C++
@@ -125,7 +126,8 @@ int check(const char* str, int base);
 int check(const char* strbegin, const char* strend, int base);
 ```
 
-##注意事项
+<h2 id="t5">注意事项</h2>
+
 为了更高的效率，以字符串为参数的构造函数和赋值函数不接受'+'、任何空白符以及任何“前导字符”（如"0x"、"0b"），也不考虑字符串中的字符是否正确。
 如果字符串中有错误，那么对象的值也是错误的，但不至于让程序崩溃。可用check函数检查相关字符串是否正确，如果正确再进行初始化，如果可以保证用以初始化的字符串是正确的，则可省去检查的开销。
 对于构造函数和赋值函数而言，有效字符为[0-9a-zA-Z]，'a' 和'A'表示的值为10，'b'和'B'表示的值为11，…， 'z'和'Z'表示的值为35，如果一个字符表示的数值大于或等于指定的进制，大整数对象的值也将是错误的。
@@ -136,7 +138,8 @@ int check(const char* strbegin, const char* strend, int base);
 
 copy(const number_t&) 和 assign(const number_t&) 是不同的, assign 只是根据另一个对象进行赋值，copy不但赋值而且还会分配与指定的对象相同内存空间。
 
-##示例
+<h2 id="t6">示例</h2>
+
 ```C++
 #include "mynum.h"
 using namespace mynum;        // the namespace of mynum
@@ -161,11 +164,11 @@ assert(check(s, 10) > 0);     // 如果s表示10进制数，s是正确的
 assert(check(s, 8) == 0);     // 如果s表示8进制数，s是错误的
 ```
 
-##算法
+<h2 id="t7">算法</h2>
 
 对于下列论述中的BASE、UNITMAX等常量，可参见上一章《[数据存储方式](https://github.com/brotherbeer/mydocument/blob/master/mynum/Storage-ch.md)》。
 
-###用字符串构造对象
+<h3>用字符串构造对象</h3>
 
 设某个字符串s有n个字符，表示b进制的数，可用s构造一个number_t对象o，o的值与s表示的值相同。
 
@@ -248,7 +251,7 @@ number_t::construct_from_hex_string(const char* s)
 ```
 故在相同数值的情况下，用16进制表示的字符串构造大整数对象时的效率最高，同理对于表示2进制数的字符串，也不必通过乘法和加法构造大整数对象。
 
-###用基本类型的变量构造对象
+<h3>用基本类型的变量构造对象</h3>
 
 可以通过某个基本整数类型的变量v（如int、long等），构造一个number_t对象o，o的值与v的值相等。
 

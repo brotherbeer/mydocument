@@ -1,7 +1,7 @@
 <h1>Division</h1>
 
  * [Functions](#functions)
- * [Member functions](#membersfunctions)
+ * [Member functions](#memberfunctions)
  * [Operators overloaded](#operatorsoverloaded)
  * [Do the division via multiplication](#dothedivisionviamultiplication)
  * [Attentions](#attentions)
@@ -55,33 +55,33 @@ number_t div(const number_t& a, const number_t& b);
 
 <h2 id="memberfunctions">Member functions</h2>
 
-Divide _*this_ by another number_t object _x_, _r_ is the remainder  
+Divide _*this_ by another number_t object _x_, _r_ is the remainder,  
 _r_ and _*this_ should not be the same
 ```C++
-number_t& div(const number_t& x);
-number_t& div(const number_t& x, number_t& r);
+number_t& number_t::div(const number_t& x);
+number_t& number_t::div(const number_t& x, number_t& r);
 ```
-Divide _*this_ by an unit  
+Divide _*this_ by an unit,  
 Return the absolute value of the remainder
 ```
-unit_t div_unit(unit_t x);
-unit_t div_unit(const UDM& x);
+unit_t number_t::div_unit(unit_t x);
+unit_t number_t::div_unit(const UDM& x);
 ```
-Divide _*this_ by a word or a signed word   
+Divide _*this_ by a word or a signed word,   
 Return the absolute value of the remainder
 ```C++
-word_t div_word(word_t x);
-word_t div_sword(sword_t x);
+word_t number_t::div_word(word_t x);
+word_t number_t::div_sword(sword_t x);
 ```
 Divide _*this_ by _x_ (_x_ is an ordinary integer)
 ```C++
-number_t& div(int x);
-number_t& div(unsigned int x);
-number_t& div(long x);
-number_t& div(unsigned long x);
-number_t& div(long long x);
-number_t& div(unsigned long long x);
-number_t& div_unit(unit_t x);
+number_t& number_t::div(int x);
+number_t& number_t::div(unsigned int x);
+number_t& number_t::div(long x);
+number_t& number_t::div(unsigned long x);
+number_t& number_t::div(long long x);
+number_t& number_t::div(unsigned long long x);
+number_t& number_t::div_unit(unit_t x);
 ```
 
 <h2 id="operatorsoverloaded">Operators overloaded</h2>

@@ -18,14 +18,15 @@ Output：
 ```
 `UPPER_CASE` and `SHOW_LEADING` are format flags, for the details:
 
- * [Format flags](#format-flags)
- * [Format_t constructors](#format_t-constructors)
- * [Format_t members](#format_t-members)
- * [Leading charactors](#leading-charactors)
- * [Group and line feed](#group-and-line-feed)
- * [Attentions](#attentions)
+ * [Format flags](#t1)
+ * [Format_t constructors](#t2)
+ * [Format_t members](#t3)
+ * [Leading charactors](#t4)
+ * [Group and line feed](#t5)
+ * [Attentions](#t6)
 
-##Format flags
+<h2 id="t1">Format flags</h2>
+
 The format flags are `format_flags_t` constants:
 
 |flag|meaning|
@@ -53,11 +54,14 @@ fmt.set(NO_FLAGS);   // drop all flags
 assert(fmt.get() == 0);
 ```
 
-##Format_t constructors
+<h2 id="t2">format_t constructors</h2>
+
 ```C++
 format_t(format_flags_t ff = 0):
 ```
-##Format_t members
+
+<h2 id="t3">format_t members</h2>
+
 Set _ff_ as the flags
 ```C++
 void set(format_flags_t ff);
@@ -119,7 +123,8 @@ Convert _a_ to _str_ in base _base_
 string_t& dump(const number_t& a, int _base, string_t& str) const;
 ```
 
-##Group and line feed
+<h2 id="t4">Group and line feed</h2>
+
 You can divide the chars into groups, separate by the group separator, the count of chars in a group is specified by `set_group_size` function:
 ```C++
 string_t s;
@@ -156,7 +161,8 @@ Output：
 ```
 Use `set_line_separator` to set the line separator, '\n' is the default.
 
-##Leading charactors
+<h2 id="t5">Leading charactors</h2>
+
 Get the leading charactors of _base_.  
 If No leading charactors, NULL is returned
 ```C++
@@ -198,7 +204,8 @@ fmt.set(SIGN_RIGHT_LEADING);
 assert(fmt.dump(a, 36, s) == "b36:-kf12oi");
 ```
 
-##Attentions
+<h2 id="t6">Attentions</h2>
+
 The leading charactors are global data, you'd better call `set_leading` in main thread.
 
 The leading characters should be able to be separated from the body of the string, there should be no whitespace, and the group separator should be able to be separated from the string too, otherwise ambiguity will be caused.
