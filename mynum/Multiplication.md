@@ -1,20 +1,34 @@
 Multiplication
 -------------
 
+ * [Functions](#Functions)
+ * [Member functions](#Member-functions)
+ * [Operators overloaded](#Operators-overloaded)
+ * [NTT class](#NTT-class)
+
 ##Functions
 
-Set _res_ to _a_ \* _b_. kmul uses Karatsuba algorithm
+Set _res_ to _a_ \* _b_, using basic algorithm
 ```C++
 void mul(const number_t& a, const number_t& b, number_t& res);
+```
+
+Set _res_ to _a_ \* _b_, using Karatsuba algorithm  
+```C++
 void kmul(const number_t& a, const number_t& b, number_t& res);
 ```
 
-Set _res_ to _a_ \* _x_, _x_ is an unit.
+Set _res_ to _a_ \* _b_, using NTT(Number Theoretic Transform) algorithm
+```C++
+void fmul(const number_t& a, const number_t& b, number_t& res);
+```
+
+Set _res_ to _a_ \* _x_, _x_ is an unit
 ```C++
 void mul_unit(const number_t& a, unit_t x, number_t& res);
 ```
 
-Set _res_ to _a_ \* _x_ (_x_ is a basic type variable)
+Set _res_ to _a_ \* _x_ (_x_ is an ordinary integer)
 ```C++
 void mul(const number_t& a, int x, number_t& res);
 void mul(const number_t& a, unsigned int x, number_t& res);
@@ -24,20 +38,29 @@ void mul(const number_t& a, long long x, number_t& res);
 void mul(const number_t& a, unsigned long long x, number_t& res);
 ```
 
-Set _res_ to _x_ \* _b_ (_x_ is a basic type variable)
+Set _res_ to _x_ \* _a_ (_x_ is an ordinary integer)
 ```C++
-void mul(int x, const number_t& b, number_t& res);
-void mul(unsigned int x, const number_t& b, number_t& res);
-void mul(long x, const number_t& b, number_t& res);
-void mul(unsigned long x, const number_t& b, number_t& res);
-void mul(long long x, const number_t& b, number_t& res);
-void mul(unsigned long long x, const number_t& b, number_t& res);
+void mul(int x, const number_t& a, number_t& res);
+void mul(unsigned int x, const number_t& a, number_t& res);
+void mul(long x, const number_t& a, number_t& res);
+void mul(unsigned long x, const number_t& a, number_t& res);
+void mul(long long x, const number_t& a, number_t& res);
+void mul(unsigned long long x, const number_t& a, number_t& res);
 ```
 
-Return _a_ \* _b_
+Set _res_ to _a<sup>2</sup>_, using basic algorithm  
 ```C++
-number_t mul(const number_t& a, const number_t& b);
-number_t kmul(const number_t& a, const number_t& b);
+void sqr(const number_t& a, number_t& res);
+```
+
+Set _res_ to _a<sup>2</sup>_, using Karatsuba algorithm  
+```C++
+void ksqr(const number_t& a, number_t& res);
+```
+
+Set _res_ to _a<sup>2</sup>_, using NTT(Number Theoretic Transform) algorithm
+```C++
+void fsqr(const number_t& a, number_t& res);
 ```
 
 ##Member functions
@@ -100,3 +123,5 @@ number_t operator * (unsigned long a, const number_t& b);
 number_t operator * (const number_t& a, unsigned long long b);
 number_t operator * (unsigned long long a, const number_t& b);
 ```
+
+##NTT class

@@ -97,6 +97,16 @@ void bit_and_unit(const number_t& a, unit_t x, number_t& res);
 void bit_or_unit(const number_t& a, unit_t x, number_t& res);
 void bit_xor_unit(const number_t& a, unit_t x, number_t& res);
 ```
+Set _res_ to _a_ ^ (_b_ << _shift_)  
+But this function is faster than use the expression
+```C++
+void bit_shift_xor(const number_t& a, const number_t& b, size_t shift, number_t& res);
+```
+Set _res_ to _a_ | (_b_ << _shift_)  
+But this function is faster than use the expression
+```C++
+void bit_shift_or(const number_t& a, const number_t& b, size_t shift, number_t& res);
+```
 
 Result as return value
 ```C++

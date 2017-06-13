@@ -1,11 +1,11 @@
 Number theoretic functions
 -------------
 
- * [Global functions](#functions)
+ * [Functions](#functions)
  * [Attention](#attention)
- * [Algorithms](#Algorithms)
+ * [Algorithms](#algorithms)
 
-<h2 id="functions">Global functions</h3>
+<h2 id="functions">Global functions</h2>
 
 Return the Jacobi symbol of _a_ and _b_
 ```C++
@@ -42,6 +42,6 @@ If the inverse dose not exist, returns 0, otherwise returns 1
 int inv(const number_t& a, const number_t& m, number_t& res);
 ```
 
-<h2 id="attention">Attention</h3>
+<h2 id="attention">Attention</h2>
 
-<h2 id="algorithms">Algorithms</h3>
+<h2 id="algorithms">Algorithms</h2>

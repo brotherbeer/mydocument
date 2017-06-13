@@ -8,18 +8,27 @@
 
 ##全局函数
 
-Set _res_ to _a_ \* _b_. kmul uses Karatsuba algorithm
+用基本算法求a与b的乘积res
 ```C++
 void mul(const number_t& a, const number_t& b, number_t& res);
+```
+
+用Karatsuba算法求a与b的乘积res
+```C++
 void kmul(const number_t& a, const number_t& b, number_t& res);
 ```
 
-Set _res_ to _a_ \* _x_, _x_ is an unit.
+用NTT(Number Theoretic Transform)算法求a与b的乘积res
+```C++
+void fmul(const number_t& a, const number_t& b, number_t& res);
+```
+
+求a与x的乘积res，x为一个数据单元
 ```C++
 void mul_unit(const number_t& a, unit_t x, number_t& res);
 ```
 
-Set _res_ to _a_ \* _x_ (_x_ is a basic type variable)
+求a与x的乘积res，x为基本整型
 ```C++
 void mul(const number_t& a, int x, number_t& res);
 void mul(const number_t& a, unsigned int x, number_t& res);
@@ -29,39 +38,48 @@ void mul(const number_t& a, long long x, number_t& res);
 void mul(const number_t& a, unsigned long long x, number_t& res);
 ```
 
-Set _res_ to _x_ \* _b_ (_x_ is a basic type variable)
+求x与a的乘积res，x为基本整型
 ```C++
-void mul(int x, const number_t& b, number_t& res);
-void mul(unsigned int x, const number_t& b, number_t& res);
-void mul(long x, const number_t& b, number_t& res);
-void mul(unsigned long x, const number_t& b, number_t& res);
-void mul(long long x, const number_t& b, number_t& res);
-void mul(unsigned long long x, const number_t& b, number_t& res);
+void mul(int x, const number_t& a, number_t& res);
+void mul(unsigned int x, const number_t& a, number_t& res);
+void mul(long x, const number_t& a, number_t& res);
+void mul(unsigned long x, const number_t& a, number_t& res);
+void mul(long long x, const number_t& a, number_t& res);
+void mul(unsigned long long x, const number_t& a, number_t& res);
 ```
 
-Return _a_ \* _b_
+用基本算法求a的平方res
 ```C++
-number_t mul(const number_t& a, const number_t& b);
-number_t kmul(const number_t& a, const number_t& b);
+void sqr(const number_t& a, number_t& res);
+```
+
+用Karatsuba算法求a的平方res
+```C++
+void ksqr(const number_t& a, number_t& res);
+```
+
+用NTT(Number Theoretic Transform)算法求a的平方res
+```C++
+void fsqr(const number_t& a, number_t& res);
 ```
 
 ##Number_t成员函数
 
-Multiply _*this_ by another number_t object _x_
+与另一个number_t对象相乘
 ```C++
 number_t& number_t::mul(const number_t& x);
 number_t& number_t::kmul(const number_t& x);
 ```
-Multiply _*this_ by an unit
+与一个数据单元相乘
 ```C++
 void number_t::mul_unit(unit_t x);
 ```
-Multiply _*this_ with a word type variable
+与一个字相乘
 ```C++
 void number_t::mul_word(word_t x);
 void number_t::mul_sword(sword_t x);
 ```
-Multiply _*this_ by an ordinary integer
+与基本整型变量相乘
 ```C++
 number_t& number_t::mul(int x);
 number_t& number_t::mul(unsigned int x);
@@ -118,6 +136,7 @@ number_t operator * (unsigned long long a, const number_t& b);
  * [M.3 任意位数的基本平方算法](#M3)
  * [M.4 n+1位数减去n位数乘以1位数的积（n >= 2）](#M4)
  * [M.5 Karatsuba算法](#M5)
+ * [M.6 NTT算法](#M6)
 
 <h3 id="M0">M.0 1位数乘1位数再与1位数相加</h3>
 
@@ -244,6 +263,8 @@ unit_t __sub_mul(unit_t* x, const unit_t* y, slen_t n, unit_t z)
 其中，指针x指向X的单元序列，y指向Y的单元序列，如果存在借位则返回1，否则返回0, sub_with_borrow参见减法算法。在mynum的实际代码中，考虑到函数调用的成本，mul_add、sub_with_borrow等函数均被展开，但原理是一致的。
 
 <h3 id="M5">Karatsuba算法</h3>
+
+<h3 id="M6">NTT算法</h3>
 
 	
 
