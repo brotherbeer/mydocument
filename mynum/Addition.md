@@ -1,7 +1,11 @@
 Addition
 -------------
 
-##Functions
+ * [Functions](#functions)
+ * [Member functions](#memberfunctions)
+ * [Operators overloaded](#operatorsoverloaded)
+
+<h2 id="functions">Functions</h2>
 
 Set _res_ to _a_ + _b_
 ```C++
@@ -23,14 +27,14 @@ void add(const number_t& a, long long x, number_t& res);
 void add(const number_t& a, unsigned long long x, number_t& res);
 ```
 
-Set _res_ to _x_ + _b_ (_x_ is an ordinary integer)
+Set _res_ to _x_ + _a_ (_x_ is an ordinary integer)
 ```C++
-void add(int x, const number_t& b, number_t& res);
-void add(unsigned int x, const number_t& b, number_t& res);
-void add(long x, const number_t& b, number_t& res);
-void add(unsigned long x, const number_t& b, number_t& res);
-void add(long long x, const number_t& b, number_t& res);
-void add(unsigned long long x, const number_t& b, number_t& res);
+void add(int x, const number_t& a, number_t& res);
+void add(unsigned int x, const number_t& a, number_t& res);
+void add(long x, const number_t& a, number_t& res);
+void add(unsigned long x, const number_t& a, number_t& res);
+void add(long long x, const number_t& a, number_t& res);
+void add(unsigned long long x, const number_t& a, number_t& res);
 ```
 
 Return _a_ + _b_
@@ -38,7 +42,7 @@ Return _a_ + _b_
 number_t add(const number_t& a, const number_t& b);
 ```
 
-##Member functions
+<h2 id="memberfunctions">Member functions</h2>
 
 Add _*this_ with another number_t object _x_
 ```C++
@@ -63,7 +67,8 @@ number_t& number_t::add(long long x);
 number_t& number_t::add(unsigned long long x);
 ```
 
-##Operators overloaded
+<h2 id="operatorsoverloaded">Operators overloaded</h2>
+
 ```C++
 number_t& number_t::operator ++ ();
 number_t& number_t::operator ++ (int);

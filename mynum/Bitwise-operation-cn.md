@@ -1,7 +1,13 @@
 位运算
 -------------
 
-##Functions
+ * [函数](#functions)
+ * [成员函数](#memberfunctions)
+ * [运算符](#operatorsoverloaded)
+
+<h2 id="functions">函数</h2>
+
+<h3>移位</h3>
 
 Right shift, _res_ is equivalent to multiply _a_ by _2<sup>b</sup>_
 ```C++
@@ -13,36 +19,7 @@ Left shift, _res_ is equivalent to divide _a_ by _2<sup>b</sup>_
 void shl(const number_t& a, size_t b, number_t& res);
 ```
 
-Return the value of the _n_-th bit
-```C++
-bool number_t::bit_at(size_t n) const;
-bool number_t::operator [] (size_t n) const;
-```
-
-Set the value of the _n_-th bit
-```C++
-void number_t::bit_set(size_t n, bool v = 1);
-void number_t::bit_set_one(size_t n);
-void number_t::bit_set_zero(size_t n);
-bitref_t number_t::operator [] (size_t n);
-```
-
-Return the bits count
-```C++
-size_t number_t::bits_count() const;
-```
-
-Return the trailing 0-bits count, starting at the least significant bit position
-```C++
-size_t number_t::tzbits_count() const;
-```
-
-Allocate at least n bits memory
-```C++
-void number_t::bits_reserve(size_t n);
-```
-
-Bitwise AND, OR, XOR, NOT
+<h3>接位与、或、异或、非</h3>
 
 The sign of the big integers here is of little significance. mynum stipulates that if the operands have the same sign, the result is positive, otherwise the result is negative. 
 
@@ -91,18 +68,21 @@ void bit_xor(unsigned long x, const number_t& b, number_t& res);
 void bit_xor(long long x, const number_t& b, number_t& res);
 void bit_xor(unsigned long long x, const number_t& b, number_t& res);
 ```
+
 Bitwise operation with unit
 ```C++
 void bit_and_unit(const number_t& a, unit_t x, number_t& res);
 void bit_or_unit(const number_t& a, unit_t x, number_t& res);
 void bit_xor_unit(const number_t& a, unit_t x, number_t& res);
 ```
-Set _res_ to _a_ ^ (_b_ << _shift_)  
+
+Set _res_ to _a_ ^ (_b_ << _shift_),  
 But this function is faster than use the expression
 ```C++
 void bit_shift_xor(const number_t& a, const number_t& b, size_t shift, number_t& res);
 ```
-Set _res_ to _a_ | (_b_ << _shift_)  
+
+Set _res_ to _a_ | (_b_ << _shift_),  
 But this function is faster than use the expression
 ```C++
 void bit_shift_or(const number_t& a, const number_t& b, size_t shift, number_t& res);
@@ -118,17 +98,49 @@ number_t bit_xor(const number_t& a, const number_t& b);
 number_t bit_not(const number_t& a);
 ```
 
-##Member functions
+<h2 id="memberfunctions">成员函数</h2>
+
+Return the value of the _n_-th bit
+```C++
+bool number_t::bit_at(size_t n) const;
+bool number_t::operator [] (size_t n) const;
+```
+
+Set the value of the _n_-th bit
+```C++
+void number_t::bit_set(size_t n, bool v = 1);
+void number_t::bit_set_one(size_t n);
+void number_t::bit_set_zero(size_t n);
+bitref_t number_t::operator [] (size_t n);
+```
+
+Return the bits count
+```C++
+size_t number_t::bits_count() const;
+```
+
+Return the trailing 0-bits count, starting at the least significant bit position
+```C++
+size_t number_t::tzbits_count() const;
+```
+
+Allocate at least n bits memory
+```C++
+void number_t::bits_reserve(size_t n);
+```
+
 ```C++
 number_t& number_t::shr(size_t);
 number_t& number_t::shl(size_t);
 ```
+
 ```C++
 number_t& number_t::bit_or(const number_t&);
 number_t& number_t::bit_and(const number_t&);
 number_t& number_t::bit_xor(const number_t&);
 number_t& number_t::bit_not();
 ```
+
 ```C++
 number_t& number_t::bit_and(int x);
 number_t& number_t::bit_and(unsigned int x);
@@ -149,11 +161,13 @@ number_t& number_t::bit_xor(unsigned long x);
 number_t& number_t::bit_xor(long long x);
 number_t& number_t::bit_xor(unsigned long long x);
 ```
+
 ```C++
 void number_t::bit_and_unit(unit_t);
 void number_t::bit_or_unit(unit_t);
 void number_t::bit_xor_unit(unit_t);
 ```
+
 ```C++
 void number_t::bit_and_word(word_t);
 void number_t::bit_or_word(word_t);
@@ -163,7 +177,8 @@ void number_t::bit_or_sword(sword_t);
 void number_t::bit_xor_sword(sword_t);
 ```
 
-##Operators overloaded
+<h2 id="operatorsoverloaded">运算符</h2>
+
 ```C++
 number_t  number_t::operator ~ () const;
 number_t& number_t::operator &= (const number_t& x);
