@@ -15,17 +15,17 @@ cout << fmt.dump(a, 16, s) << endl;
 499602d2
 0x499602D2
 ```
-其中，UPPER_CASE和SHOW_LEADING是用以指定格式化信息的标志位，分别表示用大写字母记录各位数值和显示前导字符，默认情况下用小写字母并不显示前导字符。dump函数将大整数对象转为指定进制的字符串，示例中为16进制。
+其中，UPPER_CASE和SHOW_LEADING是用以指定格式化信息的标志位，分别表示用大写字母记录各位数值和显示前导字符，默认情况下用小写字母并不显示前导字符。dump函数将大整数对象转为指定进制的字符串，示例中为16进制。  
 关于format_t类的详细信息如下：
 
- * [格式化标志位](#t1)
- * [format_t构造函数](#t2)
- * [format_t成员函数](#t3)
- * [前导字符](#t4)
- * [分组与换行](#t5)
- * [注意事项](#t6)
+ * [格式化标志位](#title1)
+ * [format_t构造函数](#title2)
+ * [format_t成员函数](#title3)
+ * [前导字符](#title4)
+ * [分组与换行](#title5)
+ * [注意事项](#title6)
 
-<h2 id="t1">格式化标志位</h2>
+<h2 id="title1">格式化标志位</h2>
 
 格式化标志位为format_flags_t型的常量，各标志位定义如下：
 
@@ -54,14 +54,14 @@ fmt.set(NO_FLAGS);   // 清除所有标志位
 assert(fmt.get() == 0);
 ```
 
-<h2 id="t2">format_t构造函数</h2>
+<h2 id="title2">format_t构造函数</h2>
 
 可在构造时指定标志位，默认值为0，即不设定任何标志位
 ```C++
 format_t(format_flags_t ff = 0):
 ```
 
-<h2 id="t3">format_t成员函数</h2>
+<h2 id="title3">format_t成员函数</h2>
 
 设定某（些）标志位
 ```C++
@@ -124,7 +124,7 @@ void set_line_separator(const char* p);
 string_t& dump(const number_t& a, int _base, string_t& str) const;
 ```
 
-<h2 id="t4">分组与换行</h2>
+<h2 id="title4">分组与换行</h2>
 
 可将输出字符串按指定的字符个数进行分组，组间由组分隔符分隔，组字符个数由set_group_size函数设定，当指定字符个数为0时不分组，默认不分组。如：
 ```C++
@@ -162,7 +162,7 @@ cout << fmt.dump(a, 16, s) << endl;
 ```
 可由set_line_separator设定行分隔符，默认为'\n'。
 
-<h2 id="t5">前导字符</h2>
+<h2 id="title5">前导字符</h2>
 
 可以按照惯例，在输出的字符串前加上“前导字符”以表示进制，如8进制为“0”，16进制为“0x”，可以用set_leading函数设定某进制的前导字符，也可以用get_leading函数获取某进制的前导字符：
 
@@ -209,7 +209,7 @@ fmt.set(SIGN_RIGHT_LEADING);
 assert(fmt.dump(a, 36, s) == "b36:-kf12oi");
 ```
 
-<h2 id="t6">注意事项</h2>
+<h2 id="title6">注意事项</h2>
 
 前导字符为全局数据，设置后load、dump函数以及标准输入输出流均生效，但没有任何线程安全措施，故尽量不要某个子线程中调用set_leading函数而在另一个子线程中调用load、dump等函数。
 
