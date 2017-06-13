@@ -1,5 +1,4 @@
-Addition
--------------
+<h1>Addition</h1>
 
  * [Functions](#functions)
  * [Member functions](#memberfunctions)
@@ -46,11 +45,11 @@ number_t add(const number_t& a, const number_t& b);
 
 Add _*this_ with another number_t object _x_
 ```C++
-number_t& number_t::add(const number_t& _x_);
+number_t& number_t::add(const number_t& x);
 ```
 Add _*this_ with a unit
 ```C++
-void number_t::add_unit(unit_t);
+void number_t::add_unit(unit_t x);
 ```
 Add _*this_ with a word type variable
 ```C++
