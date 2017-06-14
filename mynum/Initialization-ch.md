@@ -43,12 +43,12 @@ number_t::number_t(const char* s);
 number_t::number_t(const char* s, size_t length, int base);
 ```
 
-用string_t对象构造大整数对象
+用[string_t](https://github.com/brotherbeer/mydocument/blob/master/mynum/string-cn.md)对象构造大整数对象
 ```C++
 number_t::number_t(const string_t& str, int base);
 ```
 
-如果省略base，则认为string_t对象表示的是10进制数
+如果省略base，则认为[string_t](https://github.com/brotherbeer/mydocument/blob/master/mynum/string-cn.md)对象表示的是10进制数
 ```C++
 number_t::number_t(const string_t& str);
 ```

@@ -8,6 +8,10 @@
 
 <h2 id="memberfunctions">成员函数</h2>
 
+[stringclassurl]: https://github.com/brotherbeer/mydocument/blob/master/mynum/string-cn.md
+
+关于mynum的字符串类，请参见[string_t类][stringclassurl]
+
 按2进制转为字符串str
 ```C++
 string_t& to_bin_string(string_t& str) const;

@@ -39,7 +39,7 @@ You can also specify the _length_ of the _s_
 number_t::number_t(const char* s, size_t length, int base);
 ```
 
-Construct a new big integer from a string_t object
+Construct a new big integer from a [string_t](https://github.com/brotherbeer/mydocument/blob/master/mynum/string.md) object
 ```C++
 number_t::number_t(const string_t&);
 number_t::number_t(const string_t&, int base);

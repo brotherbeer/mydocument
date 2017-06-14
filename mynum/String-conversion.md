@@ -7,7 +7,9 @@
 
 <h2 id="memberfunctions">Member functions</h2>
 
-Conver the value of _*this_ to _str_
+[stringclassurl]: https://github.com/brotherbeer/mydocument/blob/master/mynum/string.md
+
+Conver the value of _*this_ to [string_t][stringclassurl] object _str_
 ```C++
 string_t& to_bin_string(string_t& str) const;
 string_t& to_oct_string(string_t& str) const;
@@ -20,7 +22,7 @@ Conver the value of _*this_ to _str_, which is in specified base _base_
 string_t& to_string(string_t& str, int base = 10) const;
 ```
 
-Return the string_t object
+Return the [string_t][stringclassurl] object
 ```C++
 string_t to_bin_string() const;
 string_t to_oct_string() const;
@@ -29,7 +31,7 @@ string_t to_hex_string() const;
 string_t to_string(int base = 10) const;
 ```
 
-Return the string_t object, which is in base _base_
+Return the [string_t][stringclassurl] object, which is in base _base_
 ```C++
 string_t operator () (int base) const;
 ```
