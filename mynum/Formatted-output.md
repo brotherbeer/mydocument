@@ -21,8 +21,8 @@ Output：
  * [Format flags](#t1)
  * [Format_t constructors](#t2)
  * [Format_t members](#t3)
- * [Leading charactors](#t4)
- * [Group and line feed](#t5)
+ * [Group and line feed](#t4)
+ * [Leading charactors](#t5)
  * [Attentions](#t6)
 
 <h2 id="t1">Format flags</h2>
