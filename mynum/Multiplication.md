@@ -125,3 +125,36 @@ number_t operator * (unsigned long long a, const number_t& b);
 ```
 
 <h2 id="nttclass">NTT class</h2>
+
+```C++
+struct NTT
+{
+    static void init_roots_pool();
+    static void init_roots_pool(size_t lgm);
+
+    static void reset_roots_pool(size_t lgm);
+    static void release_roots_pool();
+
+    static bool suitable(const number_t&);
+
+    NTT();
+
+    NTT(const NTT&);
+
+   ~NTT();
+
+    void set_up(size_t);
+    
+    void release();
+
+    void forward(const number_t&);
+
+    void mul(const NTT&);
+
+    void mul(const NTT&, NTT&);
+
+    void backward();
+
+    void to_number(number_t&);
+};
+```

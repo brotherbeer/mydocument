@@ -7,7 +7,7 @@
 
 <h2 id="functions">Functions</h2>
 
-Default constructor, the value of \*this is 0
+Default constructor, the value of _*this_ is 0
 ```C++
 number_t::number_t();
 ```
@@ -51,34 +51,44 @@ The copy constructor
 number_t::number_t(const number_t&);
 ```
 
-Assigns the value of another number_t object to *this.
+Assigns the value of another number_t object to _*this_
 ```C++
-number_t& assign(const number_t&);
+number_t& number_t::assign(const number_t&);
 ```
 
-Assigns the value of _x_ to *this.
+Assigns the value of _x_ to _*this_
 ```C++
-number_t& assign(int x);
-number_t& assign(long x);
-number_t& assign(long long x);
-number_t& assign(unsigned int x);
-number_t& assign(unsigned long x);
-number_t& assign(unsigned long long x);
+number_t& number_t::assign(int x);
+number_t& number_t::assign(long x);
+number_t& number_t::assign(long long x);
+number_t& number_t::assign(unsigned int x);
+number_t& number_t::assign(unsigned long x);
+number_t& number_t::assign(unsigned long long x);
 ```
 
-Assigns the value of _s_ to *this, the usage is similar to the constructors
+Assigns the value of _s_ to _*this_, the usage is similar to the constructors
 ```C++
-number_t& assign(const char* s);
-number_t& assign(const char* s, int base);
-number_t& assign(const char* s, size_t length, int base);
-number_t& assign(const string_t& s);
-number_t& assign(const string_t& s, int base);
-number_t& assign(const string_t& s, size_t length, int base);
+number_t& number_t::assign(const char* s);
+number_t& number_t::assign(const char* s, int base);
+number_t& number_t::assign(const char* s, size_t length, int base);
+number_t& number_t::assign(const string_t& s);
+number_t& number_t::assign(const string_t& s, int base);
+number_t& number_t::assign(const string_t& s, size_t length, int base);
 ```
 
 Copy from another object
 ```C++
-void copy(const number_t&);
+void number_t::copy(const number_t&);
+```
+
+Set *this to 1
+```C++
+void number_t::set_one();
+```
+
+Set *this to 0
+```C++
+void number_t::set_zero();
 ```
 
 check whether _str_ is right for _base_  
@@ -100,7 +110,7 @@ Of course, this is just a feature of the constructors and the assignment functio
 
 When using a string that denotes a hexadecimal intger, the time complexity is the lowest.
 
-`copy(const number_t` and `assign(const number_t&)` are not the same, `assign` only sets the value of another object to *this, `copy` not only copies the value but also allocate the same memory as the object specified.
+`copy(const number_t` and `assign(const number_t&)` are not the same, `assign` only sets the value of another object to _*this_, `copy` not only copies the value but also allocate the same memory as the object specified.
 
 <h2 id="examples">Examples</h2>
 

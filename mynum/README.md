@@ -26,6 +26,7 @@ Documents:
  * [Comparison](https://github.com/brotherbeer/mydocument/blob/master/mynum/Comparison.md)
  * [Bitwise operation](https://github.com/brotherbeer/mydocument/blob/master/mynum/Bitwise-operation.md)
  * [Other utils](https://github.com/brotherbeer/mydocument/blob/master/mynum/Other-utils.md)
+ * [String](https://github.com/brotherbeer/mydocument/blob/master/mynum/string.md)
 
 Mynum is a pure C++ library, coupled with the intrinsic technology of modern compiler, ensuring efficient computing and making the interface easy-using as the primary concept.
 

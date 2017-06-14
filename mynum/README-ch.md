@@ -24,6 +24,7 @@ Mynum(multiprecision binary number)是一个轻便的C++大数算法库，致力
  * [比较](https://github.com/brotherbeer/mydocument/blob/master/mynum/Comparison-cn.md)
  * [位运算](https://github.com/brotherbeer/mydocument/blob/master/mynum/Bitwise-operation-cn.md)
  * [其它](https://github.com/brotherbeer/mydocument/blob/master/mynum/Other-utils-cn.md)
+ * [字符串](https://github.com/brotherbeer/mydocument/blob/master/mynum/string-cn.md)
 
 Mynum用纯粹的C++实现，配以现代编译器的intrinsic技术，在保证高效运算的同时将接口易用作为首要理念。
 

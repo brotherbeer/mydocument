@@ -68,27 +68,27 @@ number_t::number_t(const number_t& obj);
 
 用另一个大整数对象赋值
 ```C++
-number_t& assign(const number_t& obj);
+number_t& number_t::assign(const number_t& obj);
 ```
 
 用基本整数类型的变量赋值
 ```C++
-number_t& assign(int x);
-number_t& assign(long x);
-number_t& assign(long long x);
-number_t& assign(unsigned int x);
-number_t& assign(unsigned long x);
-number_t& assign(unsigned long long x);
+number_t& number_t::assign(int x);
+number_t& number_t::assign(long x);
+number_t& number_t::assign(long long x);
+number_t& number_t::assign(unsigned int x);
+number_t& number_t::assign(unsigned long x);
+number_t& number_t::assign(unsigned long long x);
 ```
 
 用字符串赋值，各参数意义与相应构造函数相同
 ```C++
-number_t& assign(const char* s);
-number_t& assign(const char* s, int base);
-number_t& assign(const char* s, size_t length, int base);
-number_t& assign(const string_t& s);
-number_t& assign(const string_t& s, int base);
-number_t& assign(const string_t&, size_t bpos, size_t epos, int base);
+number_t& number_t::assign(const char* s);
+number_t& number_t::assign(const char* s, int base);
+number_t& number_t::assign(const char* s, size_t length, int base);
+number_t& number_t::assign(const string_t& s);
+number_t& number_t::assign(const string_t& s, int base);
+number_t& number_t::assign(const string_t&, size_t bpos, size_t epos, int base);
 ```
 重载 >>
 ```C++
@@ -99,23 +99,33 @@ std::istream& operator >> (std::istream& is, number_t& a)
 void copy(const number_t&);
 ```
 
+将对象的值设为1
+```C++
+void number_t::set_one();
+```
+
+将对象的值设为0
+```C++
+void number_t::set_zero();
+```
+
 <h2 id="t3">number_t内存相关函数</h2>
 
 将对象的值清零，但其占有的内存空间不变
 ```C++
-void clear();
+void number_t::clear();
 ```
 彻底清除对象占有的全部内存，清除后对象的值为0
 ```C++
-void release();
+void number_t::release();
 ```
 设定对象占有units个数据单元，当units小于当前单元个数时不生效
 ```
-void reserve(size_t units);
+void number_t::reserve(size_t units);
 ```
 将对象的值清零，再设定对象占有的单元个数，当units小于当前单元个数时只清零
 ```
-void clear_and_reserve(size_t units);
+void number_t::clear_and_reserve(size_t units);
 ```
 
 <h2 id="t4">字符串格式检查</h2>
