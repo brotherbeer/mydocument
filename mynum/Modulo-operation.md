@@ -1,7 +1,7 @@
 <h1>Modulo operation</h1>
 
  * [Functions](#functions)
- * [Member functions](#membersfunctions)
+ * [Member functions](#memberfunctions)
  * [Operators overloaded](#operatorsoverloaded)
  * [Attentions](#attentions)
 

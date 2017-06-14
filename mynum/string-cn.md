@@ -35,21 +35,17 @@ Copy constructor
 string_t(const string_t&);
 ```
 
-Construct a string from a range of another string_t object,  
-the range is [_bpos_, _epos_) of _another_, _bpos_ and _epos_ are position indices
-
+Construct a string from a range of another string_t object, the range is [_bpos_, _epos_) of _another_, _bpos_ and _epos_ are position indices
 ```C++
 string_t(const string_t& another, size_t bpos, size_t epos);
 ```
 
-Construct a string which can hold _n_ characters,  
-`T` must be a type which can indicate size
+Construct a string which can hold _n_ characters, `T` must be a type which can indicate size
 ```C++
 template<class T> explicit string_t(T n);
 ```
 
-Construct a string with _n_ copies of _c_,  
-`T` must be a type which can indicate size
+Construct a string with _n_ copies of _c_, `T` must be a type which can indicate size
 ```C++
 template<class T> explicit string_t(char c, T n);
 ```
@@ -174,8 +170,7 @@ string_t& strip(const string_t& another);
 string_t& strip();
 ```
 
-Return the position of the specified character(s) or string,  
-if there is not such a string, return string_t::npos
+Return the position of the specified character(s) or string, if there is not such a string, return string_t::npos
 ```C++
 size_t find(size_t pos, char c) const;
 size_t find(size_t pos, const char* p) const;
@@ -249,7 +244,7 @@ string_t& operator += (const char* p);
 string_t& operator += (const string_t& another);
 ```
 
-<h2 id="memberoperators">Member operators</h2>
+<h2 id="memberoperators">成员运算符</h2>
 
 Returns the _n_'th character
 ```C++

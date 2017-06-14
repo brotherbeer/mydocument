@@ -1,6 +1,6 @@
 <h1>String conversion</h1>
 
- * [Member functions](#nemberfunctions)
+ * [Member functions](#memberfunctions)
  * [Ostream operator](#ostreamoperator)
  * [Attentions](#attentions)
  * [Examples](#examples)

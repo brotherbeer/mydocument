@@ -1,6 +1,6 @@
 <h1>大整数对象转为字符串</h1>
 
- * [成员函数](#nemberfunctions)
+ * [成员函数](#memberfunctions)
  * [输出流运算符](#ostreamoperator)
  * [注意事项](#attentions)
  * [示例](#examples)

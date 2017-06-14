@@ -1,7 +1,7 @@
 <h1>减法</h1>
 
  * [函数](#functions)
- * [成员函数](#membersfunctions)
+ * [成员函数](#memberfunctions)
  * [运算符](#operatorsoverloaded)
 
 <h2 id="functions">函数</h2>

@@ -1,7 +1,7 @@
 <h1>Subtraction</h1>
 
  * [Functions](#functions)
- * [Member functions](#membersfunctions)
+ * [Member functions](#memberfunctions)
  * [Operators overloaded](#operatorsoverloaded)
 
 <h2 id="functions">Functions</h2>

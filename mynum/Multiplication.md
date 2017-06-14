@@ -1,6 +1,6 @@
 <h1>Multiplication</h1>
 
- * [Functions](#Functions)
+ * [Functions](#functions)
  * [Member functions](#memberfunctions)
  * [Operators overloaded](#operatorsoverloaded)
  * [NTT class](#nttclass)

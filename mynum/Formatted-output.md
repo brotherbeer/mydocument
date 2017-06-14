@@ -1,6 +1,6 @@
 <h1>Big integer to formatted string</h1>
 
-A `number_t` object can be converted into a `string_t` object in the specified format, The format can be specified by `format_t`  class, for example:
+A `number_t` object can be converted into a [string_t](https://github.com/brotherbeer/mydocument/blob/master/mynum/string.md) object in the specified format, The format can be specified by `format_t`  class, for example:
 
 ```C++
 string_t s;
@@ -49,7 +49,7 @@ The flags can be concatenate by '\|':
 format_t fmt;
 fmt.set(UPPER_CASE | SHOW_POS | SHOW_LEADING);
 fmt.clear(SHOW_POS); // drop SHOW_POS
-assert(fmt.get() == UPPER_CASE | SHOW_LEADING)
+assert(fmt.get() == UPPER_CASE | SHOW_LEADING);
 fmt.set(NO_FLAGS);   // drop all flags
 assert(fmt.get() == 0);
 ```
@@ -57,7 +57,7 @@ assert(fmt.get() == 0);
 <h2 id="t2">format_t constructors</h2>
 
 ```C++
-format_t(format_flags_t ff = 0):
+format_t(format_flags_t ff = 0);
 ```
 
 <h2 id="t3">format_t members</h2>
@@ -78,11 +78,11 @@ Return all flags
 ```C++
 format_flags_t flags() const;
 ```
-Return the group size, see [Group and line feed](#Group-and-line-feed)
+Return the group size, see [Group and line feed](#t4)
 ```C++
 size_t group_size() const;
 ```
-Return group counts in a line, see [Group and line feed](#Group-and-line-feed)
+Return group counts in a line, see [Group and line feed](#t4)
 ```C++
 size_t line_group_count() const;
 ```
