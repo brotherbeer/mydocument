@@ -71,7 +71,7 @@ The ranges of the ordinary integer types:
 |unsigned long| decided by the compilers |
 |unsigned long long| \[0, 18446744073709551615\] |
 
-The range of long/unsigned long are decided by the compilers, in gcc, are the same as long long/unsigned long long, in MSVC, are the same as int/unsigned int.
+The range of `long` and `unsigned long` are decided by the compilers, in gcc, they are the same as `long long` and `unsigned long long`, in MSVC, are the same as `int` and `unsigned int`.
 
 <h2 id="examples">Examples</h2>
 
@@ -79,8 +79,8 @@ The range of long/unsigned long are decided by the compilers, in gcc, are the sa
 number_t a(0xffffffff), b(-1);
 if (a.in_range_int()) cout << a.to_int() << endl;
 if (a.in_range_uint()) cout << a.to_uint() << endl;
-if (b.in_range_int()) cout << a.to_int() << endl;
-if (b.in_range_uint()) cout << a.to_uint() << endl;
+if (b.in_range_int()) cout << b.to_int() << endl;
+if (b.in_range_uint()) cout << b.to_uint() << endl;
 ```
 Output:
 ```

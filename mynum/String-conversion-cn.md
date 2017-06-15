@@ -89,8 +89,8 @@ iloveyou
 ```C++
 for (i = 0; u != 0; i++)
 {
-	d[i] = u % base;
-	u /= base;
+    d[i] = u % base;
+    u /= base;
 }
 ```
 

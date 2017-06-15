@@ -6,7 +6,7 @@
 
 <h2 id="functions">Functions</h2>
 
-返回a和b的Jacobi符号
+返回Jacobi符号(a/b)
 ```C++
 int jacobi(const number_t& a, const number_t& b);
 ```
@@ -19,8 +19,9 @@ int gcd(const number_t& a, const number_t& b, number_t& res);
 ```
 
 扩展最大公约数  
-g = a * x + b * y，g为a和b的最大公约数
-如果a和b中有负数，则res为a和b的绝对值的最大公约数 
+g = a * x + b * y，g为a和b的最大公约数  
+如果a等于b，则x为0，y为1  
+如果a和b中有负数，则res为a和b的绝对值的最大公约数
 ```C++
 int gcd_ext(const number_t& a, const number_t& b, number_t& x, number_t& y, number_t& g);
 ```
@@ -30,14 +31,12 @@ int gcd_ext(const number_t& a, const number_t& b, number_t& x, number_t& y, numb
 void lcm(const number_t& a, const number_t& b, number_t& res);
 ```
 
-幂取模，res = a<sup>b</sup> % c
-如果c为零，返回0，否则返回1
+幂取模，res = a<sup>b</sup> % c，如果c为零，返回0，否则返回1
 ```C++
 int pom(const number_t& a, const number_t& b, const number_t& c, number_t& res);
 ```
 
-求a模m的乘法逆元res，即a * res % m = 1
-如果乘法逆元不存在，返回0，否则返回1
+求a模m的乘法逆元res，即a * res % m = 1，如果乘法逆元不存在返回0，否则返回1
 ```C++
 int inv(const number_t& a, const number_t& m, number_t& res);
 ```

@@ -2,9 +2,11 @@
 
 Multiprecision binary number — mynum — is a portable C++ library for big integer arithmetic, it aims to provide convenience for the research of number theory, cryptology and other fields. [\[中文版\]](https://github.com/brotherbeer/mydocument/blob/master/mynum/README-ch.md)
 
+Mynum is a pure C++ library, coupled with the intrinsic technology of modern compiler, making high efficiency and easy-using as the primary thinking. No restrictions on the dissemination and modification of the source code. The author hopes mynum will be useful, but dose not make any warranty.
+
 Mynum is currently only available on the LITTLE-ENDIAN machines.
 
-Documents:
+**Documents**
 
  * [Compilation](https://github.com/brotherbeer/mydocument/blob/master/mynum/compilation.md)
  * [Data storage model](https://github.com/brotherbeer/mydocument/blob/master/mynum/Storage.md)
@@ -27,10 +29,6 @@ Documents:
  * [Bitwise operation](https://github.com/brotherbeer/mydocument/blob/master/mynum/Bitwise-operation.md)
  * [Other utils](https://github.com/brotherbeer/mydocument/blob/master/mynum/Other-utils.md)
  * [String](https://github.com/brotherbeer/mydocument/blob/master/mynum/string.md)
-
-Mynum is a pure C++ library, coupled with the intrinsic technology of modern compiler, ensuring efficient computing and making the interface easy-using as the primary concept.
-
-No restrictions on the dissemination and modification of the source code. The author hopes mynum will be useful, but dose not make any warranty.
 
 [mynumheaderfile]: https://github.com/brotherbeer/mynum/blob/master/mynum.h
 [mynumcppfile]: https://github.com/brotherbeer/mynum/blob/master/mynum.cpp
