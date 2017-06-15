@@ -99,28 +99,60 @@ number_t bit_not(const number_t& a);
 
 <h2 id="memberfunctions">成员函数</h2>
 
-Return the value of the _n_-th bit
+Return the value of the bit at position _pos_, the position of the least significant bit is 0, and the positions of other bits are successively increasing
 ```C++
-bool number_t::bit_at(size_t n) const;
-bool number_t::operator [] (size_t n) const;
+bool number_t::bit_at(size_t pos) const;
+bool number_t::operator [] (size_t pos) const;
 ```
 
-Set the value of the _n_-th bit
+Set the bit at position _pos_ or the bits within the rang [_bpos_, _epos_) to 1
 ```C++
-void number_t::bit_set(size_t n, bool v = 1);
-void number_t::bit_set_one(size_t n);
-void number_t::bit_set_zero(size_t n);
-bitref_t number_t::operator [] (size_t n);
+number_t& number_t::bit_set_one(size_t pos);
+number_t& number_t::bit_set_one(size_t bpos, size_t epos);
 ```
 
-Return the bits count
+Set the bit at position _pos_ or the bits within the rang [_bpos_, _epos_) to 0
+```C++
+number_t& number_t::bit_set_zero(size_t pos);
+number_t& number_t::bit_set_zero(size_t bpos, size_t epos);
+```
+
+Flip the bit at position _pos_ or the bits within the rang [_bpos_, _epos_), i.e., 1 to 0 or 0 to 1
+```C++
+number_t& number_t::bit_set_flip(size_t pos);
+number_t& number_t::bit_set_flip(size_t bpos, size_t epos);
+```
+
+Set the bit at position _pos_ or the bits within the rang [_bpos_, _epos_) to _v_,  
+_v_ may be 0, 1 or -1, if v is -1, then flip the bits
+```C++
+number_t& number_t::bit_set(size_t pos, int v);
+number_t& number_t::bit_set(size_t bpos, size_t epos, int v);
+```
+
+Remove the bits within the range [bpos, epos)
+```C++
+number_t& number_t::bit_remove(size_t bpos, size_t epos);
+```
+
+Insert bits at position _pos_, _v_ is the value
+```C++
+number_t& number_t::bit_insert(size_t pos, size_t size, bool v);
+```
+
+Return the number of the significant bits, if _*this_ < 0
 ```C++
 size_t number_t::bits_count() const;
 ```
 
-Return the trailing 0-bits count, starting at the least significant bit position
+Return the trailing 0 bits count, starting at the least significant bit position
 ```C++
-size_t number_t::tzbits_count() const;
+size_t number_t::tz_count() const;
+```
+
+Return the population count, i.e., the number of 1 bits
+```C++
+size_t number_t::pop_count() const;
 ```
 
 Allocate at least n bits memory
@@ -128,11 +160,13 @@ Allocate at least n bits memory
 void number_t::bits_reserve(size_t n);
 ```
 
+Shift
 ```C++
 number_t& number_t::shr(size_t);
 number_t& number_t::shl(size_t);
 ```
 
+Bitwise or, and, xor, not
 ```C++
 number_t& number_t::bit_or(const number_t&);
 number_t& number_t::bit_and(const number_t&);
@@ -140,6 +174,7 @@ number_t& number_t::bit_xor(const number_t&);
 number_t& number_t::bit_not();
 ```
 
+Bitwise operation with ordinary integer
 ```C++
 number_t& number_t::bit_and(int x);
 number_t& number_t::bit_and(unsigned int x);
@@ -161,12 +196,14 @@ number_t& number_t::bit_xor(long long x);
 number_t& number_t::bit_xor(unsigned long long x);
 ```
 
+Bitwise operation with unit
 ```C++
 void number_t::bit_and_unit(unit_t);
 void number_t::bit_or_unit(unit_t);
 void number_t::bit_xor_unit(unit_t);
 ```
 
+Bitwise operation with word
 ```C++
 void number_t::bit_and_word(word_t);
 void number_t::bit_or_word(word_t);
@@ -177,6 +214,8 @@ void number_t::bit_xor_sword(sword_t);
 ```
 
 <h2 id="operatorsoverloaded">运算符</h2>
+
+Defined in [myoperators.h](https://github.com/brotherbeer/mynum/blob/master/myoperators.h)
 
 ```C++
 number_t  number_t::operator ~ () const;

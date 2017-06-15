@@ -91,6 +91,8 @@ number_t& number_t::mul(unsigned long long x);
 
 <h2 id="operatorsoverloaded">运算符</h2>
 
+成员运算符
+
 ```C++
 number_t& number_t::operator *= (const number_t& x);
 number_t& number_t::operator *= (int x);
@@ -99,7 +101,11 @@ number_t& number_t::operator *= (long x);
 number_t& number_t::operator *= (unsigned long x);
 number_t& number_t::operator *= (long long x);
 number_t& number_t::operator *= (unsigned long long x);
+```
 
+全局运算符，在[myoperators.h](https://github.com/brotherbeer/mynum/blob/master/myoperators.h)中定义
+
+```C++
 number_t operator * (const number_t& a, const number_t& b);
 number_t operator * (const number_t& a, bool b);
 number_t operator * (bool a, const number_t& b);

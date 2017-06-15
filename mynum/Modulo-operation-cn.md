@@ -76,6 +76,8 @@ number_t& number_t::mod(unsigned long long x);
 
 <h2 id="operatorsoverloaded">运算符</h2>
 
+Member operators
+
 ```C++
 number_t& number_t::operator %= (const number_t& x);
 number_t& number_t::operator %= (int x);
@@ -84,7 +86,12 @@ number_t& number_t::operator %= (long x);
 number_t& number_t::operator %= (unsigned long x);
 number_t& number_t::operator %= (long long x);
 number_t& number_t::operator %= (unsigned long long x);
+```
 
+Global operators  
+Defined in [myoperators.h](https://github.com/brotherbeer/mynum/blob/master/myoperators.h)
+
+```C++
 number_t operator % (const number_t& a, const number_t& b);
 number_t operator % (const number_t& a, bool b);
 number_t operator % (bool a, const number_t& b);

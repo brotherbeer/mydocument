@@ -8,6 +8,7 @@
  * [符号](#title6)
  * [单元遍历](#title7)
  * [交换](#title8)
+ * [标准输入输出流](#title9)
 
 <h2 id="title1">全局内存接口</h2>
 
@@ -253,6 +254,15 @@ const unit_t* number_t::unit_rend() const;
 
 <h2 id="title8">交换</h2>
 
+Swap the value of _a_ and _b_
 ```C++
 void swap(number_t& a, number_t& b);
+```
+
+<h2 id="title9">标准输入输出流</h2>
+
+Defined in myoperators.h
+```C++
+std::istream& operator >> (std::istream&, number_t&);
+std::ostream& operator << (std::ostream&, const number_t&);
 ```

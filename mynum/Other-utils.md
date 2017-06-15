@@ -8,6 +8,7 @@
  * [Sign](#title6)
  * [Units iteration](#title7)
  * [Swap](#title8)
+ * [Standard IO stream](#title9)
 
 <h2 id="title1">Global memory interface</h2>
 
@@ -253,6 +254,15 @@ const unit_t* number_t::unit_rend() const;
 
 <h2 id="title8">Swap</h2>
 
+Swap the value of _a_ and _b_
 ```C++
 void swap(number_t& a, number_t& b);
+```
+
+<h2 id="title9">Standard IO stream</h2>
+
+Defined in myoperators.h
+```C++
+std::istream& operator >> (std::istream& is, number_t& a);
+std::ostream& operator << (std::ostream& os, const number_t& a);
 ```

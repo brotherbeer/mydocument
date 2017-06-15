@@ -131,6 +131,8 @@ bool egt(unsigned long long a, const number_t& b);
 
 <h2 id="operatorsoverloaded">运算符</h2>
 
+Defined in [myoperators.h](https://github.com/brotherbeer/mynum/blob/master/myoperators.h)
+
 ```C++
 bool operator == (const number_t& a, const number_t& b);
 bool operator == (const number_t& a, bool b);

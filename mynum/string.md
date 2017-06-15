@@ -269,6 +269,12 @@ int cmp(const char* a, const string_t& b);
 
 <h2 id="globaloperators">Global operators</h2>
 
+For standard IO stream
+```C++
+std::istream& operator >> (std::istream& is, string_t& s);
+std::ostream& operator << (std::ostream& os, const string_t& s);
+```
+
 Lexicographical comparison of _a_ and _b_
 ```C++
 bool operator == (const string_t& a, const string_t& b);
