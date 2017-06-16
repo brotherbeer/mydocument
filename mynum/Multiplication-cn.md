@@ -254,8 +254,10 @@ X<sup>2</sup> = Σ((x<sub>i</sub> * x<sub>i</sub> + 2 * x<sub>i</sub> *〈x<sub>
 要注意的是2 * x<sub>i</sub>可能超出了一个单元的范围，这时需要分两种情况处理，具体代码请参见__sqr_core函数，此算法比用M.2求平方快一倍，但其时间复杂度仍为O(n<sup>2</sup>)。
 
 <h3 id="M4">M.4 n+1位数减去n位数乘以1位数的积（n >= 2）</h3>
+
 此算法融合了加法减法以及除法，在大整数除法中此算法起到了关键作用。
-设大整数X为n+1位，Y为n位，z为1位，求X - Y * z的代码如下： 
+设大整数X为n+1位，Y为n位，z为1位，求X - Y * z的代码如下：
+
 ```C++
 unit_t __sub_mul(unit_t* x, const unit_t* y, slen_t n, unit_t z)
 {
@@ -270,6 +272,7 @@ unit_t __sub_mul(unit_t* x, const unit_t* y, slen_t n, unit_t z)
 	return sub_with_borrow(*x, carry, borrow, x);
 }
 ```
+
 其中，指针x指向X的单元序列，y指向Y的单元序列，如果存在借位则返回1，否则返回0, sub_with_borrow参见减法算法。在mynum的实际代码中，考虑到函数调用的成本，mul_add、sub_with_borrow等函数均被展开，但原理是一致的。
 
 <h3 id="M5">Karatsuba算法</h3>
