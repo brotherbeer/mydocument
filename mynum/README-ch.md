@@ -4,7 +4,7 @@ Mynum(multiprecision binary number)是一个轻便的C++大数算法库，致力
 
 Mynum用纯粹的C++实现，配以现代编译器的intrinsic技术，将高效性和易用性作为首要理念。作者希望mynum能够有用，并对mynum源码的传播与修改不作任何限制，但不作任何保证，如有疑问请联系 <brotherbeer@163.com>
 
-##文档
+<h2>文档</h2>
 
  * [编译](https://github.com/brotherbeer/mydocument/blob/master/mynum/compilation-cn.md)
  * [数据存储方式](https://github.com/brotherbeer/mydocument/blob/master/mynum/Storage-ch.md)
@@ -35,7 +35,7 @@ Mynum用纯粹的C++实现，配以现代编译器的intrinsic技术，将高效
 [myoperatorheaderfile]: https://github.com/brotherbeer/mynum/blob/master/myoperators.h
 [testcppfile]: https://github.com/brotherbeer/mynum/blob/master/test.cpp
 
-##安装与编译
+<h2>安装与编译</h2>
 
 所需文件:
 
@@ -49,7 +49,7 @@ Mynum用纯粹的C++实现，配以现代编译器的intrinsic技术，将高效
 
 源码目前适用于g++、clang、MSVC(2008及以上版本)编译，请参见《[mynum的编译](https://github.com/brotherbeer/mydocument/blob/master/mynum/compilation-cn.md)》。
 
-##联系方式
+<h2>联系方式</h2>
 
  * 如果需要帮助，欢迎来信 <brotherbeer@163.com>
  * 如果发现可复现的bug，请开启一个issue
